@@ -1,17 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "Group 3.pdf",
-      "idiom" : "universal"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "Group 3-1.pdf",
+      "filename" : "Ebene 4.pdf",
       "idiom" : "universal"
     }
   ],
@@ -20,6 +10,7 @@
     "version" : 1
   },
   "properties" : {
+    "auto-scaling" : "auto",
     "preserves-vector-representation" : true,
     "template-rendering-intent" : "original"
   }
