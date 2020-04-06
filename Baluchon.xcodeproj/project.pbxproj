@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E335AC3243B741A00CD22B4 /* CurrencyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E335AC2243B741A00CD22B4 /* CurrencyViewController.swift */; };
+		6E335AC5243B77BC00CD22B4 /* TranslateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E335AC4243B77BC00CD22B4 /* TranslateViewController.swift */; };
+		6E335AC7243B77C800CD22B4 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E335AC6243B77C800CD22B4 /* WeatherViewController.swift */; };
+		6E335AC9243B77D400CD22B4 /* Baluchon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E335AC8243B77D400CD22B4 /* Baluchon.swift */; };
+		6E335ACB243B80FE00CD22B4 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E335ACA243B80FE00CD22B4 /* Currency.swift */; };
 		6E7705982438C40A00C3BC66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7705972438C40A00C3BC66 /* AppDelegate.swift */; };
 		6E77059A2438C40A00C3BC66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7705992438C40A00C3BC66 /* SceneDelegate.swift */; };
-		6E77059C2438C40A00C3BC66 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77059B2438C40A00C3BC66 /* ViewController.swift */; };
 		6E77059F2438C40A00C3BC66 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E77059D2438C40A00C3BC66 /* Main.storyboard */; };
 		6E7705A12438C40B00C3BC66 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6E7705A02438C40B00C3BC66 /* Assets.xcassets */; };
 		6E7705A42438C40B00C3BC66 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E7705A22438C40B00C3BC66 /* LaunchScreen.storyboard */; };
@@ -36,10 +40,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6E335AC2243B741A00CD22B4 /* CurrencyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyViewController.swift; sourceTree = "<group>"; };
+		6E335AC4243B77BC00CD22B4 /* TranslateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateViewController.swift; sourceTree = "<group>"; };
+		6E335AC6243B77C800CD22B4 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		6E335AC8243B77D400CD22B4 /* Baluchon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Baluchon.swift; sourceTree = "<group>"; };
+		6E335ACA243B80FE00CD22B4 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		6E7705942438C40A00C3BC66 /* Baluchon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Baluchon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7705972438C40A00C3BC66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E7705992438C40A00C3BC66 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6E77059B2438C40A00C3BC66 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6E77059E2438C40A00C3BC66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6E7705A02438C40B00C3BC66 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6E7705A32438C40B00C3BC66 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -143,7 +151,9 @@
 		6E7705C92438C68000C3BC66 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				6E77059B2438C40A00C3BC66 /* ViewController.swift */,
+				6E335AC2243B741A00CD22B4 /* CurrencyViewController.swift */,
+				6E335AC4243B77BC00CD22B4 /* TranslateViewController.swift */,
+				6E335AC6243B77C800CD22B4 /* WeatherViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -151,6 +161,8 @@
 		6E7705CC2438C6E300C3BC66 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6E335AC8243B77D400CD22B4 /* Baluchon.swift */,
+				6E335ACA243B80FE00CD22B4 /* Currency.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -287,8 +299,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E77059C2438C40A00C3BC66 /* ViewController.swift in Sources */,
 				6E7705982438C40A00C3BC66 /* AppDelegate.swift in Sources */,
+				6E335AC7243B77C800CD22B4 /* WeatherViewController.swift in Sources */,
+				6E335AC5243B77BC00CD22B4 /* TranslateViewController.swift in Sources */,
+				6E335AC9243B77D400CD22B4 /* Baluchon.swift in Sources */,
+				6E335AC3243B741A00CD22B4 /* CurrencyViewController.swift in Sources */,
+				6E335ACB243B80FE00CD22B4 /* Currency.swift in Sources */,
 				6E77059A2438C40A00C3BC66 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

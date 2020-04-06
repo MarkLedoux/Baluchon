@@ -1,90 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9FW-HC-1g7">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ILi-7V-6We">
+    <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Currency View Controller-->
+        <scene sceneID="seK-Cg-XRq">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Baluchon" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                <tableViewController id="Gp9-Mu-U6Z" customClass="CurrencyViewController" customModule="Baluchon" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Sdz-qX-GmZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="" image="CurrencyIcon" id="7ZI-t1-gGd">
-                        <inset key="imageInsets" minX="0.0" minY="2270" maxX="0.0" maxY="2256"/>
-                    </tabBarItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="1g5-jS-w4z" style="IBUITableViewCellStyleDefault" id="7dg-gA-bMX">
+                                <rect key="frame" x="0.0" y="28" width="375" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7dg-gA-bMX" id="O9u-ij-nmW">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1g5-jS-w4z">
+                                            <rect key="frame" x="16" y="0.0" width="343" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Gp9-Mu-U6Z" id="meZ-CV-4ym"/>
+                            <outlet property="delegate" destination="Gp9-Mu-U6Z" id="TcZ-si-aAq"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="p7A-fo-6Mu"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jOM-mO-Ows" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1165" y="-224"/>
+            <point key="canvasLocation" x="108" y="-248"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="bV7-J3-8St">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Fd-ng-Ufg" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="CurrencyIcon" id="NCD-w2-pJ3">
+                        <inset key="imageInsets" minX="0.0" minY="2270" maxX="0.0" maxY="2270"/>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="OWo-Zr-tlX">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Gp9-Mu-U6Z" kind="relationship" relationship="rootViewController" id="ruW-by-9v9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lcm-Nc-Nda" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="108" y="-981"/>
         </scene>
         <!--Tab Bar Controller-->
-        <scene sceneID="8l9-Dz-lTO">
+        <scene sceneID="2d1-OK-up4">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="9FW-HC-1g7" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="ILi-7V-6We" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="bms-hn-q4j">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="KXh-Pw-sh3">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="CAI-sH-Btp"/>
-                        <segue destination="txA-s4-YRK" kind="relationship" relationship="viewControllers" id="kLl-eY-nvI"/>
-                        <segue destination="iNv-up-cqJ" kind="relationship" relationship="viewControllers" id="0ym-sM-WAr"/>
+                        <segue destination="3Fd-ng-Ufg" kind="relationship" relationship="viewControllers" id="jkU-Kj-ehc"/>
                     </connections>
                 </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="h2z-Ye-t7f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hng-D1-2rO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.68115942028987" y="135.9375"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="gXO-AC-BwD">
-            <objects>
-                <viewController id="txA-s4-YRK" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="U18-lR-mJT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="bNM-Ei-dJ1"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="" image="TranslateIcon" id="YS1-jf-pJN">
-                        <inset key="imageInsets" minX="0.0" minY="241" maxX="0.0" maxY="223"/>
-                    </tabBarItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wXS-Gi-Wci" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1173" y="485"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="ozk-Lj-Xa2">
-            <objects>
-                <viewController id="iNv-up-cqJ" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="lUc-GM-PMF">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="wjT-0T-kSV"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="" image="WeatherIcon" id="vl4-hS-7mb">
-                        <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-20"/>
-                    </tabBarItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x1P-sg-loc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2059" y="136"/>
+            <point key="canvasLocation" x="1185" y="-1691"/>
         </scene>
     </scenes>
     <resources>
         <image name="CurrencyIcon" width="4773" height="4587"/>
-        <image name="TranslateIcon" width="512" height="512"/>
-        <image name="WeatherIcon" width="27" height="47"/>
     </resources>
 </document>
