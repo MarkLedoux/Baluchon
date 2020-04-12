@@ -20,6 +20,10 @@
 		6E7705AF2438C40B00C3BC66 /* BaluchonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7705AE2438C40B00C3BC66 /* BaluchonTests.swift */; };
 		6E7705BA2438C40B00C3BC66 /* BaluchonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7705B92438C40B00C3BC66 /* BaluchonUITests.swift */; };
 		6E7705CB2438C6B100C3BC66 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E7705CA2438C6B100C3BC66 /* Default-568h@2x.png */; };
+		6E9A722C2443C86300BE910F /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9A722B2443C86300BE910F /* Weather.swift */; };
+		6E9A72302443CF0F00BE910F /* Coord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9A722F2443CF0F00BE910F /* Coord.swift */; };
+		6E9A72322443CF6E00BE910F /* WeatherElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9A72312443CF6E00BE910F /* WeatherElement.swift */; };
+		6E9A72342443D06800BE910F /* Sys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9A72332443D06800BE910F /* Sys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +63,10 @@
 		6E7705B92438C40B00C3BC66 /* BaluchonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaluchonUITests.swift; sourceTree = "<group>"; };
 		6E7705BB2438C40B00C3BC66 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E7705CA2438C6B100C3BC66 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		6E9A722B2443C86300BE910F /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		6E9A722F2443CF0F00BE910F /* Coord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coord.swift; sourceTree = "<group>"; };
+		6E9A72312443CF6E00BE910F /* WeatherElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherElement.swift; sourceTree = "<group>"; };
+		6E9A72332443D06800BE910F /* Sys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,9 +170,29 @@
 			isa = PBXGroup;
 			children = (
 				6E335AC8243B77D400CD22B4 /* Baluchon.swift */,
-				6E335ACA243B80FE00CD22B4 /* Currency.swift */,
+				6E9A722D2443CEEF00BE910F /* Currency */,
+				6E9A722E2443CEFA00BE910F /* Weather */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		6E9A722D2443CEEF00BE910F /* Currency */ = {
+			isa = PBXGroup;
+			children = (
+				6E335ACA243B80FE00CD22B4 /* Currency.swift */,
+			);
+			path = Currency;
+			sourceTree = "<group>";
+		};
+		6E9A722E2443CEFA00BE910F /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				6E9A722B2443C86300BE910F /* Weather.swift */,
+				6E9A722F2443CF0F00BE910F /* Coord.swift */,
+				6E9A72312443CF6E00BE910F /* WeatherElement.swift */,
+				6E9A72332443D06800BE910F /* Sys.swift */,
+			);
+			path = Weather;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,6 +205,7 @@
 				6E7705902438C40A00C3BC66 /* Sources */,
 				6E7705912438C40A00C3BC66 /* Frameworks */,
 				6E7705922438C40A00C3BC66 /* Resources */,
+				6EE9309B243F5CC000C761AC /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -294,13 +323,37 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		6EE9309B243F5CC000C761AC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nif which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		6E7705902438C40A00C3BC66 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E9A722C2443C86300BE910F /* Weather.swift in Sources */,
+				6E9A72322443CF6E00BE910F /* WeatherElement.swift in Sources */,
 				6E7705982438C40A00C3BC66 /* AppDelegate.swift in Sources */,
 				6E335AC7243B77C800CD22B4 /* WeatherViewController.swift in Sources */,
+				6E9A72302443CF0F00BE910F /* Coord.swift in Sources */,
+				6E9A72342443D06800BE910F /* Sys.swift in Sources */,
 				6E335AC5243B77BC00CD22B4 /* TranslateViewController.swift in Sources */,
 				6E335AC9243B77D400CD22B4 /* Baluchon.swift in Sources */,
 				6E335AC3243B741A00CD22B4 /* CurrencyViewController.swift in Sources */,
