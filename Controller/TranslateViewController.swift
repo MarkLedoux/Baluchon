@@ -28,6 +28,7 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
         super.viewDidLoad()
 
         navigationItem.title = "Translate"
+        self.dismissKey()
 
     }
 
@@ -42,7 +43,7 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
                 if let response = response as? HTTPURLResponse, response.statusCode == 200 {
                     if let responsJSON = try? JSONDecoder().decode([String: String].self, from: data),
                         let text = responsJSON["translatedText"] {
-                            let translation = Translate(text: text)
+                            let translation = Translate(source: "en", target: "fr", contents: [text], mimeType: "text")
                             callback(true, translation)
                     }
                 }
@@ -83,14 +84,35 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
     }
 
     private func  update(translation: Translate) {
-        textView.text  = translation.text
-        print(translation.text)
+        let formattedTL = translation.contents
+        let TLFormat = formattedTL.joined(separator: "")
+        textView.text  = TLFormat
+        print(TLFormat)
     }
 
     private func presentAlert() {
         let alertVC = UIAlertController(title: "Error", message: "The quote download failed.", preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         present(alertVC, animated: true, completion: nil)
+    }
+
+    func dismissKey() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        translationSend(translationInput)
+        return true
     }
 
 }

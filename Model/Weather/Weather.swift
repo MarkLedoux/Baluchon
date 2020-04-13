@@ -26,5 +26,4 @@ struct Weather: Codable {
 
 private enum CodingKeys: String, CodingKey {
     case base, visibility, dt, timezone, id, name, cod
-
 }

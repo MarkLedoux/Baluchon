@@ -74,6 +74,34 @@
             </objects>
             <point key="canvasLocation" x="108" y="-981"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="xs8-5v-aEa">
+            <objects>
+                <viewController id="BDq-R2-2wQ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mDi-KQ-znq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5Sj-sP-nYk">
+                                <rect key="frame" x="0.0" y="44" width="375" height="768"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="SaW-Il-AeT"/>
+                    </view>
+                    <connections>
+                        <segue destination="05t-OY-jpS" kind="presentation" id="Gec-7p-nMC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PLT-iX-GBi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1185" y="-248"/>
+        </scene>
         <!--Root View Controller-->
         <scene sceneID="43Q-S5-bbN">
             <objects>
@@ -124,11 +152,11 @@
             <objects>
                 <viewController id="05t-OY-jpS" customClass="TranslateViewController" customModule="Baluchon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZSt-mL-Kpk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="758"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bpl-cy-VST">
-                                <rect key="frame" x="50" y="74" width="275" height="30"/>
+                                <rect key="frame" x="50" y="30" width="275" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lz9-rb-u2F">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
@@ -158,7 +186,7 @@
                                 </constraints>
                             </stackView>
                             <textField opaque="NO" contentMode="left" contentHorizontalAlignment="leading" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Enter Text" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1NS-9p-DvP">
-                                <rect key="frame" x="0.0" y="114.00000000000001" width="375" height="28.666666666666671"/>
+                                <rect key="frame" x="0.0" y="70" width="375" height="28.666666666666671"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="go" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
@@ -166,27 +194,16 @@
                                     <action selector="translationSend:" destination="05t-OY-jpS" eventType="editingChanged" id="wfB-gP-wYm"/>
                                 </connections>
                             </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5Sj-sP-nYk">
-                                <rect key="frame" x="0.0" y="143.66666666666663" width="375" height="218.33333333333337"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="iIz-WE-G08" firstAttribute="bottom" secondItem="5Sj-sP-nYk" secondAttribute="bottom" constant="367" id="4EV-Z5-Xxb"/>
                             <constraint firstItem="iIz-WE-G08" firstAttribute="trailing" secondItem="1NS-9p-DvP" secondAttribute="trailing" id="NR5-x0-Y43"/>
-                            <constraint firstItem="5Sj-sP-nYk" firstAttribute="trailing" secondItem="iIz-WE-G08" secondAttribute="trailing" id="NRQ-bo-HA9"/>
                             <constraint firstItem="bpl-cy-VST" firstAttribute="centerX" secondItem="ZSt-mL-Kpk" secondAttribute="centerX" id="QTa-5G-Fy3"/>
                             <constraint firstItem="1NS-9p-DvP" firstAttribute="top" secondItem="bpl-cy-VST" secondAttribute="bottom" constant="10" id="awG-Og-tKK"/>
                             <constraint firstItem="iIz-WE-G08" firstAttribute="trailing" secondItem="bpl-cy-VST" secondAttribute="trailing" constant="50" id="bwh-iO-hfw"/>
-                            <constraint firstItem="5Sj-sP-nYk" firstAttribute="top" secondItem="1NS-9p-DvP" secondAttribute="bottom" constant="1" id="d4O-aE-fbR"/>
                             <constraint firstItem="1NS-9p-DvP" firstAttribute="leading" secondItem="iIz-WE-G08" secondAttribute="leading" id="mUl-ih-6hn"/>
                             <constraint firstItem="bpl-cy-VST" firstAttribute="leading" secondItem="iIz-WE-G08" secondAttribute="leading" constant="50" id="nej-zm-b96"/>
                             <constraint firstItem="bpl-cy-VST" firstAttribute="top" secondItem="iIz-WE-G08" secondAttribute="top" constant="30" id="oIn-bc-KdH"/>
-                            <constraint firstItem="5Sj-sP-nYk" firstAttribute="leading" secondItem="iIz-WE-G08" secondAttribute="leading" id="yXX-bG-1xB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iIz-WE-G08"/>
                     </view>
@@ -200,7 +217,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y1y-OL-sbZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1184.8" y="-971.67487684729065"/>
+            <point key="canvasLocation" x="1185" y="-981"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ydv-Wi-kMJ">
@@ -242,6 +259,9 @@
             <point key="canvasLocation" x="1185" y="-1691"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Gec-7p-nMC"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="CurrencyIcon" width="4773" height="4587"/>
         <image name="TranslateIcon" width="512" height="512"/>
