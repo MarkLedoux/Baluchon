@@ -8,10 +8,10 @@
 
 import UIKit
 
-class WeatherViewController: UITableViewController {
-    var weather = [Weather]()
-    var keyArray = [String]()
-    var valueArray = [Double]()
+final class WeatherViewController: UITableViewController {
+   private var weather = [Weather]()
+   private var keyArray = [String]()
+   private var valueArray = [Double]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +25,7 @@ class WeatherViewController: UITableViewController {
         getWeatherData()
     }
 
-    func getWeatherData() {
+   private func getWeatherData() {
         if let url = URL(string: "http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=43e33607fe2ad4493bd13aeabd87e12f") {
             URLSession.shared.dataTask(with: url, completionHandler: {[unowned self] data, _, error in
                 if let error = error { print(error); return }
@@ -53,20 +53,19 @@ class WeatherViewController: UITableViewController {
         for (key, value) in weatherData.main {
             keyArray.append(key)
             valueArray.append(value)
-            print(key)
         }
-        let value = keyArray[indexPath.row]
+        let _ = keyArray[indexPath.row]
         let key = valueArray[indexPath.row]
         cell.textLabel?.text = weatherData.name
         cell.detailTextLabel?.text = String(key)
         return cell
     }
 
-    @objc func edit() {
+    @objc private func edit() {
 
     }
 
-    @objc func addItem() {
+    @objc private func addItem() {
 
     }
 

@@ -54,7 +54,6 @@ final class CurrencyViewController: UITableViewController {
         for (key, value) in currencies.rates {
             keyArray.append(key)
             valueArray.append(value)
-            print(key)
         }
         let value = keyArray[indexPath.row]
         let key = valueArray[indexPath.row]
