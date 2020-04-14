@@ -133,23 +133,23 @@
                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lz9-rb-u2F">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
                                         <state key="normal" title="English">
-                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="titleColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9UV-q2-ri5">
-                                        <rect key="frame" x="115.66666666666666" y="4" width="44" height="22"/>
+                                        <rect key="frame" x="127.66666666666666" y="5" width="20" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="g3X-Iy-Zn6"/>
-                                            <constraint firstAttribute="height" constant="22" id="mgB-ky-wgH"/>
+                                            <constraint firstAttribute="width" constant="20" id="gjg-G0-kFX"/>
+                                            <constraint firstAttribute="height" constant="20" id="mgB-ky-wgH"/>
                                         </constraints>
-                                        <state key="normal" image="arrow.right.arrow.left" catalog="system">
+                                        <state key="normal" image="arrowBlack">
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small" weight="bold"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4E2-tg-59s">
                                         <rect key="frame" x="209" y="0.0" width="66" height="30"/>
                                         <state key="normal" title="Japanese">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                         </state>
                                     </button>
                                 </subviews>
@@ -234,6 +234,6 @@
         <image name="CurrencyIcon" width="4773" height="4587"/>
         <image name="TranslateIcon" width="512" height="512"/>
         <image name="WeatherIcon" width="27" height="47"/>
-        <image name="arrow.right.arrow.left" catalog="system" width="119" height="128"/>
+        <image name="arrowBlack" width="159.33332824707031" height="125.33333587646484"/>
     </resources>
 </document>
