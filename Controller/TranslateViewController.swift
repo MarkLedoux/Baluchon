@@ -11,18 +11,16 @@ import UIKit
 final class TranslateViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet weak var translationInput: UITextField!
     @IBOutlet weak var textView: UITextView!
-    
+
     @IBAction func translationSend(_ sender: Any) {
         getTranslation { (success, translation) in
             if success, let translation = translation {
                 self.update(translation: translation)
-            } else  {
+            } else {
                 self.presentAlert()
             }
         }
     }
-
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +51,9 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
     }
 
     private func createTextRequest() -> URLRequest {
-        let url = URL(string: "https://translation.googleapis.com/language/translate/v2?key=AIzaSyC-qFZOLKSpUQSmQS41iKGz8vJ7NXQKAFA")!
+        let apiKey = "?key=AIzaSyC-qFZOLKSpUQSmQS41iKGz8vJ7NXQKAFA"
+        let urlString = "https://translation.googleapis.com/language/translate/v2\(apiKey)"
+        let url = URL(string: urlString)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
 
@@ -67,8 +67,6 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
         translationInput.delegate  = self
         translationInput.placeholder = "Enter text"
         translationInput.clearButtonMode  = UITextField.ViewMode.always
-
-
     }
 
     // This function will be called when the textField object( jobTitleTextField ) begin editing.
@@ -78,8 +76,6 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
 
     // This function is called when you click return key in the text field.
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-
-
         return true
     }
 

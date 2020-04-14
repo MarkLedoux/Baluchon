@@ -7,16 +7,14 @@
 //
 
 import Foundation
-import UIKit
 
-struct Currency: Codable {
-   private let timestamp: Int
-   private let base: String
-   private let date: String
+struct CurrencyResult: Codable {
+    let timestamp: Int
+    let base: String
+    let date: String
     let rates: [String: Double]
 }
 
 private enum CodingKeys: String, CodingKey {
     case success, timestamp, base, date, rates
-
 }

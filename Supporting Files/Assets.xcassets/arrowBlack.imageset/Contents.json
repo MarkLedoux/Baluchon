@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "arrowBlack.pdf",
+      "filename" : "exchange.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -12,11 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "arrowWhite.pdf",
+      "filename" : "transfer.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "exchange@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
@@ -27,10 +28,12 @@
           "value" : "dark"
         }
       ],
+      "filename" : "transfer@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "exchange@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -41,6 +44,7 @@
           "value" : "dark"
         }
       ],
+      "filename" : "transfer@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
