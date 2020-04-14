@@ -14,7 +14,7 @@ final class CurrencyNetworkManager {
     weak var delegate: CurrencyDelegate?
 
     func loadCurrency() {
-        if let url = URL(string: "http://data.fixer.io/api/latest?access_key=ec4830ae63993cf83fa637d7c488b1bf") {
+        if let url = URL(string: "http://data.fixer.io/api/latest?access_key=ec4830ae63993cf83fa637d7c488b1bf&symbols=EUR,USD,GBP,AUD,JPY") {
             URLSession.shared.dataTask(with: url, completionHandler: {[unowned self] data, _, error in
                 if let error = error { print(error); return }
                 do {

@@ -1,5 +1,5 @@
 //
-//  CurrencyViewController.swift
+//  WeatherViewController.swift
 //  Baluchon
 //
 //  Created by Mark LEDOUX on 06/04/2020.
@@ -8,24 +8,23 @@
 
 import UIKit
 
-final class CurrencyTableViewController: UITableViewController {
+final class WeatherTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
-        setupCurrencyNetworkManager()
+        setUpNavigationBar()
+        setUpWeatherNetworkManager()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        currencyNetworkManager.loadCurrency()
+        weatherNetWorkManager.loadWeatherData()
     }
 
     // MARK: - Properties
 
-    private let currencyNetworkManager = CurrencyNetworkManager()
-
-    private var currencyResult: CurrencyResult? {
+    private let weatherNetWorkManager = WeatherNetworkManager()
+    private var weatherResult: WeatherResult? {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -33,31 +32,31 @@ final class CurrencyTableViewController: UITableViewController {
         }
     }
 
-    // MARK: - Methods
+    // MARK: Methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currencyResult?.rates.count ?? 0
+        return weatherResult?.name.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
-        guard let currencyResult = currencyResult else { return UITableViewCell() }
+        guard let weatherResult = weatherResult else { return UITableViewCell() }
 
-        let currencyBases = currencyResult.rates.keys.map { $0 }
-        let currencyRates = currencyResult.rates.values.map { $0 }
+        let weatherCity = weatherResult.name
+        let weatherTemperature = weatherResult.main.values.map { $0 }
 
-        let key = currencyBases[indexPath.row]
-        let value = currencyRates[indexPath.row]
+        let value = weatherTemperature[indexPath.row]
 
-        cell.textLabel?.text = key
+        cell.textLabel?.text = weatherCity
         cell.detailTextLabel?.text = String(value)
         return cell
     }
 
     // MARK: - Private Methods
-    private func setupNavigationBar() {
-        navigationItem.title = "Currency"
+
+    private func setUpNavigationBar() {
+        navigationItem.title = "Weather"
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .edit,
@@ -70,8 +69,8 @@ final class CurrencyTableViewController: UITableViewController {
             action: #selector(addItem))
     }
 
-    private func setupCurrencyNetworkManager() {
-        currencyNetworkManager.delegate = self
+    private func setUpWeatherNetworkManager() {
+        weatherNetWorkManager.delegate = self
     }
 
     @objc private func edit() {
@@ -83,8 +82,8 @@ final class CurrencyTableViewController: UITableViewController {
     }
 }
 
-extension CurrencyTableViewController: CurrencyDelegate {
-    func didGetCurrencyData(currencyResult: CurrencyResult) {
-        self.currencyResult = currencyResult
+extension WeatherTableViewController: WeatherDelegate {
+    func didGetWeatherData(weatherResult: WeatherResult) {
+        self.weatherResult  = weatherResult
     }
 }

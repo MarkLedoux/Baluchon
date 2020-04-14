@@ -11,12 +11,12 @@ import Foundation
 struct Translate: Codable {
     let source: String
     let target: String
-    let contents: [String]
+    let q: String
     let mimeType: String
 }
 
 private enum CodingKeys: String, CodingKey {
     case source = "sourceLanguageCode"
     case target = "targetLanguageCode"
-    case contents, mimeType
+    case q, mimeType
 }
