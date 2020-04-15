@@ -11,10 +11,24 @@ import Foundation
 final class CurrencyNetworkManager {
 
     // MARK: - Public Properties
+    /// setting up currency delegate
     weak var delegate: CurrencyDelegate?
+    private var urlComponents = URLComponentManager()
 
+    /// fetching currency data and decoding it 
     func loadCurrency() {
-        if let url = URL(string: "http://data.fixer.io/api/latest?access_key=ec4830ae63993cf83fa637d7c488b1bf&symbols=EUR,USD,GBP,AUD,JPY") {
+        if let url = urlComponents.createURL(
+            scheme: "http",
+            host: "data.fixer.io",
+            path: "/api/latest",
+            queryItems: [
+                URLQueryItem(
+                    name: "access_key",
+                    value: "ec4830ae63993cf83fa637d7c488b1bf"),
+                URLQueryItem(
+                    name: "symbols",
+                    value: "EUR,USD,GBP,AUD,JPY")
+        ]) {
             URLSession.shared.dataTask(with: url, completionHandler: {[unowned self] data, _, error in
                 if let error = error { print(error); return }
                 do {

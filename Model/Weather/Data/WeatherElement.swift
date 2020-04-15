@@ -8,6 +8,7 @@
 
 import Foundation
 
+///defining weatherElement data and its keys 
 struct WeatherElement: Codable {
     let id: Int
     let main, description, icon: String

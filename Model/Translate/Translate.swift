@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// defining translation data
 struct Translate: Codable {
     let source: String
     let target: String
@@ -15,6 +16,7 @@ struct Translate: Codable {
     let mimeType: String
 }
 
+/// definining keys for the translation data 
 private enum CodingKeys: String, CodingKey {
     case source = "sourceLanguageCode"
     case target = "targetLanguageCode"

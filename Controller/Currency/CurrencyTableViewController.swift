@@ -10,12 +10,14 @@ import UIKit
 
 final class CurrencyTableViewController: UITableViewController {
 
+    /// setting up the navigation bar and instancing CurrencyNetworkManager
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         setupCurrencyNetworkManager()
     }
 
+    /// calling loadCurrency to fetch currency data
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         currencyNetworkManager.loadCurrency()
@@ -23,8 +25,10 @@ final class CurrencyTableViewController: UITableViewController {
 
     // MARK: - Properties
 
+    /// instantiating CurrencyNetworkManager for model-viewController communication
     private let currencyNetworkManager = CurrencyNetworkManager()
 
+    /// instantiating CurrencyResult and setting properties to reload data of the tableView
     private var currencyResult: CurrencyResult? {
         didSet {
             DispatchQueue.main.async {
@@ -35,10 +39,12 @@ final class CurrencyTableViewController: UITableViewController {
 
     // MARK: - Methods
 
+    /// setting the number of rows to the count of rates
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return currencyResult?.rates.count ?? 0
     }
 
+    /// defining what cell needs to be returned  - line 51-60 need to be moved to a subclass of the cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
@@ -56,6 +62,7 @@ final class CurrencyTableViewController: UITableViewController {
     }
 
     // MARK: - Private Methods
+    /// setup for the navigation bar
     private func setupNavigationBar() {
         navigationItem.title = "Currency"
 
@@ -70,6 +77,7 @@ final class CurrencyTableViewController: UITableViewController {
             action: #selector(addItem))
     }
 
+    /// setting up the delegate
     private func setupCurrencyNetworkManager() {
         currencyNetworkManager.delegate = self
     }

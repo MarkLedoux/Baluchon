@@ -12,8 +12,10 @@ final class WeatherNetworkManager {
 
     // MARK: - Public Properties
 
+    /// setting up weather delegate
     weak var delegate: WeatherDelegate?
 
+    /// fetching weather data and decoding it 
     func loadWeatherData() {
         let apiKey = "&APPID=43e33607fe2ad4493bd13aeabd87e12f"
         let urlString = "http://api.openweathermap.org/data/2.5/weather?q=London,uk\(apiKey)"

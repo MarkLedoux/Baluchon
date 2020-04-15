@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// defining weather data
 struct WeatherResult: Codable {
     let coord: Coord
     let weather: [WeatherElement]
@@ -24,6 +25,7 @@ struct WeatherResult: Codable {
     let cod: Int
 }
 
+/// defining keys for  the weather data 
 private enum CodingKeys: String, CodingKey {
     case base, visibility, dt, timezone, id, name, cod
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// defining sys and its keys 
 struct Sys: Codable {
     let type: Int
     let id: Int

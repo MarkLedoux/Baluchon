@@ -8,12 +8,13 @@
 
 import Foundation
 
+/// errors that can happen in the application
 enum NetworkManagerError: Error {
     case failedToFetchRessource
 }
 
 extension NetworkManagerError: LocalizedError {
-    /// Extension explaining what the program needs to return depending on the error return by the program
+    /// what the program needs to return depending on the error
     public var errorDescription: String? {
         switch self {
         case .failedToFetchRessource:

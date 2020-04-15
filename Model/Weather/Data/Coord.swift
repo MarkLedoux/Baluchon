@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// defining coord and its keys 
 struct Coord: Codable {
     let lon, lat: Double
 }

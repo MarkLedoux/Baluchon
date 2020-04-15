@@ -21,7 +21,7 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
             switch result {
             case .failure(let error):
                 print("An error occured \(error)")
-            case .success(_):
+            case .success:
                 print("The text has been successfully sent")
             }
         }
@@ -64,15 +64,5 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
         } catch {
             completion(.failure(.failedToFetchRessource))
         }
-    }
-
-    // This function will be called when the textField object( jobTitleTextField ) begin editing.
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        print("textFieldDidBeginEditing")
-    }
-
-    // This function is called when you click return key in the text field.
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return true
     }
 }
