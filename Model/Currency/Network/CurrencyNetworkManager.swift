@@ -8,15 +8,24 @@
 
 import Foundation
 
-final class CurrencyNetworkManager {
+ class CurrencyNetworkManager {
 
     // MARK: - Public Properties
     /// setting up currency delegate
     weak var delegate: CurrencyDelegate?
+
+    // MARK: - Private Properties
     private var urlComponents = URLComponentManager()
 
+    private var task: URLSessionDataTask?
+    var session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
+
+//    init(session: URLSession) {
+//        self.session = session
+//    }
+
     /// fetching currency data and decoding it 
-    func loadCurrency() {
+    func loadCurrency(completion: @escaping(Result<CurrencyResult, NetworkManagerError>) -> Void) {
         if let url = urlComponents.createURL(
             scheme: "http",
             host: "data.fixer.io",
@@ -29,15 +38,28 @@ final class CurrencyNetworkManager {
                     name: "symbols",
                     value: "EUR,USD,GBP,AUD,JPY")
         ]) {
-            URLSession.shared.dataTask(with: url, completionHandler: {[unowned self] data, _, error in
-                if let error = error { print(error); return }
-                do {
-                    let currencyResult = try JSONDecoder().decode(CurrencyResult.self, from: data!)
+            task?.cancel()
+            task = session.dataTask(with: url) { (data, response, error) in
+                DispatchQueue.main.async {
+                    guard let data = data, error == nil else {
+                        completion(.failure(.failedToFetchRessource))
+                        return
+                    }
+
+                    guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                        completion(.failure(.failedToFetchRessource))
+                        return
+                    }
+
+                    guard let currencyResult = try? JSONDecoder().decode(CurrencyResult.self, from: data) else {
+                        completion(.failure(.failedToFetchRessource))
+                        return
+                    }
+
                     self.delegate?.didGetCurrencyData(currencyResult: currencyResult)
-                } catch {
-                    print(error)
                 }
-            }).resume()
+            }
+            task?.resume()
         }
     }
 }

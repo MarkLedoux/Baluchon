@@ -9,7 +9,7 @@
 import Foundation
 
 /// defining translation data
-struct Translate: Codable {
+struct TranslationResult: Codable {
     let source: String
     let target: String
     let q: String

@@ -20,7 +20,14 @@ final class CurrencyTableViewController: UITableViewController {
     /// calling loadCurrency to fetch currency data
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        currencyNetworkManager.loadCurrency()
+        currencyNetworkManager.loadCurrency { result in
+            switch result {
+            case .success:
+                print("Successfully fetched currency data")
+            case .failure(.failedToFetchRessource):
+                print("Failed to fetch currency data")
+            }
+        }
     }
 
     // MARK: - Properties
@@ -50,14 +57,12 @@ final class CurrencyTableViewController: UITableViewController {
 
         guard let currencyResult = currencyResult else { return UITableViewCell() }
 
-        let currencyBases = currencyResult.rates.keys.map { $0 }.sorted()
-        let currencyRates = currencyResult.rates.values.map { $0 }
+        //sorting keys only results in values being off in the tableview
+        let currencyBases = currencyResult.rates.map { "\($0) \($1)" }.sorted()
 
-        let key = currencyBases[indexPath.row]
-        let value = currencyRates[indexPath.row]
+        let currencyValue = currencyBases[indexPath.row]
 
-        cell.textLabel?.text = key
-        cell.detailTextLabel?.text = String(value)
+        cell.textLabel?.text = currencyValue
         return cell
     }
 

@@ -18,7 +18,14 @@ final class WeatherTableViewController: UITableViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        weatherNetWorkManager.loadWeatherData()
+        weatherNetWorkManager.loadWeatherData { result in
+            switch result {
+            case .success:
+                print("Successfully fetched weather data")
+            case .failure(.failedToFetchRessource):
+                print("Failed to fetch weather data")
+            }
+        }
     }
 
     // MARK: - Properties
@@ -32,7 +39,7 @@ final class WeatherTableViewController: UITableViewController {
         }
     }
 
-    // MARK: Methods
+    // MARK: - Methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return weatherResult?.name.count ?? 0
