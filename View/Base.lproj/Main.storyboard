@@ -126,7 +126,7 @@
                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lz9-rb-u2F">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
                                         <state key="normal" title="English">
-                                            <color key="titleColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                            <color key="titleColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9UV-q2-ri5">
@@ -142,7 +142,7 @@
                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4E2-tg-59s">
                                         <rect key="frame" x="266" y="0.0" width="48" height="30"/>
                                         <state key="normal" title="French">
-                                            <color key="titleColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                            <color key="titleColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                     </button>
                                 </subviews>
@@ -152,6 +152,7 @@
                             </stackView>
                             <textField opaque="NO" contentMode="left" contentHorizontalAlignment="leading" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Enter Text" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1NS-9p-DvP">
                                 <rect key="frame" x="0.0" y="114" width="414" height="28.5"/>
+                                <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" returnKeyType="go" enablesReturnKeyAutomatically="YES"/>
                             </textField>
@@ -162,7 +163,7 @@
                                     <constraint firstAttribute="height" constant="30" id="bMX-7Q-61O"/>
                                 </constraints>
                                 <state key="normal" title="Send">
-                                    <color key="titleColor" systemColor="systemFillColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.50196078430000002" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="sendTextToTranslate:" destination="05t-OY-jpS" eventType="touchUpInside" id="OR3-EH-VYl"/>
@@ -199,6 +200,7 @@
                         <inset key="imageInsets" minX="0.0" minY="239" maxX="0.0" maxY="239"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="sendTranslationButton" destination="Cl8-ji-7Fp" id="Y2X-tc-l2t"/>
                         <outlet property="translatedText" destination="E1b-Ba-xH7" id="h5e-vn-fIs"/>
                         <outlet property="translationInput" destination="1NS-9p-DvP" id="Yc5-dn-KjL"/>
                     </connections>

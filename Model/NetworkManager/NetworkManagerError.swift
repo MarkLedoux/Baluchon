@@ -11,14 +11,29 @@ import Foundation
 /// errors that can happen in the application
 enum NetworkManagerError: Error {
     case failedToFetchRessource
+    case requestFailed
+    case jsonConversionFailure
+    case invalidData
+    case responseUnsuccessful
+    case jsonParsingFailure
 }
 
-extension NetworkManagerError: LocalizedError {
+extension NetworkManagerError {
     /// what the program needs to return depending on the error
     public var errorDescription: String? {
         switch self {
         case .failedToFetchRessource:
-            return NSLocalizedString("error_failed_to_get_resource", comment: "")
+            return "Failed to fetch resource"
+        case .requestFailed:
+            return "The request failed"
+        case .jsonConversionFailure:
+            return "The json data could not be converted properly"
+        case .invalidData:
+            return "The data is invalid"
+        case .responseUnsuccessful:
+            return "The response was not successful"
+        case .jsonParsingFailure:
+            return "There was an error parsing the json data"
         }
     }
 }

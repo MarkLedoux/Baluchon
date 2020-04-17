@@ -19,11 +19,9 @@ class CurrencyNetworkManagerTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testGetCurrencyDataShouldPostFailedCompletionIfError() {
+    func testGetCurrencyDataShouldGetFailedCompletionIfError() {
         // Given
-
         // When
-
         // Then
     }
 }

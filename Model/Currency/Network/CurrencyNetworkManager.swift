@@ -8,25 +8,32 @@
 
 import Foundation
 
- class CurrencyNetworkManager {
+class CurrencyNetworkManager: NetworkManager {
 
     // MARK: - Public Properties
     /// setting up currency delegate
     weak var delegate: CurrencyDelegate?
 
     // MARK: - Private Properties
-    private var urlComponents = URLComponentManager()
-
+    internal var urlComponents = URLComponentManager()
     private var task: URLSessionDataTask?
-    var session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
+    internal var session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
 
-//    init(session: URLSession) {
-//        self.session = session
-//    }
+    init(configuration: URLSessionConfiguration) {
+        self.session = URLSession(configuration: configuration)
+    }
 
-    /// fetching currency data and decoding it 
+    convenience init() {
+        self.init(configuration: .default)
+    }
+
+    /// fetching currency data and decoding it
+    /// - Parameter completion: Result with CurrencyResult and NetworkManagerError
     func loadCurrency(completion: @escaping(Result<CurrencyResult, NetworkManagerError>) -> Void) {
-        if let url = urlComponents.createURL(
+
+        //TODO: - extract url creation to a separate class and protocol
+        // to create a general function like for Network Manager
+        fetch(with: urlComponents.createURL(
             scheme: "http",
             host: "data.fixer.io",
             path: "/api/latest",
@@ -37,29 +44,9 @@ import Foundation
                 URLQueryItem(
                     name: "symbols",
                     value: "EUR,USD,GBP,AUD,JPY")
-        ]) {
-            task?.cancel()
-            task = session.dataTask(with: url) { (data, response, error) in
-                DispatchQueue.main.async {
-                    guard let data = data, error == nil else {
-                        completion(.failure(.failedToFetchRessource))
-                        return
-                    }
-
-                    guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                        completion(.failure(.failedToFetchRessource))
-                        return
-                    }
-
-                    guard let currencyResult = try? JSONDecoder().decode(CurrencyResult.self, from: data) else {
-                        completion(.failure(.failedToFetchRessource))
-                        return
-                    }
-
-                    self.delegate?.didGetCurrencyData(currencyResult: currencyResult)
-                }
-            }
-            task?.resume()
-        }
+        ])!, decode: { (data) -> CurrencyResult? in
+            guard let currencyResult = data as? CurrencyResult else { return  nil }
+            return currencyResult
+        }, completion: completion)
     }
 }

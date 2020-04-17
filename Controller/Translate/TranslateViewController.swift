@@ -18,23 +18,18 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        translationNetworkManager.sendTextRequestForTranslation { result in
-            switch result {
-            case .success:
-                print("Successfully fetched translation data")
-            case .failure(.failedToFetchRessource):
-                print("Failed to fetch translation data")
-            }
-        }
+
     }
 
     // MARK: - Private Properties
 
+    @IBOutlet weak var sendTranslationButton: UIButton!
     @IBOutlet private weak var translationInput: UITextField!
     @IBOutlet private weak var translatedText: UITextView!
 
     private let translationNetworkManager = TranslationNetworkManager()
     private var translationResult: TranslationResult?
+    private var targetText: String?
 
     // MARK: - Private Methods
 
@@ -47,18 +42,43 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
     }
 
     @IBAction func sendTextToTranslate(_ sender: Any) {
-//        guard let text = translationInput.text else { print("No text available"); return}
-//
-//        let translation = TranslationResult(source: "en", target: "es", q: text, mimeType: "text")
-//
-//        sendTextRequest(translation) { (result) in
-//            switch result {
-//            case .failure(let error):
-//                print("An error occured \(error)")
-//            case .success:
-//                print("The text has been successfully sent")
-//            }
-//        }
+        animateButton(sendTranslationButton)
+        translationNetworkManager.sendTextRequestForTranslation { translation in
+            switch translation {
+            case .success:
+                print("Translation data was successfully sent")
+            case .failure:
+                print("Failed to fetch translation data")
+            }
+        }
+    }
+
+    // This function will be called when the textField object( jobTitleTextField ) begin editing.
+    internal func textFieldDidBeginEditing(_ textField: UITextField) {
+        print("textFieldDidBeginEditing")
+    }
+
+    // This function is called when you click return key in the text field.
+    internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return true
+    }
+
+    /// button animation on tap when sending request
+    /// - Parameter sender: sendTranslationButton as UIButton
+    private func animateButton(_ sender: UIButton) {
+        UIButton.animate(
+            withDuration: 0.2,
+            animations: {
+                sender.transform = CGAffineTransform(scaleX: 0.975, y: 0.96)}, completion: { _ in
+                    UIButton.animate(withDuration: 0.2, animations: { sender.transform = CGAffineTransform.identity })
+        })
+        buttonDesign()
+    }
+
+    /// rounding corners of the button used to send the translation request
+    private func buttonDesign() {
+        sendTranslationButton.layer.cornerRadius = 4
+        sendTranslationButton.clipsToBounds = true
     }
 }
 

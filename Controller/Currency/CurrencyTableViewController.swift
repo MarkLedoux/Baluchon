@@ -9,6 +9,7 @@
 import UIKit
 
 final class CurrencyTableViewController: UITableViewController {
+    let session = URLSession()
 
     /// setting up the navigation bar and instancing CurrencyNetworkManager
     override func viewDidLoad() {
@@ -24,7 +25,7 @@ final class CurrencyTableViewController: UITableViewController {
             switch result {
             case .success:
                 print("Successfully fetched currency data")
-            case .failure(.failedToFetchRessource):
+            case .failure:
                 print("Failed to fetch currency data")
             }
         }

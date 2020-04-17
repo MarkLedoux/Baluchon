@@ -14,15 +14,11 @@ final class WeatherTableViewController: UITableViewController {
         super.viewDidLoad()
         setUpNavigationBar()
         setUpWeatherNetworkManager()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         weatherNetWorkManager.loadWeatherData { result in
             switch result {
             case .success:
                 print("Successfully fetched weather data")
-            case .failure(.failedToFetchRessource):
+            case .failure:
                 print("Failed to fetch weather data")
             }
         }
