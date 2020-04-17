@@ -15,20 +15,51 @@ final class WeatherNetworkManager {
     /// setting up weather delegate
     weak var delegate: WeatherDelegate?
 
+    // MARK: - Private Properties
+    private var urlComponents = URLComponentManager()
+
+    private var task: URLSessionDataTask?
+    var session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
+
+    //    init(session: URLSession) {
+    //        self.session = session
+    //    }
+
     /// fetching weather data and decoding it 
-    func loadWeatherData() {
-        let apiKey = "&APPID=43e33607fe2ad4493bd13aeabd87e12f"
-        let urlString = "http://api.openweathermap.org/data/2.5/weather?q=London,uk\(apiKey)"
-        if let url = URL(string: urlString) {
-            URLSession.shared.dataTask(with: url, completionHandler: {[unowned self] data, _, error in
-                if let error = error { print(error); return }
-                do {
-                    let weatherResult = try JSONDecoder().decode(WeatherResult.self, from: data!)
+    func loadWeatherData(completion: @escaping(Result<WeatherResult, NetworkManagerError>) -> Void) {
+        if let url = urlComponents.createURL(
+            scheme: "http",
+            host: "api.openweathermap.org",
+            path: "/data/2.5/weather",
+            queryItems: [
+                URLQueryItem(
+                    name: "q",
+                    value: "London,uk"),
+                URLQueryItem(
+                    name: "APPID",
+                    value: "43e33607fe2ad4493bd13aeabd87e12f")
+        ]) {
+            task?.cancel()
+            task = session.dataTask(with: url) { (data, response, error) in
+                DispatchQueue.main.async {
+                    guard let data = data, error == nil else {
+                        completion(.failure(.failedToFetchRessource))
+                        return
+                    }
+
+                    guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                        completion(.failure(.failedToFetchRessource))
+                        return
+                    }
+
+                    guard let weatherResult = try? JSONDecoder().decode(WeatherResult.self, from: data) else {
+                        completion(.failure(.failedToFetchRessource))
+                        return
+                    }
                     self.delegate?.didGetWeatherData(weatherResult: weatherResult)
-                } catch {
-                    print(error)
                 }
-            }).resume()
+            }
+            task?.resume()
         }
     }
 }
