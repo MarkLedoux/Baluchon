@@ -9,7 +9,6 @@
 import Foundation
 
 protocol NetworkManager {
-    var urlComponents: URLComponentManager { get }
     var session: URLSession { get }
     func fetch<T: Codable>(
         with url: URL,

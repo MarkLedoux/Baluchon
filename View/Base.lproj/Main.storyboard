@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -67,6 +67,45 @@
             </objects>
             <point key="canvasLocation" x="108" y="-981"/>
         </scene>
+        <!--TranslatedText-->
+        <scene sceneID="AFO-FV-mFN">
+            <objects>
+                <viewController title="TranslatedText" id="XeV-sc-pzT" customClass="TranslatedTextViewController" customModule="Baluchon" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UvA-NC-GNB">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ybv-u3-iob">
+                                <rect key="frame" x="0.0" y="41" width="414" height="767"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Od0-pE-vz9">
+                                <rect key="frame" x="28" y="3" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="×">
+                                    <color key="titleColor" systemColor="tertiaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismiss:" destination="XeV-sc-pzT" eventType="touchUpInside" id="DnJ-i5-ElR"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="TYE-bS-WKk"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="nNj-Ey-gK8"/>
+                    <connections>
+                        <outlet property="translatedText" destination="ybv-u3-iob" id="gvT-u4-ODh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ggc-IT-wf9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1184" y="-238"/>
+        </scene>
         <!--Root View Controller-->
         <scene sceneID="43Q-S5-bbN">
             <objects>
@@ -110,12 +149,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eys-Xw-0zB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2276" y="-238"/>
+            <point key="canvasLocation" x="2275" y="-238"/>
         </scene>
         <!--Translate View Controller-->
         <scene sceneID="QNu-3A-wKq">
             <objects>
-                <viewController id="05t-OY-jpS" customClass="TranslateViewController" customModule="Baluchon" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Controller" id="05t-OY-jpS" customClass="TranslateViewController" customModule="Baluchon" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZSt-mL-Kpk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -167,29 +206,19 @@
                                 </state>
                                 <connections>
                                     <action selector="sendTextToTranslate:" destination="05t-OY-jpS" eventType="touchUpInside" id="OR3-EH-VYl"/>
+                                    <segue destination="XeV-sc-pzT" kind="presentation" identifier="translation" id="1Rd-NK-Vta"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="E1b-Ba-xH7">
-                                <rect key="frame" x="10" y="232.5" width="394" height="393.5"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Cl8-ji-7Fp" firstAttribute="top" secondItem="1NS-9p-DvP" secondAttribute="bottom" constant="50" id="2Tx-we-sse"/>
-                            <constraint firstItem="E1b-Ba-xH7" firstAttribute="leading" secondItem="iIz-WE-G08" secondAttribute="leading" constant="10" id="KXr-Bn-i56"/>
-                            <constraint firstItem="iIz-WE-G08" firstAttribute="bottom" secondItem="E1b-Ba-xH7" secondAttribute="bottom" constant="187" id="M61-Yt-LIr"/>
+                            <constraint firstItem="Cl8-ji-7Fp" firstAttribute="top" secondItem="1NS-9p-DvP" secondAttribute="bottom" constant="50" id="Ffr-Ic-EFb"/>
                             <constraint firstItem="iIz-WE-G08" firstAttribute="trailing" secondItem="1NS-9p-DvP" secondAttribute="trailing" id="NR5-x0-Y43"/>
                             <constraint firstItem="bpl-cy-VST" firstAttribute="centerX" secondItem="ZSt-mL-Kpk" secondAttribute="centerX" id="QTa-5G-Fy3"/>
                             <constraint firstItem="Cl8-ji-7Fp" firstAttribute="centerX" secondItem="ZSt-mL-Kpk" secondAttribute="centerX" id="WJp-U7-HmG"/>
                             <constraint firstItem="1NS-9p-DvP" firstAttribute="top" secondItem="bpl-cy-VST" secondAttribute="bottom" constant="10" id="awG-Og-tKK"/>
                             <constraint firstItem="iIz-WE-G08" firstAttribute="trailing" secondItem="bpl-cy-VST" secondAttribute="trailing" constant="50" id="bwh-iO-hfw"/>
                             <constraint firstItem="Cl8-ji-7Fp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iIz-WE-G08" secondAttribute="leading" id="gMD-rA-MrT"/>
-                            <constraint firstItem="E1b-Ba-xH7" firstAttribute="top" secondItem="Cl8-ji-7Fp" secondAttribute="bottom" constant="10" id="hvL-bv-9PM"/>
-                            <constraint firstItem="iIz-WE-G08" firstAttribute="trailing" secondItem="E1b-Ba-xH7" secondAttribute="trailing" constant="10" id="ie9-Q8-O3x"/>
                             <constraint firstItem="1NS-9p-DvP" firstAttribute="leading" secondItem="iIz-WE-G08" secondAttribute="leading" id="mUl-ih-6hn"/>
                             <constraint firstItem="bpl-cy-VST" firstAttribute="leading" secondItem="iIz-WE-G08" secondAttribute="leading" constant="50" id="nej-zm-b96"/>
                             <constraint firstItem="bpl-cy-VST" firstAttribute="top" secondItem="iIz-WE-G08" secondAttribute="top" constant="30" id="oIn-bc-KdH"/>
@@ -201,7 +230,6 @@
                     </tabBarItem>
                     <connections>
                         <outlet property="sendTranslationButton" destination="Cl8-ji-7Fp" id="Y2X-tc-l2t"/>
-                        <outlet property="translatedText" destination="E1b-Ba-xH7" id="h5e-vn-fIs"/>
                         <outlet property="translationInput" destination="1NS-9p-DvP" id="Yc5-dn-KjL"/>
                     </connections>
                 </viewController>

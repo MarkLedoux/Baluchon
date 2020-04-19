@@ -25,7 +25,6 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
 
     @IBOutlet weak var sendTranslationButton: UIButton!
     @IBOutlet private weak var translationInput: UITextField!
-    @IBOutlet private weak var translatedText: UITextView!
 
     private let translationNetworkManager = TranslationNetworkManager()
     private var translationResult: TranslationResult?
@@ -43,13 +42,19 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
 
     @IBAction func sendTextToTranslate(_ sender: Any) {
         animateButton(sendTranslationButton)
-        translationNetworkManager.sendTextRequestForTranslation { translation in
-            switch translation {
-            case .success:
-                print("Translation data was successfully sent")
-            case .failure:
-                print("Failed to fetch translation data")
-            }
+        performSegue(withIdentifier: "translation", sender: self)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let vc = segue.destination as? TranslatedTextViewController
+
+        translationNetworkManager.makeRequest(textToTranslate: translationInput.text!) { (results) in
+            guard let results = results else { return }
+            let text = results.map { (_, value) -> String in
+                return "\(value)"
+            }.description
+
+            vc?.translatedText?.text = text
         }
     }
 
@@ -72,13 +77,6 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
                 sender.transform = CGAffineTransform(scaleX: 0.975, y: 0.96)}, completion: { _ in
                     UIButton.animate(withDuration: 0.2, animations: { sender.transform = CGAffineTransform.identity })
         })
-        buttonDesign()
-    }
-
-    /// rounding corners of the button used to send the translation request
-    private func buttonDesign() {
-        sendTranslationButton.layer.cornerRadius = 4
-        sendTranslationButton.clipsToBounds = true
     }
 }
 
