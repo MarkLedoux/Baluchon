@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class URLComponentsForCurrency {
+final class URLGeneratorForCurrency {
     var components = URLComponentManager()
 
     func createCurrencyURL() -> URL? {

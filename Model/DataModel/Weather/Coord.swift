@@ -15,5 +15,4 @@ struct Coord: Codable {
 
 private enum CodingKeys: String, CodingKey {
     case lon, lat
-
 }

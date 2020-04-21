@@ -15,24 +15,27 @@ class CurrencyNetworkManager: NetworkManager {
     weak var delegate: CurrencyDelegate?
 
     // MARK: - Private Properties
-    internal var url = URLComponentsForCurrency()
+    internal var url = URLGeneratorForCurrency()
     private var task: URLSessionDataTask?
-    internal var session = URLSession(configuration: .default, delegate: nil, delegateQueue: .main)
+    internal var session: URLSession
 
-    init(configuration: URLSessionConfiguration) {
-        self.session = URLSession(configuration: configuration)
-    }
-
-    convenience init() {
-        self.init(configuration: .default)
+    init(configuration: URLSessionConfiguration = .default) {
+        session = URLSession(configuration: configuration)
     }
 
     /// fetching currency data and decoding it
     /// - Parameter completion: Result with CurrencyResult and NetworkManagerError
     func loadCurrency(completion: @escaping(Result<CurrencyResult, NetworkManagerError>) -> Void) {
-        fetch(with: url.createCurrencyURL()!, decode: { (data) -> CurrencyResult? in
+        fetch(with: createdURL(), decode: { (data) -> CurrencyResult? in
             guard let currencyResult = data as? CurrencyResult else { return  nil }
             return currencyResult
         }, completion: completion)
+    }
+
+    func createdURL() -> URL {
+        if let createdURL = url.createCurrencyURL() {
+            return createdURL
+        }
+        return createdURL()
     }
 }

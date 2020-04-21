@@ -27,7 +27,8 @@ final class WeatherTableViewController: UITableViewController {
     // MARK: - Properties
 
     private let weatherNetWorkManager = WeatherNetworkManager()
-    private var weatherResult: WeatherResult? {
+    private var weatherResult: WeatherResult?
+    private var temperatureResult: Main? {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -38,7 +39,7 @@ final class WeatherTableViewController: UITableViewController {
     // MARK: - Methods
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weatherResult?.name.count ?? 0
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -47,12 +48,9 @@ final class WeatherTableViewController: UITableViewController {
         guard let weatherResult = weatherResult else { return UITableViewCell() }
 
         let weatherCity = weatherResult.name
-        let weatherTemperature = weatherResult.main.values.map { $0 }
-
-        let value = weatherTemperature[indexPath.row]
+        let weatherTemperature = temperatureResult?.temp
 
         cell.textLabel?.text = weatherCity
-        cell.detailTextLabel?.text = String(value)
         return cell
     }
 

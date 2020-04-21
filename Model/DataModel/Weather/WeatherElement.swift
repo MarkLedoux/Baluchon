@@ -1,5 +1,5 @@
 //
-//  Sys.swift
+//  WeatherElement.swift
 //  Baluchon
 //
 //  Created by Mark LEDOUX on 13/04/2020.
@@ -8,15 +8,12 @@
 
 import Foundation
 
-/// defining sys and its keys 
-struct Sys: Codable {
-    let type: Int
+///defining weatherElement data and its keys 
+struct WeatherElement: Codable {
     let id: Int
-    let country: String
-    let sunrise, sunset: Int
+    let main, description, icon: String
 }
 
 private enum CodingKeys: String, CodingKey {
-    case type, id, country, sunrise, sunset
-
+    case id, main, description, icon
 }
