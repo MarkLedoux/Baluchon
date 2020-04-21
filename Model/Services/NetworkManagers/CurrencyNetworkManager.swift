@@ -17,7 +17,7 @@ class CurrencyNetworkManager: NetworkManager {
     // MARK: - Private Properties
     internal var url = URLGeneratorForCurrency()
     private var task: URLSessionDataTask?
-    internal var session: URLSession
+    var session: URLSession
 
     init(configuration: URLSessionConfiguration = .default) {
         session = URLSession(configuration: configuration)
@@ -39,3 +39,42 @@ class CurrencyNetworkManager: NetworkManager {
         return createdURL()
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
