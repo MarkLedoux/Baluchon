@@ -8,16 +8,20 @@
 
 import Foundation
 
-class CurrencyNetworkManager: NetworkManager {
+class CurrencyNetworkManager {
 
     // MARK: - Public Properties
     /// setting up currency delegate
     weak var delegate: CurrencyDelegate?
 
     // MARK: - Private Properties
-    internal var url = URLGeneratorForCurrency()
+    var url = URLGeneratorForCurrency()
     private var task: URLSessionDataTask?
-    var session: URLSession
+    private var session: URLSession
+
+    init(session: URLSession) {
+        self.session = session
+    }
 
     init(configuration: URLSessionConfiguration = .default) {
         session = URLSession(configuration: configuration)
@@ -26,55 +30,28 @@ class CurrencyNetworkManager: NetworkManager {
     /// fetching currency data and decoding it
     /// - Parameter completion: Result with CurrencyResult and NetworkManagerError
     func loadCurrency(completion: @escaping(Result<CurrencyResult, NetworkManagerError>) -> Void) {
-        fetch(with: createdURL(), decode: { (data) -> CurrencyResult? in
-            guard let currencyResult = data as? CurrencyResult else { return  nil }
-            return currencyResult
-        }, completion: completion)
-    }
-
-    func createdURL() -> URL {
         if let createdURL = url.createCurrencyURL() {
-            return createdURL
+            task?.cancel()
+            task = session.dataTask(with: createdURL) { (data, response, error) in
+                DispatchQueue.main.async {
+                    guard let data = data, error == nil else {
+                        completion(.failure(.failedToFetchRessource))
+                        return
+                    }
+
+                    guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                        completion(.failure(.responseUnsuccessful))
+                        return
+                    }
+
+                    guard let currencyResult = try? JSONDecoder().decode(CurrencyResult.self, from: data) else {
+                        completion(.failure(.jsonConversionFailure))
+                        return
+                    }
+                    self.delegate?.didGetCurrencyData(currencyResult: currencyResult)
+                }
+            }
+            task?.resume()
         }
-        return createdURL()
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

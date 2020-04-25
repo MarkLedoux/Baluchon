@@ -16,6 +16,7 @@ enum NetworkManagerError: Error {
     case invalidData
     case responseUnsuccessful
     case jsonParsingFailure
+    case missingURL
 }
 
 extension NetworkManagerError {
@@ -34,6 +35,8 @@ extension NetworkManagerError {
             return "The response was not successful"
         case .jsonParsingFailure:
             return "There was an error parsing the json data"
+        case .missingURL:
+            return "The URL is missing, cannot make request"
         }
     }
 }

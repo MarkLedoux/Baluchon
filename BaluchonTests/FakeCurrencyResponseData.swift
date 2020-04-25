@@ -9,7 +9,17 @@
 import Foundation
 
 // swiftlint:disable force_try
-class FakeResponseData {
+class FakeCurrencyResponseData: CurrencyNetworkManager {
+    // MARK: - Data
+    static var currencyCorrectData: Data? {
+        let bundle = Bundle(for: FakeCurrencyResponseData.self)
+        let url = bundle.url(forResource: "Currency", withExtension: "json")!
+        return try! Data(contentsOf: url)
+    }
+
+    static let currencyIncorrectData = "erreur".data(using: .utf8)!
+    
+    // MARK: - Response
     static let responseOK = HTTPURLResponse(url: URL(string: "https://openclassrooms.com")!,
                                             statusCode: 200,
                                             httpVersion: nil,
@@ -20,14 +30,7 @@ class FakeResponseData {
                                             httpVersion: nil,
                                             headerFields: nil)!
 
+    // MARK: - Error
     class CurrencyNetworkManagerError: Error {}
-    let error = CurrencyNetworkManagerError()
-
-    var currencyCorrectData: Data {
-        let bundle = Bundle(for: FakeResponseData.self)
-        let url = bundle.url(forResource: "Currency", withExtension: "json ")
-        return try! Data(contentsOf: url!)
-    }
-
-    let currencyIncorrectData = "erreur".data(using: .utf8)!
+    static let error = CurrencyNetworkManagerError()
 }

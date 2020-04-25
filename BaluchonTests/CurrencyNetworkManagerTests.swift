@@ -9,6 +9,7 @@
 import XCTest
 @testable import Baluchon
 
+// swiftlint:disable line_length
 class CurrencyNetworkManagerTests: XCTestCase {
 
     override func setUp() {
@@ -32,26 +33,59 @@ class CurrencyNetworkManagerTests: XCTestCase {
             URL(string: "http://data.fixer.io/api/latest?access_key=ec4830ae63993cf83fa637d7c488b1bf&symbols=EUR,USD,GBP,AUD,JPY"))
     }
 
-    func testURLComponentManagerShouldReturnProperURLUsingURLGeneratorForTranslate() {
-        let generator = 
-    }
-
-    func testGetCurrencyDataShouldGetFailedCompletionIfError() {
+    func testGetCurrencyDataShoulFailCompletionIfError() {
         // Given
-        let currencyNetworkManager = CurrencyNetworkManager(
-            configuration: URLSessionFake(
-                data: nil,
-                response: nil,
-                error: NetworkManagerError.invalidData))
+        let currencyNetworkManager = CurrencyNetworkManager(session: URLSessionFake(data: nil, response: nil, error: NetworkManagerError.failedToFetchRessource))
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
-        currencyNetworkManager.loadCurrency { (result) in
+        currencyNetworkManager.loadCurrency { _ in
             // Then
-            XCTAssertNil(result)
+            XCTAssertNotNil(NetworkManagerError.failedToFetchRessource)
             expectation.fulfill()
         }
+        wait(for: [expectation], timeout: 0.01)
+    }
 
+    func testGetCurrencyDataShoulFailCompletionIfNoData() {
+        // Given
+        let currencyNetworkManager = CurrencyNetworkManager(session: URLSessionFake(data: nil, response: nil, error: nil))
+
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change")
+        currencyNetworkManager.loadCurrency { _ in
+            // Then
+            XCTAssertNotNil(FakeCurrencyResponseData.error)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 0.01)
+    }
+
+    func testGetCurrencyDataShoulFailCompletionIfIncorrectResponse() {
+        // Given
+        let currencyNetworkManager = CurrencyNetworkManager(session: URLSessionFake(data: FakeCurrencyResponseData.currencyCorrectData, response: FakeCurrencyResponseData.responseKO, error: nil))
+
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change")
+        currencyNetworkManager.loadCurrency { _ in
+            // Then
+            XCTAssertNotNil(NetworkManagerError.responseUnsuccessful)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 0.01)
+    }
+
+    func testGetCurrencyDataShoulFailCompletionIfIncorrectData() {
+        // Given
+        let currencyNetworkManager = CurrencyNetworkManager(session: URLSessionFake(data: FakeCurrencyResponseData.currencyIncorrectData, response: FakeCurrencyResponseData.responseOK, error: nil))
+
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change")
+        currencyNetworkManager.loadCurrency { _ in
+            // Then
+            XCTAssertNotNil(NetworkManagerError.failedToFetchRessource)
+            expectation.fulfill()
+        }
         wait(for: [expectation], timeout: 0.01)
     }
 }

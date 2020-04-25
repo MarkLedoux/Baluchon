@@ -8,19 +8,19 @@
 
 import Foundation
 
-class URLSessionFake: URLSessionConfiguration {
+class URLSessionFake: URLSession {
     var data: Data?
     var response: URLResponse?
-    var error: Error?
+    var error: NetworkManagerError?
 
-    init(data: Data?, response: URLResponse?, error: Error?) {
+    init(data: Data?, response: URLResponse?, error: NetworkManagerError?) {
         self.data = data
         self.response = response
         self.error = error
     }
 
-   func dataTask(with url: URL,
-                 completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+    override func dataTask(with url: URL,
+                           completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         let task = URLSessionDataTaskFake(data: data, urlResponse: response, responseError: error)
         task.completionHandler = completionHandler
         task.data = data
@@ -29,8 +29,8 @@ class URLSessionFake: URLSessionConfiguration {
         return task
     }
 
-    func dataTask(with request: URLRequest,
-                  completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+   override func dataTask(with request: URLRequest,
+                           completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         let task = URLSessionDataTaskFake(data: data, urlResponse: response, responseError: error)
         task.completionHandler = completionHandler
         task.data = data
