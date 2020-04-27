@@ -33,7 +33,11 @@ class WeatherNetworkManagerTests: XCTestCase {
 
     func testGetWeatherDataShoulFailCompletionIfError() {
         // Given
-        let weatherNetworkManager = WeatherNetworkManager(session: URLSessionFake(data: nil, response: nil, error: NetworkManagerError.failedToFetchRessource))
+        let weatherNetworkManager = WeatherNetworkManager(
+            session: URLSessionFake(
+                data: nil,
+                response: nil,
+                error: NetworkManagerError.failedToFetchRessource))
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
@@ -47,7 +51,11 @@ class WeatherNetworkManagerTests: XCTestCase {
 
     func testGetWeatherDataShoulFailCompletionIfNoData() {
         // Given
-        let weatherNetworkManager = WeatherNetworkManager(session: URLSessionFake(data: nil, response: nil, error: nil))
+        let weatherNetworkManager = WeatherNetworkManager(
+            session: URLSessionFake(
+                data: nil,
+                response: nil,
+                error: nil))
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
@@ -61,7 +69,11 @@ class WeatherNetworkManagerTests: XCTestCase {
 
     func testGetWeatherDataShoulFailCompletionIfIncorrectResponse() {
         // Given
-        let weatherNetworkManager = WeatherNetworkManager(session: URLSessionFake(data: FakeWeatherResponseData.weatherCorrectData, response: FakeWeatherResponseData.responseKO, error: nil))
+        let weatherNetworkManager = WeatherNetworkManager(
+            session: URLSessionFake(
+                data: FakeWeatherResponseData.weatherCorrectData,
+                response: FakeWeatherResponseData.responseKO,
+                error: nil))
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
@@ -75,7 +87,11 @@ class WeatherNetworkManagerTests: XCTestCase {
 
     func testGetWeatherDataShoulFailCompletionIfIncorrectData() {
         // Given
-        let weatherNetworkManager = WeatherNetworkManager(session: URLSessionFake(data: FakeWeatherResponseData.weatherIncorrectData, response: FakeWeatherResponseData.responseOK, error: nil))
+        let weatherNetworkManager = WeatherNetworkManager(
+            session: URLSessionFake(
+                data: FakeWeatherResponseData.weatherIncorrectData,
+                response: FakeWeatherResponseData.responseOK,
+                error: nil))
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")

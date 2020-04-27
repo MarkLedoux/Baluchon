@@ -9,7 +9,7 @@
 import Foundation
 
 final class URLGeneratorForTranslate {
-    var components = URLComponentManager()
+    private var components = URLComponentManager()
 
     func createTranslateURL() -> URL? {
         let currencyURL = components.createURL(

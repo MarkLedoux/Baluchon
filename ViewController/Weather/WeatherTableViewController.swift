@@ -9,6 +9,7 @@
 import UIKit
 
 final class WeatherTableViewController: UITableViewController {
+    var cities: [WeatherResult] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +28,7 @@ final class WeatherTableViewController: UITableViewController {
     // MARK: - Properties
 
     private let weatherNetWorkManager = WeatherNetworkManager()
-    private var weatherResult: WeatherResult?
-    private var temperatureResult: Main? {
+    private var weatherResult: WeatherResult? {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -38,8 +38,11 @@ final class WeatherTableViewController: UITableViewController {
 
     // MARK: - Methods
 
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return weatherResult?.name.count ?? 0
+    }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return weatherResult?.name.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -48,10 +51,15 @@ final class WeatherTableViewController: UITableViewController {
         guard let weatherResult = weatherResult else { return UITableViewCell() }
 
         let weatherCity = weatherResult.name
-        let weatherTemperature = temperatureResult?.temp
 
         cell.textLabel?.text = weatherCity
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = DetailViewController()
+        vc.detailItem = cities[indexPath.row]
+        navigationController?.pushViewController(vc, animated: true)
     }
 
     // MARK: - Private Methods
@@ -85,6 +93,6 @@ final class WeatherTableViewController: UITableViewController {
 
 extension WeatherTableViewController: WeatherDelegate {
     func didGetWeatherData(weatherResult: WeatherResult) {
-        self.weatherResult  = weatherResult
+        self.weatherResult = weatherResult
     }
 }

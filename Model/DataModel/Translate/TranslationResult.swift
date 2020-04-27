@@ -12,7 +12,7 @@ import Foundation
 struct TranslationResult: Codable {
     let source: String
     let target: String
-    let q: [String]
+    let q: String
     let mimeType: String
     let translations: [String: String]
     let translatedText: String

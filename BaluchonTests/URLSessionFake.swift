@@ -30,7 +30,7 @@ class URLSessionFake: URLSession {
     }
 
    override func dataTask(with request: URLRequest,
-                           completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
+                          completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTask {
         let task = URLSessionDataTaskFake(data: data, urlResponse: response, responseError: error)
         task.completionHandler = completionHandler
         task.data = data

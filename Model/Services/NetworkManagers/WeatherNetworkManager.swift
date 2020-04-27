@@ -30,35 +30,29 @@ class WeatherNetworkManager {
     }
 
     /// fetching weather data and decoding it 
-    func loadWeatherData(completion: @escaping(Result<WeatherResult, NetworkManagerError>) -> Void) {
-        let url = createdURL()
-        task?.cancel()
-        task = session.dataTask(with: url) { (data, response, error) in
-            DispatchQueue.main.async {
-                guard let data = data, error == nil else {
-                    completion(.failure(.failedToFetchRessource))
-                    return
-                }
+    func loadWeatherData(completion: @escaping(Result<[WeatherResult], NetworkManagerError>) -> Void) {
+        if let url = urlComponents.createWeatherURL() {
+            task?.cancel()
+            task = session.dataTask(with: url) { (data, response, error) in
+                DispatchQueue.main.async {
+                    guard let data = data, error == nil else {
+                        completion(.failure(.failedToFetchRessource))
+                        return
+                    }
 
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    completion(.failure(.failedToFetchRessource))
-                    return
-                }
+                    guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                        completion(.failure(.failedToFetchRessource))
+                        return
+                    }
 
-                guard let weatherResult = try? JSONDecoder().decode(WeatherResult.self, from: data) else {
-                    completion(.failure(.failedToFetchRessource))
-                    return
+                    guard let weatherResult = try? JSONDecoder().decode(WeatherResult.self, from: data) else {
+                        completion(.failure(.failedToFetchRessource))
+                        return
+                    }
+                    self.delegate?.didGetWeatherData(weatherResult: weatherResult)
                 }
-                self.delegate?.didGetWeatherData(weatherResult: weatherResult)
             }
+            task?.resume()
         }
-        task?.resume()
-    }
-
-    private func createdURL() -> URL {
-        if let createdURL = urlComponents.createWeatherURL() {
-            return createdURL
-        }
-        return createdURL()
     }
 }

@@ -27,7 +27,7 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
     @IBOutlet private weak var translationInput: UITextField!
 
     private let translationNetworkManager = TranslationNetworkManager()
-    private var translationResult: TranslationResult?
+    private var translationResult: [String: Any]?
     private var targetText: String?
 
     // MARK: - Private Methods
@@ -81,7 +81,7 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
 }
 
 extension TranslateViewController: TranslateDelegate {
-    func didFetchTranslationData(translationResult: TranslationResult) {
+    func didFetchTranslationData(translationResult: [String: Any]) {
         self.translationResult = translationResult
     }
 }

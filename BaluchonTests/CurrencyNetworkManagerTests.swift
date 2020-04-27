@@ -35,13 +35,22 @@ class CurrencyNetworkManagerTests: XCTestCase {
 
     func testGetCurrencyDataShoulFailCompletionIfError() {
         // Given
-        let currencyNetworkManager = CurrencyNetworkManager(session: URLSessionFake(data: nil, response: nil, error: NetworkManagerError.failedToFetchRessource))
+        let currencyNetworkManager = CurrencyNetworkManager(
+            session: URLSessionFake(
+                data: nil,
+                response: nil,
+                error: NetworkManagerError.failedToFetchRessource))
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
-        currencyNetworkManager.loadCurrency { _ in
+        currencyNetworkManager.loadCurrencyTest { (result) in
             // Then
-            XCTAssertNotNil(NetworkManagerError.failedToFetchRessource)
+            switch result {
+            case .failure:
+                XCTAssertNotNil(NetworkManagerError.failedToFetchRessource)
+            case .success:
+                XCTAssertNil(NetworkManagerError.failedToFetchRessource)
+        }
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 0.01)
@@ -49,7 +58,11 @@ class CurrencyNetworkManagerTests: XCTestCase {
 
     func testGetCurrencyDataShoulFailCompletionIfNoData() {
         // Given
-        let currencyNetworkManager = CurrencyNetworkManager(session: URLSessionFake(data: nil, response: nil, error: nil))
+        let currencyNetworkManager = CurrencyNetworkManager(
+            session: URLSessionFake(
+                data: nil,
+                response: nil,
+                error: nil))
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
@@ -63,7 +76,11 @@ class CurrencyNetworkManagerTests: XCTestCase {
 
     func testGetCurrencyDataShoulFailCompletionIfIncorrectResponse() {
         // Given
-        let currencyNetworkManager = CurrencyNetworkManager(session: URLSessionFake(data: FakeCurrencyResponseData.currencyCorrectData, response: FakeCurrencyResponseData.responseKO, error: nil))
+        let currencyNetworkManager = CurrencyNetworkManager(
+            session: URLSessionFake(
+                data: FakeCurrencyResponseData.currencyCorrectData,
+                response: FakeCurrencyResponseData.responseKO,
+                error: nil))
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
@@ -77,7 +94,11 @@ class CurrencyNetworkManagerTests: XCTestCase {
 
     func testGetCurrencyDataShoulFailCompletionIfIncorrectData() {
         // Given
-        let currencyNetworkManager = CurrencyNetworkManager(session: URLSessionFake(data: FakeCurrencyResponseData.currencyIncorrectData, response: FakeCurrencyResponseData.responseOK, error: nil))
+        let currencyNetworkManager = CurrencyNetworkManager(
+            session: URLSessionFake(
+                data: FakeCurrencyResponseData.currencyIncorrectData,
+                response: FakeCurrencyResponseData.responseOK,
+                error: nil))
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")

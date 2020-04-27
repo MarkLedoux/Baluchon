@@ -18,7 +18,7 @@ class FakeCurrencyResponseData: CurrencyNetworkManager {
     }
 
     static let currencyIncorrectData = "erreur".data(using: .utf8)!
-    
+
     // MARK: - Response
     static let responseOK = HTTPURLResponse(url: URL(string: "https://openclassrooms.com")!,
                                             statusCode: 200,

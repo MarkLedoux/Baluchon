@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol NetworkManager {
+protocol NetworkManager: class {
     var session: URLSession { get }
     func fetch<T: Codable>(
         with url: URL,

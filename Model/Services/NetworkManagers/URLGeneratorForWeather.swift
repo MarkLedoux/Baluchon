@@ -9,7 +9,7 @@
 import Foundation
 
 final class URLGeneratorForWeather {
-    var components = URLComponentManager()
+    private var components = URLComponentManager()
 
     func createWeatherURL() -> URL? {
         let currencyURL = components.createURL(

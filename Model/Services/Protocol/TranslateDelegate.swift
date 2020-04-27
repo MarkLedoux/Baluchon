@@ -9,5 +9,5 @@
 import Foundation
 
 protocol TranslateDelegate: class {
-    func didFetchTranslationData(translationResult: TranslationResult)
+    func didFetchTranslationData(translationResult: [String: Any])
 }

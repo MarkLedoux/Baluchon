@@ -33,7 +33,11 @@ class TranslationNetworkManagerTests: XCTestCase {
 
     func testGetTranslationDataShoulFailCompletionIfError() {
         // Given
-        let translationNetworkManager = TranslationNetworkManager(session: URLSessionFake(data: nil, response: nil, error: NetworkManagerError.failedToFetchRessource))
+        let translationNetworkManager = TranslationNetworkManager(
+            session: URLSessionFake(
+                data: nil,
+                response: nil,
+                error: NetworkManagerError.failedToFetchRessource))
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
@@ -47,7 +51,11 @@ class TranslationNetworkManagerTests: XCTestCase {
 
     func testGetTranslationDataShoulFailCompletionIfNoData() {
         // Given
-        let translationNetworkManager = TranslationNetworkManager(session: URLSessionFake(data: nil, response: nil, error: nil))
+        let translationNetworkManager = TranslationNetworkManager(
+            session: URLSessionFake(
+                data: nil,
+                response: nil,
+                error: nil))
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
@@ -61,7 +69,11 @@ class TranslationNetworkManagerTests: XCTestCase {
 
     func testGetTranslationDataShoulFailCompletionIfIncorrectResponse() {
         // Given
-        let translationNetworkManager = TranslationNetworkManager(session: URLSessionFake(data: FakeTranslateResponseData.translationCorrectData, response: FakeTranslateResponseData.responseKO, error: nil))
+        let translationNetworkManager = TranslationNetworkManager(
+            session: URLSessionFake(
+                data: FakeTranslateResponseData.translationCorrectData,
+                response: FakeTranslateResponseData.responseKO,
+                error: nil))
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
@@ -75,7 +87,11 @@ class TranslationNetworkManagerTests: XCTestCase {
 
     func testGetTranslationDataShoulFailCompletionIfIncorrectData() {
         // Given
-        let translationNetworkManager = TranslationNetworkManager(session: URLSessionFake(data: FakeTranslateResponseData.translationIncorrectData, response: FakeTranslateResponseData.responseOK, error: nil))
+        let translationNetworkManager = TranslationNetworkManager(
+            session: URLSessionFake(
+                data: FakeTranslateResponseData.translationIncorrectData,
+                response: FakeTranslateResponseData.responseOK,
+                error: nil))
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")

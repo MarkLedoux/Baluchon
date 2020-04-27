@@ -9,7 +9,7 @@
 import Foundation
 
 final class URLGeneratorForCurrency {
-    var components = URLComponentManager()
+    private var components = URLComponentManager()
 
     func createCurrencyURL() -> URL? {
         let currencyURL = components.createURL(

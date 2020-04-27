@@ -10,6 +10,16 @@ import Foundation
 
 // swiftlint:disable force_try
 class FakeWeatherResponseData: WeatherNetworkManager {
+    // MARK: - Data
+    static var weatherCorrectData: Data? {
+        let bundle = Bundle(for: FakeWeatherResponseData.self)
+        let url = bundle.url(forResource: "Weather", withExtension: "json")!
+        return try! Data(contentsOf: url)
+    }
+
+    static let weatherIncorrectData = "erreur".data(using: .utf8)!
+
+     // MARK: - Response
     static let responseOK = HTTPURLResponse(url: URL(string: "https://openclassrooms.com")!,
                                             statusCode: 200,
                                             httpVersion: nil,
@@ -20,14 +30,7 @@ class FakeWeatherResponseData: WeatherNetworkManager {
                                             httpVersion: nil,
                                             headerFields: nil)!
 
+     // MARK: - Error
     class WeatherNetworkManagerError: Error {}
     static let error = WeatherNetworkManagerError()
-
-    static var weatherCorrectData: Data? {
-        let bundle = Bundle(for: FakeWeatherResponseData.self)
-        let url = bundle.url(forResource: "Weather", withExtension: "json")!
-        return try! Data(contentsOf: url)
-    }
-
-    static let weatherIncorrectData = "erreur".data(using: .utf8)!
 }
