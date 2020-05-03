@@ -48,13 +48,14 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let vc = segue.destination as? TranslatedTextViewController
 
-        translationNetworkManager.makeRequest(textToTranslate: translationInput.text!) { (results) in
-            guard let results = results else { return }
-            let text = results.map { (_, value) -> String in
-                return "\(value)"
-            }.description
-
-            vc?.translatedText?.text = text
+        translationNetworkManager.makeRequest(textToTranslate: translationInput.text!) { (result) in
+            if
+                case .success(let results) = result {
+                let text = results.translations.map { (_, value) -> String in
+                    return "\(value)"
+                }.description
+                vc?.translatedText?.text = text
+            }
         }
     }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class TranslationNetworkManager {
+class TranslationNetworkManager: NetworkManager {
 
     // MARK: - Public Properties
     /// setting up weather delegate
@@ -21,7 +21,7 @@ class TranslationNetworkManager {
     private var textToTranslate: String?
 
     private var task: URLSessionDataTask?
-    private var session: URLSession
+    internal var session: URLSession
 
     init(session: URLSession) {
         self.session = session
@@ -32,32 +32,9 @@ class TranslationNetworkManager {
     }
 
     ///test function to make the request work
-    func makeRequest(textToTranslate: String, completion: @escaping(_ results: [String: Any]?) -> Void) {
-        if let url = urlProvider.createTranslateURL() {
-            request = URLRequest(url: url)
-            request?.httpMethod = "POST"
-            task = session.dataTask(with: request!) { (data, response, error) in
-                DispatchQueue.main.async {
-                    guard let data = data, error == nil else {
-                        completion(nil)
-                        return
-                }
-
-                    guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                        completion(nil)
-                        return
-                    }
-
-                    guard let translationData = try? JSONSerialization.jsonObject(
-                        with: data,
-                        options: JSONSerialization.ReadingOptions.mutableLeaves) as? [String: Any] else {
-                        completion(nil)
-                        return
-                    }
-                    self.delegate?.didFetchTranslationData(translationResult: translationData)
-                }
-            }
-            task?.resume()
-        }
+    func makeRequest(
+        textToTranslate: String,
+        completion: @escaping(Result<TranslationResult, NetworkManagerError>) -> Void) {
+        fetch(with: urlProvider.createTranslateURL()!, completion: completion)
     }
 }
