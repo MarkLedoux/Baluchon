@@ -8,7 +8,7 @@
 
 import Foundation
 
-class WeatherNetworkManager {
+class WeatherNetworkManager: NetworkManager {
 
     // MARK: - Public Properties
 
@@ -16,10 +16,10 @@ class WeatherNetworkManager {
     weak var delegate: WeatherDelegate?
 
     // MARK: - Private Properties
-    private var urlComponents = URLGeneratorForWeather()
+    private var urlProvider = URLGeneratorForWeather()
 
     private var task: URLSessionDataTask?
-    private var session: URLSession
+    internal var session: URLSession
 
     init(session: URLSession) {
         self.session = session
@@ -30,29 +30,7 @@ class WeatherNetworkManager {
     }
 
     /// fetching weather data and decoding it 
-    func loadWeatherData(completion: @escaping(Result<[WeatherResult], NetworkManagerError>) -> Void) {
-        if let url = urlComponents.createWeatherURL() {
-            task?.cancel()
-            task = session.dataTask(with: url) { (data, response, error) in
-                DispatchQueue.main.async {
-                    guard let data = data, error == nil else {
-                        completion(.failure(.failedToFetchRessource))
-                        return
-                    }
-
-                    guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                        completion(.failure(.failedToFetchRessource))
-                        return
-                    }
-
-                    guard let weatherResult = try? JSONDecoder().decode(WeatherResult.self, from: data) else {
-                        completion(.failure(.failedToFetchRessource))
-                        return
-                    }
-                    self.delegate?.didGetWeatherData(weatherResult: weatherResult)
-                }
-            }
-            task?.resume()
-        }
+    func loadWeatherData(completion: @escaping(Result<WeatherResult, NetworkManagerError>) -> Void) {
+        fetch(with: urlProvider.createWeatherURL()!, completion: completion)
     }
 }

@@ -37,7 +37,7 @@ class TranslationNetworkManagerTests: XCTestCase {
             session: URLSessionFake(
                 data: nil,
                 response: nil,
-                error: NetworkManagerError.failedToFetchRessource))
+                error: NetworkManagerError.failedToFetchRessource(underlineError: nil)))
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
@@ -49,7 +49,7 @@ class TranslationNetworkManagerTests: XCTestCase {
         wait(for: [expectation], timeout: 0.01)
     }
 
-    func testGetTranslationDataShoulFailCompletionIfNoData() {
+    func testGetTranslationDataShouldFailCompletionIfNoData() {
         // Given
         let translationNetworkManager = TranslationNetworkManager(
             session: URLSessionFake(
@@ -102,5 +102,4 @@ class TranslationNetworkManagerTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 0.01)
     }
-
 }

@@ -16,7 +16,7 @@ class TranslationNetworkManager {
 
     // MARK: - Private Properties
 
-    private var urlComponents = URLGeneratorForTranslate()
+    private var urlProvider = URLGeneratorForTranslate()
     private var request: URLRequest?
     private var textToTranslate: String?
 
@@ -33,7 +33,7 @@ class TranslationNetworkManager {
 
     ///test function to make the request work
     func makeRequest(textToTranslate: String, completion: @escaping(_ results: [String: Any]?) -> Void) {
-        if let url = urlComponents.createTranslateURL() {
+        if let url = urlProvider.createTranslateURL() {
             request = URLRequest(url: url)
             request?.httpMethod = "POST"
             task = session.dataTask(with: request!) { (data, response, error) in

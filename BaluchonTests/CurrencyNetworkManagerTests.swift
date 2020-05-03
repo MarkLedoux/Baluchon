@@ -39,19 +39,18 @@ class CurrencyNetworkManagerTests: XCTestCase {
             session: URLSessionFake(
                 data: nil,
                 response: nil,
-                error: NetworkManagerError.failedToFetchRessource))
+                error: NetworkManagerError.failedToFetchRessource(underlineError: nil)))
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
-        currencyNetworkManager.loadCurrencyTest { (result) in
-            // Then
-            switch result {
-            case .failure:
-                XCTAssertNotNil(NetworkManagerError.failedToFetchRessource)
-            case .success:
-                XCTAssertNil(NetworkManagerError.failedToFetchRessource)
-        }
-            expectation.fulfill()
+
+        currencyNetworkManager.loadCurrency { (result) in
+            if
+                case .failure(let error) = result,
+                case NetworkManagerError.failedToFetchRessource(underlineError: _) = error
+            {
+                expectation.fulfill()
+            }
         }
         wait(for: [expectation], timeout: 0.01)
     }
@@ -66,11 +65,11 @@ class CurrencyNetworkManagerTests: XCTestCase {
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
-        currencyNetworkManager.loadCurrency { _ in
-            // Then
+        currencyNetworkManager.loadCurrency { (_) in
             XCTAssertNotNil(FakeCurrencyResponseData.error)
-            expectation.fulfill()
+                expectation.fulfill()
         }
+
         wait(for: [expectation], timeout: 0.01)
     }
 
@@ -84,10 +83,14 @@ class CurrencyNetworkManagerTests: XCTestCase {
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
-        currencyNetworkManager.loadCurrency { _ in
-            // Then
-            XCTAssertNotNil(NetworkManagerError.responseUnsuccessful)
-            expectation.fulfill()
+
+        currencyNetworkManager.loadCurrency { (result) in
+            if
+                case .failure(let error) = result,
+                case NetworkManagerError.responseUnsuccessful = error
+            {
+                expectation.fulfill()
+            }
         }
         wait(for: [expectation], timeout: 0.01)
     }
@@ -102,11 +105,42 @@ class CurrencyNetworkManagerTests: XCTestCase {
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
-        currencyNetworkManager.loadCurrency { _ in
-            // Then
-            XCTAssertNotNil(NetworkManagerError.failedToFetchRessource)
+
+        currencyNetworkManager.loadCurrency { (_) in
+            XCTAssertNotNil(NetworkManagerError.noDataAfterFetchingResource)
+                expectation.fulfill()
+        }
+
+        wait(for: [expectation], timeout: 0.01)
+    }
+
+    func testGetCurrencyDataShouldSucceedCompletionIfCorrectDataAndCorrectResponseNoError() {
+        // Given
+        let currencyNetworkManager = CurrencyNetworkManager(
+            session: URLSessionFake(
+                data: FakeCurrencyResponseData.currencyCorrectData,
+                response: FakeCurrencyResponseData.responseOK,
+                error: nil))
+
+        // When
+        let expectation = XCTestExpectation(description: "Wait for queue change")
+
+        currencyNetworkManager.loadCurrency { (result) in
+
+            XCTAssertNotNil(result)
+            let rateResult = [
+                "USD": 1.088234,
+                "GBP": 0.871278,
+                "CAD": 1.533863,
+                "AUD": 1.725439,
+                "JPY": 117.225674
+            ]
+            if case let .success(currencyRatesResult) = result {
+                XCTAssertEqual(currencyRatesResult.rates, rateResult)
+            }
             expectation.fulfill()
         }
+
         wait(for: [expectation], timeout: 0.01)
     }
 }

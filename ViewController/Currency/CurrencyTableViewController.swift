@@ -9,13 +9,12 @@
 import UIKit
 
 final class CurrencyTableViewController: UITableViewController {
-    let session = URLSession()
 
     /// setting up the navigation bar and instancing CurrencyNetworkManager
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
-        setupCurrencyNetworkManager()
+        setUpCurrencyNetworkManager()
     }
 
     /// calling loadCurrency to fetch currency data
@@ -34,7 +33,7 @@ final class CurrencyTableViewController: UITableViewController {
     // MARK: - Properties
 
     /// instantiating CurrencyNetworkManager for model-viewController communication
-    private let currencyNetworkManager = CurrencyNetworkManager()
+    private var currencyNetworkManager: CurrencyNetworkManager!
 
     /// instantiating CurrencyResult and setting properties to reload data of the tableView
     private var currencyResult: CurrencyResult? {
@@ -83,9 +82,9 @@ final class CurrencyTableViewController: UITableViewController {
             action: #selector(addItem))
     }
 
-    /// setting up the delegate
-    private func setupCurrencyNetworkManager() {
-        currencyNetworkManager.delegate = self
+    private func setUpCurrencyNetworkManager() {
+        let session = URLSession(configuration: .default)
+        currencyNetworkManager = CurrencyNetworkManager(session: session)
     }
 
     @objc private func edit() {

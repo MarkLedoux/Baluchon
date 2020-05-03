@@ -15,7 +15,6 @@
 		6E0219862449C9FF007C4CBB /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8F0E7424488165005FB029 /* NetworkManager.swift */; };
 		6E21886E24547EFD00E31372 /* Translation.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E21886D24547EFD00E31372 /* Translation.json */; };
 		6E21887024547F1F00E31372 /* Weather.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E21886F24547F1F00E31372 /* Weather.json */; };
-		6E218872245487ED00E31372 /* NetworkManagerErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E218871245487ED00E31372 /* NetworkManagerErrorTests.swift */; };
 		6E2188772454A6DF00E31372 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2188752454A6DA00E31372 /* DetailViewController.swift */; };
 		6E2C985C244ECA8C009BEBBD /* NetworkManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4A22172445F77F007AC6C3 /* NetworkManagerError.swift */; };
 		6E2C985D244ECA9F009BEBBD /* CurrrenyDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4A21F524445376007AC6C3 /* CurrrenyDelegate.swift */; };
@@ -87,7 +86,6 @@
 		6E0219832448E3BE007C4CBB /* WeatherCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCell.swift; sourceTree = "<group>"; };
 		6E21886D24547EFD00E31372 /* Translation.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Translation.json; sourceTree = "<group>"; };
 		6E21886F24547F1F00E31372 /* Weather.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Weather.json; sourceTree = "<group>"; };
-		6E218871245487ED00E31372 /* NetworkManagerErrorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerErrorTests.swift; sourceTree = "<group>"; };
 		6E2188752454A6DA00E31372 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		6E2C9861244F31E1009BEBBD /* URLGeneratorForTranslate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLGeneratorForTranslate.swift; sourceTree = "<group>"; };
 		6E2C9863244F3B58009BEBBD /* URLGeneratorForWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLGeneratorForWeather.swift; sourceTree = "<group>"; };
@@ -219,7 +217,6 @@
 				6E7705AE2438C40B00C3BC66 /* CurrencyNetworkManagerTests.swift */,
 				6EA4B4DC2451CD4200FBB585 /* TranslationNetworkManagerTests.swift */,
 				6EA4B4DE2451CD6000FBB585 /* WeatherNetworkManagerTests.swift */,
-				6E218871245487ED00E31372 /* NetworkManagerErrorTests.swift */,
 				6E8F0E7624488A2A005FB029 /* URLSessionFake.swift */,
 				6E8F0E7224487CAA005FB029 /* Currency.json */,
 				6E21886D24547EFD00E31372 /* Translation.json */,
@@ -515,7 +512,6 @@
 				6E8F0E7724488A2A005FB029 /* URLSessionFake.swift in Sources */,
 				6EA4B4D72451CC7800FBB585 /* Main.swift in Sources */,
 				6EA4B4D32451CBFF00FBB585 /* FakeTranslateResponseData.swift in Sources */,
-				6E218872245487ED00E31372 /* NetworkManagerErrorTests.swift in Sources */,
 				6EA4B4D52451CC2800FBB585 /* TranslationNetworkManager.swift in Sources */,
 				6E7705AF2438C40B00C3BC66 /* CurrencyNetworkManagerTests.swift in Sources */,
 				6EA4B4DA2451CC7F00FBB585 /* Sys.swift in Sources */,

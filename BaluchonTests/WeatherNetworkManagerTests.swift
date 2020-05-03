@@ -37,14 +37,18 @@ class WeatherNetworkManagerTests: XCTestCase {
             session: URLSessionFake(
                 data: nil,
                 response: nil,
-                error: NetworkManagerError.failedToFetchRessource))
+                error: NetworkManagerError.failedToFetchRessource(underlineError: nil)))
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
-        weatherNetworkManager.loadWeatherData { _ in
+        weatherNetworkManager.loadWeatherData { result in
             // Then
-            XCTAssertNotNil(NetworkManagerError.failedToFetchRessource)
-            expectation.fulfill()
+            if
+                case .failure(let error) = result,
+                case NetworkManagerError.failedToFetchRessource(underlineError: _) = error
+            {
+                expectation.fulfill()
+            }
         }
         wait(for: [expectation], timeout: 0.01)
     }
@@ -77,10 +81,14 @@ class WeatherNetworkManagerTests: XCTestCase {
 
         // When
         let expectation = XCTestExpectation(description: "Wait for queue change")
-        weatherNetworkManager.loadWeatherData { _ in
+        weatherNetworkManager.loadWeatherData { result in
             // Then
-            XCTAssertNotNil(NetworkManagerError.responseUnsuccessful)
-            expectation.fulfill()
+            if
+                case .failure(let error) = result,
+                case NetworkManagerError.responseUnsuccessful = error
+            {
+                expectation.fulfill()
+            }
         }
         wait(for: [expectation], timeout: 0.01)
     }
@@ -102,5 +110,34 @@ class WeatherNetworkManagerTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 0.01)
     }
+
+//    func testGetWeatherDtaShouldSucceedCompletionIfCorrectDataAndCorrectResponseNoError() {
+//        // Given
+//        let weatherNetworkManager = WeatherNetworkManager(
+//            session: URLSessionFake(
+//                data: FakeWeatherResponseData.weatherCorrectData,
+//                response: FakeWeatherResponseData.responseOK,
+//                error: nil))
+//
+//        // When
+//        let expectation = XCTestExpectation(description: "Wait for queue change")
+//        weatherNetworkManager.loadWeatherData { result in
+//            // Then
+//            XCTAssertNotNil(result)
+//            let weatherResult = [
+//                    "temp": 285.83,
+//                    "feels_like": 283.2,
+//                    "temp_min": 283.71,
+//                    "temp_max": 288.15,
+//                    "pressure": 1018,
+//                    "humidity": 66
+//                ]
+//            if case let .success(weatherMainResult) = result {
+//                XCTAssertEqual([weatherMainResult.main], weatherResult)
+//            }
+//            expectation.fulfill()
+//        }
+//        wait(for: [expectation], timeout: 0.01)
+//    }
 
 }

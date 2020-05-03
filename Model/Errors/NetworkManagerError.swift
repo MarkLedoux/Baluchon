@@ -10,13 +10,14 @@ import Foundation
 
 /// errors that can happen in the application
 enum NetworkManagerError: Error {
-    case failedToFetchRessource
+    case failedToFetchRessource(underlineError: Error?)
     case requestFailed
     case jsonConversionFailure
     case invalidData
     case responseUnsuccessful
     case jsonParsingFailure
     case missingURL
+    case noDataAfterFetchingResource
 }
 
 extension NetworkManagerError {
@@ -37,6 +38,8 @@ extension NetworkManagerError {
             return "There was an error parsing the json data"
         case .missingURL:
             return "The URL is missing, cannot make request"
+        case .noDataAfterFetchingResource:
+            return "An error occured, there was no data after fetching the resource"
         }
     }
 }
