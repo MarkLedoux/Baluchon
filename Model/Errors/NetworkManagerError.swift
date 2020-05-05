@@ -18,6 +18,7 @@ enum NetworkManagerError: Error {
     case jsonParsingFailure
     case missingURL
     case noDataAfterFetchingResource
+    case failedToCreateURL(message: String)
 }
 
 extension NetworkManagerError {
@@ -40,6 +41,8 @@ extension NetworkManagerError {
             return "The URL is missing, cannot make request"
         case .noDataAfterFetchingResource:
             return "An error occured, there was no data after fetching the resource"
+        case .failedToCreateURL:
+            return "Failed to create URL"
         }
     }
 }

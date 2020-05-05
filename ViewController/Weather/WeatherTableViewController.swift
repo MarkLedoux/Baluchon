@@ -8,6 +8,7 @@
 
 import UIKit
 
+// swiftlint:disable force_cast
 final class WeatherTableViewController: UITableViewController {
     var cities: [WeatherResult] = []
 
@@ -46,20 +47,23 @@ final class WeatherTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! WeatherCell
 
         guard let weatherResult = weatherResult else { return UITableViewCell() }
+        let mainWeather = weatherResult.main.map { (result) -> Main in
+            let weatherMain = result
+            return weatherMain
+        }
+        let weatherWeather = weatherResult.weather.map { (result) -> WeatherElement in
+            let weathersWeather = result
+            return weathersWeather
+        }
 
-        let weatherCity = weatherResult.name
-
-        cell.textLabel?.text = weatherCity
+        cell.temperatureLabel.text = mainWeather[indexPath.row].temp.description
+        cell.weatherDescriptionLabel.text = weatherWeather[indexPath.row].description.description
+        cell.cityNameLabel.text = weatherResult.name.description
+        cell.weatherImageLabel.image = UIImage(named: "sleet")
         return cell
-    }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc = DetailViewController()
-        vc.detailItem = cities[indexPath.row]
-        navigationController?.pushViewController(vc, animated: true)
     }
 
     // MARK: - Private Methods

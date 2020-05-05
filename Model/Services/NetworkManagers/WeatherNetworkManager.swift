@@ -31,6 +31,7 @@ class WeatherNetworkManager: NetworkManager {
 
     /// fetching weather data and decoding it 
     func loadWeatherData(completion: @escaping(Result<WeatherResult, NetworkManagerError>) -> Void) {
+        // TODO: - use guard for url 
         fetch(with: urlProvider.createWeatherURL()!, completion: completion)
     }
 }

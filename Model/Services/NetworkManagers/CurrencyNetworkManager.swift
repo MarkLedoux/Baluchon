@@ -28,6 +28,11 @@ class CurrencyNetworkManager: NetworkManager {
     /// fetching currency data and decoding it
     /// - Parameter completion: Result with CurrencyResult and NetworkManagerError
     func loadCurrency(completion: @escaping(Result<CurrencyResult, NetworkManagerError>) -> Void) {
-        fetch(with: url.createCurrencyURL()!, completion: completion)
+        guard let url = url.createCurrencyURL() else {
+            completion(.failure(.failedToCreateURL(message: #function)))
+            assertionFailure("Failed to create URL \(#function)")
+            return
+        }
+        fetch(with: url, completion: completion)
     }
 }

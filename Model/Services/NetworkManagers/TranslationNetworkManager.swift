@@ -35,6 +35,7 @@ class TranslationNetworkManager: NetworkManager {
     func makeRequest(
         textToTranslate: String,
         completion: @escaping(Result<TranslationResult, NetworkManagerError>) -> Void) {
+        //TODO: - use guard for url 
         fetch(with: urlProvider.createTranslateURL()!, completion: completion)
     }
 }
