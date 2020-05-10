@@ -8,22 +8,35 @@
 
 import Foundation
 
-final class URLGeneratorForCurrency {
-    private var components = URLComponentManager()
+protocol URLGeneratorForCurrencyProtocol {
+	func createCurrencyURL() -> URL?
+}
 
-    func createCurrencyURL() -> URL? {
-        let currencyURL = components.createURL(
-            scheme: "http",
-            host: "data.fixer.io",
-            path: "/api/latest",
-            queryItems: [
-                URLQueryItem(
-                    name: "access_key",
-                    value: "ec4830ae63993cf83fa637d7c488b1bf"),
-                URLQueryItem(
-                    name: "symbols",
-                    value: "EUR,USD,GBP,AUD,JPY")
-        ])
-        return currencyURL
-    }
+final class URLGeneratorForCurrency: URLGeneratorForCurrencyProtocol  {
+	private var components = URLComponentManager()
+	
+	func createCurrencyURL() -> URL? {
+		let currencyURL = components.createURL(
+			scheme: "http",
+			host: "data.fixer.io",
+			path: "/api/latest",
+			queryItems: [
+				URLQueryItem(
+					name: "access_key",
+					value: "ec4830ae63993cf83fa637d7c488b1bf"),
+				URLQueryItem(
+					name: "symbols",
+					value: "EUR,USD,GBP,AUD,JPY")
+		])
+		return currencyURL
+	}
+}
+
+
+final class URLGeneratorForCurrencyMock: URLGeneratorForCurrencyProtocol  {
+	private var components = URLComponentManager()
+	
+	func createCurrencyURL() -> URL? {
+		return nil
+	}
 }

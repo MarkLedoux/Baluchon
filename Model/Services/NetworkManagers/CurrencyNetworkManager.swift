@@ -9,30 +9,30 @@
 import Foundation
 
 class CurrencyNetworkManager: NetworkManager {
-
-    // MARK: - Public Properties
-    /// setting up currency delegate
-    weak var delegate: CurrencyDelegate?
-
-    // MARK: - Private Properties
-    private var url = URLGeneratorForCurrency()
-    private var task: URLSessionDataTask?
-    internal var session: URLSession
-
-    // MARK: - Init
-    init(session: URLSession) {
-        self.session = session
-    }
-
-    // MARK: - Public Methods
-    /// fetching currency data and decoding it
-    /// - Parameter completion: Result with CurrencyResult and NetworkManagerError
-    func loadCurrency(completion: @escaping(Result<CurrencyResult, NetworkManagerError>) -> Void) {
-        guard let url = url.createCurrencyURL() else {
-            completion(.failure(.failedToCreateURL(message: #function)))
-            assertionFailure("Failed to create URL \(#function)")
-            return
-        }
-        fetch(with: url, completion: completion)
-    }
+	
+	// MARK: - Public Properties
+	/// setting up currency delegate
+	weak var delegate: CurrencyDelegate?
+	
+	// MARK: - Private Properties
+	private var urlGenerator: URLGeneratorForCurrencyProtocol
+	private var task: URLSessionDataTask?
+	internal var session: URLSession
+	
+	// MARK: - Init
+	init(session: URLSession, urlGenerator: URLGeneratorForCurrencyProtocol = URLGeneratorForCurrency()) {
+		self.session = session
+		self.urlGenerator = urlGenerator
+	}
+	
+	// MARK: - Public Methods
+	/// fetching currency data and decoding it
+	/// - Parameter completion: Result with CurrencyResult and NetworkManagerError
+	func loadCurrency(completion: @escaping(Result<CurrencyResult, NetworkManagerError>) -> Void) {
+		guard let url = urlGenerator.createCurrencyURL() else {
+			completion(.failure(.failedToCreateURL(message: #function)))
+			return
+		}
+		fetch(with: url, completion: completion)
+	}
 }
