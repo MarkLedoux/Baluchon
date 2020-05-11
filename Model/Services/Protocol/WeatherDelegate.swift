@@ -9,5 +9,5 @@
 import Foundation
 
 protocol WeatherDelegate: class {
-    func didGetWeatherData(weatherResult: WeatherResult)
+	func didGetWeatherData(weatherResult: WeatherResult)
 }

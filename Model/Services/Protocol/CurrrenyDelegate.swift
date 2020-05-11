@@ -9,5 +9,5 @@
 import Foundation
 
 protocol CurrencyDelegate: class {
-    func didGetCurrencyData(currencyResult: CurrencyResult)
+	func didGetCurrencyData(currencyResult: CurrencyResult)
 }

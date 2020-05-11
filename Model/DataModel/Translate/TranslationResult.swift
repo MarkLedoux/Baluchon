@@ -10,17 +10,17 @@ import Foundation
 
 /// defining translation data
 struct TranslationResult: Codable {
-    let source: String
-    let target: String
-    let q: String
-    let mimeType: String
-    let translations: [String: String]
-    let translatedText: String
+	let source: String
+	let target: String
+	let q: String
+	let mimeType: String
+	let translations: [String: String]
+	let translatedText: String
 }
 
 /// definining keys for the translation data 
 private enum CodingKeys: String, CodingKey {
-    case source = "sourceLanguageCode"
-    case target = "targetLanguageCode"
-    case q, mimeType, translations, translatedText
+	case source = "sourceLanguageCode"
+	case target = "targetLanguageCode"
+	case q, mimeType, translations, translatedText
 }

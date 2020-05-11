@@ -12,9 +12,9 @@ protocol URLGeneratorForCurrencyProtocol {
 	func createCurrencyURL() -> URL?
 }
 
-final class URLGeneratorForCurrency: URLGeneratorForCurrencyProtocol  {
+final class URLGeneratorForCurrency: URLGeneratorForCurrencyProtocol {
 	private var components = URLComponentManager()
-	
+
 	func createCurrencyURL() -> URL? {
 		let currencyURL = components.createURL(
 			scheme: "http",
@@ -32,10 +32,9 @@ final class URLGeneratorForCurrency: URLGeneratorForCurrencyProtocol  {
 	}
 }
 
-
-final class URLGeneratorForCurrencyMock: URLGeneratorForCurrencyProtocol  {
+final class URLGeneratorForCurrencyMock: URLGeneratorForCurrencyProtocol {
 	private var components = URLComponentManager()
-	
+
 	func createCurrencyURL() -> URL? {
 		return nil
 	}

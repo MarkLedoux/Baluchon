@@ -9,15 +9,15 @@
 import Foundation
 
 final class URLComponentManager {
-    private var components = URLComponents()
-    func createURL(scheme: String, host: String, path: String, queryItems: [URLQueryItem]? ) -> URL? {
-        var url: URL? {
-            components.scheme = scheme
-            components.host = host
-            components.path = path
-            components.queryItems = queryItems
-            return components.url
-        }
-        return url
-    }
+	private var components = URLComponents()
+	func createURL(scheme: String, host: String, path: String, queryItems: [URLQueryItem]? ) -> URL? {
+		var url: URL? {
+			components.scheme = scheme
+			components.host = host
+			components.path = path
+			components.queryItems = queryItems
+			return components.url
+		}
+		return url
+	}
 }

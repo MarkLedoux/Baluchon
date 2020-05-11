@@ -9,26 +9,26 @@
 import Foundation
 
 class WeatherNetworkManager: NetworkManager {
-	
+
 	// MARK: - Public Properties
-	
+
 	/// setting up weather delegate
 	weak var delegate: WeatherDelegate?
-	
+
 	// MARK: - Private Properties
 	private var urlGenerator = URLGeneratorForWeather()
-	
+
 	private var task: URLSessionDataTask?
 	internal var session: URLSession
-	
+
 	init(session: URLSession) {
 		self.session = session
 	}
-	
+
 	init(configuration: URLSessionConfiguration = .default) {
 		session = URLSession(configuration: configuration)
 	}
-	
+
 	/// fetching weather data and decoding it 
 	func loadWeatherData(completion: @escaping(Result<WeatherResult, NetworkManagerError>) -> Void) {
 		guard let url = urlGenerator.createWeatherURL() else {

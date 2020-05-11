@@ -9,28 +9,28 @@
 import Foundation
 
 class TranslationNetworkManager: NetworkManager {
-	
+
 	// MARK: - Public Properties
 	/// setting up weather delegate
 	weak var delegate: TranslateDelegate?
-	
+
 	// MARK: - Private Properties
-	
+
 	private var urlGenerator = URLGeneratorForTranslate()
 	private var request: URLRequest?
 	private var textToTranslate: String?
-	
+
 	private var task: URLSessionDataTask?
 	internal var session: URLSession
-	
+
 	init(session: URLSession) {
 		self.session = session
 	}
-	
+
 	init(configuration: URLSessionConfiguration = .default) {
 		session = URLSession(configuration: configuration)
 	}
-	
+
 	///test function to make the request work
 	func makeRequest(
 		textToTranslate: String,
@@ -39,7 +39,7 @@ class TranslationNetworkManager: NetworkManager {
 			completion(.failure(.failedToCreateURL(message: #function)))
 			return
 		}
-		
+
 		fetch(with: url, completion: completion)
 	}
 }

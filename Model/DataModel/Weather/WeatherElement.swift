@@ -10,10 +10,10 @@ import Foundation
 
 ///defining weatherElement data and its keys 
 struct WeatherElement: Codable {
-    let id: Int
-    let main, description, icon: String
+	let id: Int
+	let main, description, icon: String
 }
 
 private enum CodingKeys: String, CodingKey {
-    case id, main, description, icon
+	case id, main, description, icon
 }
