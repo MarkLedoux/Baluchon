@@ -8,7 +8,10 @@
 
 import UIKit
 
-extension CurrencyTableViewController: UITableViewDataSource {
+// swiftlint:disable force_cast
+class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
+	/// instantiating CurrencyResult and setting properties to reload data of the tableView
+	var currencyResult: CurrencyResult?
 
 	// MARK: - Methods
 
@@ -19,7 +22,7 @@ extension CurrencyTableViewController: UITableViewDataSource {
 
 	/// defining what cell needs to be returned  - line 51-60 need to be moved to a subclass of the cell
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CurrencyCell
 
 		guard let currencyResult = currencyResult else { return UITableViewCell() }
 
@@ -28,19 +31,13 @@ extension CurrencyTableViewController: UITableViewDataSource {
 
 		let currencyValue = currencyBases[indexPath.row]
 
-		cell.textLabel?.text = currencyValue
+		cell.currencyBaseAndRate.text = currencyValue
 		return cell
 	}
 }
 
-extension CurrencyTableViewController: UITableViewDelegate {
+class CurrencyTableViewDelegate: NSObject, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
-	}
-}
-
-extension CurrencyTableViewController: CurrencyDelegate {
-	func didGetCurrencyData(currencyResult: CurrencyResult) {
-		self.currencyResult = currencyResult
 	}
 }

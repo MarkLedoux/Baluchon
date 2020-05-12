@@ -9,6 +9,8 @@
 import UIKit
 
 class CurrencyCell: UITableViewCell {
+	@IBOutlet var countryImage: UIImageView!
+	@IBOutlet var currencyBaseAndRate: UILabel!
 
 	override func awakeFromNib() {
 		super.awakeFromNib()

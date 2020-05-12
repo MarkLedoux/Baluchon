@@ -8,23 +8,37 @@
 
 import UIKit
 
-final class CurrencyTableViewController: UIViewController {
-	/// instantiating CurrencyResult and setting properties to reload data of the tableView
-	var currencyResult: CurrencyResult?
+// swiftlint:disable weak_delegate
+extension CurrencyViewController: CurrencyDelegate {
+	func didGetCurrencyData(currencyResult: CurrencyResult) {
+		currencyTableViewDataSource.currencyResult = currencyResult
+		currencyTableView.reloadData()
+	}
+}
+
+final class CurrencyViewController: UIViewController {
+
+	@IBOutlet var currencyTableView: UITableView!
 
 	/// setting up the navigation bar and instancing CurrencyNetworkManager
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setupNavigationBar()
 		setUpCurrencyNetworkManager()
+		currencyTableView.dataSource = currencyTableViewDataSource
+		currencyTableView.delegate = currencyTableViewDelegate
 	}
 
 	/// calling loadCurrency to fetch currency data
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		currencyNetworkManager.loadCurrency { result in
+		currencyNetworkManager.loadCurrency { [weak self] result in
+			guard let self = self else { return }
 			switch result {
-			case .success:
+			case .success(let currencyResult):
+				DispatchQueue.main.async {
+					self.handle(currencyResult: currencyResult)
+				}
 				print("Successfully fetched currency data")
 			case .failure:
 				print("Failed to fetch currency data")
@@ -32,10 +46,17 @@ final class CurrencyTableViewController: UIViewController {
 		}
 	}
 
-	// MARK: - Properties
+	func handle(currencyResult: CurrencyResult) {
+			currencyTableViewDataSource.currencyResult = currencyResult
+			currencyTableView.reloadData()
+	}
 
+	// MARK: - Properties
 	/// instantiating CurrencyNetworkManager for model-viewController communication
 	private var currencyNetworkManager: CurrencyNetworkManager!
+
+	private let currencyTableViewDataSource = CurrencyTableViewDataSource()
+	private let currencyTableViewDelegate = CurrencyTableViewDelegate()
 
 	// MARK: - Private Methods
 	/// setup for the navigation bar

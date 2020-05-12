@@ -10,15 +10,6 @@ import Foundation
 
 class CurrencyNetworkManager: NetworkManager {
 
-	// MARK: - Public Properties
-	/// setting up currency delegate
-	weak var delegate: CurrencyDelegate?
-
-	// MARK: - Private Properties
-	private var urlGenerator: URLGeneratorForCurrencyProtocol
-	private var task: URLSessionDataTask?
-	internal var session: URLSession
-
 	// MARK: - Init
 	init(session: URLSession, urlGenerator: URLGeneratorForCurrencyProtocol = URLGeneratorForCurrency()) {
 		self.session = session
@@ -35,4 +26,10 @@ class CurrencyNetworkManager: NetworkManager {
 		}
 		fetch(with: url, completion: completion)
 	}
+
+	// MARK: - Private Properties
+	private var urlGenerator: URLGeneratorForCurrencyProtocol
+	private var task: URLSessionDataTask?
+	internal var session: URLSession
+
 }
