@@ -8,7 +8,17 @@
 
 import UIKit
 
-final class TranslateViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
+extension TranslateViewController: TranslateDelegate {
+	func didFetchTranslationData(translationResult: TranslationResult) {
+		translationInput.delegate = translationTextFieldDelegate
+	}
+}
+
+final class TranslateViewController: UIViewController {
+	
+	// MARK: - Private Properties
+	@IBOutlet private weak var sendTranslationButton: UIButton!
+	@IBOutlet private weak var translationInput: UITextField!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -18,20 +28,17 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-
 	}
 
-	// MARK: - Private Properties
-
-	@IBOutlet weak var sendTranslationButton: UIButton!
-	@IBOutlet private weak var translationInput: UITextField!
 
 	private let translationNetworkManager = TranslationNetworkManager()
-	private var translationResult: [String: Any]?
+	private let translationTextFieldDelegate = TranslateTextFieldDelegate()
+	private let translationTextViewDelegate = TranslateTextViewDelegate()
+	private var translationResult: TranslationResult?
 	private var targetText: String?
 
 	// MARK: - Private Methods
-
+	
 	private func setNavigationBar() {
 		navigationItem.title = "Translate"
 	}
@@ -48,25 +55,18 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		let vc = segue.destination as? TranslatedTextViewController
 
-		translationNetworkManager.makeRequest(textToTranslate: translationInput.text!) { (result) in
-			if
-				case .success(let results) = result {
-				let text = results.translations.map { (_, value) -> String in
-					return "\(value)"
-				}.description
-				vc?.translatedText?.text = text
+		guard let textToTranslate = translationInput.text else { return }
+		translationNetworkManager.makeRequest(textToTranslate: textToTranslate) { [weak self] result in
+			switch result { 
+			case .success(let translationResult): 
+				DispatchQueue.main.async {
+					vc?.translatedText.text = translationResult.translations.keys.description
+				}
+				print("Successfully fetched translation data")
+			case .failure: 
+				print("Failed to fetch translation data")
 			}
 		}
-	}
-
-	// This function will be called when the textField object( jobTitleTextField ) begin editing.
-	internal func textFieldDidBeginEditing(_ textField: UITextField) {
-		print("textFieldDidBeginEditing")
-	}
-
-	// This function is called when you click return key in the text field.
-	internal func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-		return true
 	}
 
 	/// button animation on tap when sending request
@@ -78,11 +78,5 @@ final class TranslateViewController: UIViewController, UITextFieldDelegate, UITe
 				sender.transform = CGAffineTransform(scaleX: 0.975, y: 0.96)}, completion: { _ in
 					UIButton.animate(withDuration: 0.2, animations: { sender.transform = CGAffineTransform.identity })
 		})
-	}
-}
-
-extension TranslateViewController: TranslateDelegate {
-	func didFetchTranslationData(translationResult: [String: Any]) {
-		self.translationResult = translationResult
 	}
 }

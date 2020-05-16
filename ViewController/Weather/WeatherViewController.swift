@@ -8,6 +8,7 @@
 
 import UIKit
 
+// swiftlint:disable weak_delegate
 extension WeatherViewController: WeatherDelegate {
 	func didGetWeatherData(weatherResult: WeatherResult) {
 		weatherTableViewDataSource.weatherResult = weatherResult

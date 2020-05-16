@@ -33,6 +33,8 @@
 		6E4A22142445AEA0007AC6C3 /* WeatherNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4A22132445AEA0007AC6C3 /* WeatherNetworkManager.swift */; };
 		6E4A22162445AEAC007AC6C3 /* WeatherDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4A22152445AEAC007AC6C3 /* WeatherDelegate.swift */; };
 		6E4A22182445F77F007AC6C3 /* NetworkManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4A22172445F77F007AC6C3 /* NetworkManagerError.swift */; };
+		6E500B7924705D82009F188E /* TranslateTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E500B7824705D82009F188E /* TranslateTextViewDelegate.swift */; };
+		6E500B7B2470708B009F188E /* TrranslationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E500B7A2470708B009F188E /* TrranslationAPI.swift */; };
 		6E62331A244C3C2A008B18E1 /* TranslatedTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E623319244C3C2A008B18E1 /* TranslatedTextViewController.swift */; };
 		6E62331C244C49D3008B18E1 /* URLGeneratorForCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E62331B244C49D3008B18E1 /* URLGeneratorForCurrency.swift */; };
 		6E6604DF246EC092000BA21B /* Coord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6604DE246EC092000BA21B /* Coord.swift */; };
@@ -101,6 +103,8 @@
 		6E4A22132445AEA0007AC6C3 /* WeatherNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherNetworkManager.swift; sourceTree = "<group>"; };
 		6E4A22152445AEAC007AC6C3 /* WeatherDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDelegate.swift; sourceTree = "<group>"; };
 		6E4A22172445F77F007AC6C3 /* NetworkManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManagerError.swift; sourceTree = "<group>"; };
+		6E500B7824705D82009F188E /* TranslateTextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateTextViewDelegate.swift; sourceTree = "<group>"; };
+		6E500B7A2470708B009F188E /* TrranslationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrranslationAPI.swift; sourceTree = "<group>"; };
 		6E623319244C3C2A008B18E1 /* TranslatedTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatedTextViewController.swift; sourceTree = "<group>"; };
 		6E62331B244C49D3008B18E1 /* URLGeneratorForCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLGeneratorForCurrency.swift; sourceTree = "<group>"; };
 		6E6604DE246EC092000BA21B /* Coord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coord.swift; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				6E335AC4243B77BC00CD22B4 /* TranslateViewController.swift */,
+				6E500B7824705D82009F188E /* TranslateTextViewDelegate.swift */,
 				6E623319244C3C2A008B18E1 /* TranslatedTextViewController.swift */,
 			);
 			path = Translate;
@@ -341,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				6EF564DC2443E62C00B9BB9A /* TranslationResult.swift */,
+				6E500B7A2470708B009F188E /* TrranslationAPI.swift */,
 			);
 			path = Translate;
 			sourceTree = "<group>";
@@ -497,10 +503,12 @@
 				6E6604DF246EC092000BA21B /* Coord.swift in Sources */,
 				6EF564DD2443E62C00B9BB9A /* TranslationResult.swift in Sources */,
 				6E4A21F624445376007AC6C3 /* CurrrenyDelegate.swift in Sources */,
+				6E500B7924705D82009F188E /* TranslateTextViewDelegate.swift in Sources */,
 				6E7FD729246FDB25009E3F74 /* Wind.swift in Sources */,
 				6E335AC3243B741A00CD22B4 /* CurrencyViewController.swift in Sources */,
 				6E7FD72B246FE365009E3F74 /* Country.swift in Sources */,
 				6E7BDAEE24691D3B00DFAEF5 /* WeatherTableViewDelegate.swift in Sources */,
+				6E500B7B2470708B009F188E /* TrranslationAPI.swift in Sources */,
 				6E335ACB243B80FE00CD22B4 /* CurrencyResult.swift in Sources */,
 				6E77059A2438C40A00C3BC66 /* SceneDelegate.swift in Sources */,
 			);

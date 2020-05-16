@@ -46,7 +46,7 @@ final class CurrencyViewController: UIViewController {
 		}
 	}
 
-	func handle(currencyResult: CurrencyResult) {
+	private func handle(currencyResult: CurrencyResult) {
 			currencyTableViewDataSource.currencyResult = currencyResult
 			currencyTableView.reloadData()
 	}

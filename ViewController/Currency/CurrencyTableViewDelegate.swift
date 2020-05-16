@@ -9,7 +9,7 @@
 import UIKit
 
 // swiftlint:disable force_cast
-class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
+final class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
 	/// instantiating CurrencyResult and setting properties to reload data of the tableView
 	var currencyResult: CurrencyResult?
 
@@ -27,8 +27,6 @@ class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
 		guard let currencyResult = currencyResult else { return UITableViewCell() }
 		let currencyCodes = Array(currencyResult.rates.keys)
 		let imageCode = currencyCodes.description
-		print(imageCode)
-		
 
 		//sorting keys only results in values being off in the tableview
 		let currencyBases = currencyResult.rates.map { "\($0) \($1)" }.sorted()
@@ -39,8 +37,21 @@ class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
 		cell.imageView?.image = UIImage(named: imageCode)
 		return cell
 	}
+	
+	func tableView(
+		_ tableView: UITableView, 
+		commit editingStyle: UITableViewCell.EditingStyle, 
+		forRowAt indexPath: IndexPath) {
+		
+//		if editingStyle == .delete {
+//			objects.remove(at: indexPath.row)
+//			tableView.deleteRows(at: [indexPath], with: .fade)
+//		} else if editingStyle == .insert {
+//			// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+//		}
+	}
 }
 
-class CurrencyTableViewDelegate: NSObject, UITableViewDelegate {
+final class CurrencyTableViewDelegate: NSObject, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { }
 }

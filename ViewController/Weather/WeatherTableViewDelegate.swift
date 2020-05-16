@@ -35,8 +35,18 @@ class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
 		cell.temperatureLabel.text = "\(Int((temp!-273.15)))°C"
 		cell.weatherDescriptionLabel.text = desc
 		cell.cityNameLabel.text = cityName
-		cell.weatherImageLabel.image = UIImage(named: weatherImage)
 		
+			guard let url = URL(string: "http://openweathermap.org/img/w/\(weatherImage).png") else { return UITableViewCell() }
+			URLSession.shared.dataTask(with: url) { iconData, _, _ in 
+				if let data = iconData { 
+					DispatchQueue.main.async {
+						cell.weatherImageLabel.image = UIImage(data: data)
+					}
+				} else { 
+					print("Failed to fetch image data")
+				}
+			}
+		cell.weatherImageLabel.image = UIImage(named: weatherImage)
 		return cell
 	}
 }

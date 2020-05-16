@@ -12,7 +12,7 @@ enum Country: CaseIterable {
 	case AFN
 	case EUR
 	
-	var image: UIImage { 
+	var currencyCode: UIImage { 
 		switch self { 
 		case .AFN: 
 			return UIImage(named: "afghanistan")!
@@ -20,271 +20,225 @@ enum Country: CaseIterable {
 			return UIImage(named: "european-union")!
 		}
 	}
-//	ALBANIA	Lek	ALL	008
-//	ALGERIA	Algerian Dinar	DZD	012
-//	AMERICAN SAMOA	US Dollar	USD	840
-//	ANDORRA	Euro	EUR	978
-//	ANGOLA	Kwanza	AOA	973
-//	ANGUILLA	East Caribbean Dollar	XCD	951
-//	ANTARCTICA	No universal currency		
-//	ANTIGUA AND BARBUDA	East Caribbean Dollar	XCD	951
-//	ARGENTINA	Argentine Peso	ARS	032
-//	ARMENIA	Armenian Dram	AMD	051
-//	ARUBA	Aruban Florin	AWG	533
-//	AUSTRALIA	Australian Dollar	AUD	036
-//	AUSTRIA	Euro	EUR	978
-//	AZERBAIJAN	Azerbaijanian Manat	AZN	944
-//	BAHAMAS (THE)	Bahamian Dollar	BSD	044
-//	BAHRAIN	Bahraini Dinar	BHD	048
-//	BANGLADESH	Taka	BDT	050
-//	BARBADOS	Barbados Dollar	BBD	052
-//	BELARUS	Belarussian Ruble	BYN	933
-//	BELGIUM	Euro	EUR	978
-//	BELIZE	Belize Dollar	BZD	084
-//	BENIN	CFA Franc BCEAO	XOF	952
-//	BERMUDA	Bermudian Dollar	BMD	060
-//	BHUTAN	Ngultrum	BTN	064
-//	BHUTAN	Indian Rupee	INR	356
-//	BOLIVIA (PLURINATIONAL STATE OF)	Boliviano	BOB	068
-//	BOLIVIA (PLURINATIONAL STATE OF)	Mvdol	BOV	984
-//	BONAIRE, SINT EUSTATIUS AND SABA	US Dollar	USD	840
-//	BOSNIA AND HERZEGOVINA	Convertible Mark	BAM	977
-//	BOTSWANA	Pula	BWP	072
-//	BOUVET ISLAND	Norwegian Krone	NOK	578
-//	BRAZIL	Brazilian Real	BRL	986
-//	BRITISH INDIAN OCEAN TERRITORY (THE)	US Dollar	USD	840
-//	BRUNEI DARUSSALAM	Brunei Dollar	BND	096
-//	BULGARIA	Bulgarian Lev	BGN	975
-//	BURKINA FASO	CFA Franc BCEAO	XOF	952
-//	BURUNDI	Burundi Franc	BIF	108
-//	CABO VERDE	Cabo Verde Escudo	CVE	132
-//	CAMBODIA	Riel	KHR	116
-//	CAMEROON	CFA Franc BEAC	XAF	950
-//	CANADA	Canadian Dollar	CAD	124
-//	CAYMAN ISLANDS (THE)	Cayman Islands Dollar	KYD	136
-//	CENTRAL AFRICAN REPUBLIC (THE)	CFA Franc BEAC	XAF	950
-//	CHAD	CFA Franc BEAC	XAF	950
-//	CHILE	Unidad de Fomento	CLF	990
-//	CHILE	Chilean Peso	CLP	152
-//	CHINA	Yuan Renminbi	CNY	156
-//	CHRISTMAS ISLAND	Australian Dollar	AUD	036
-//	COCOS (KEELING) ISLANDS (THE)	Australian Dollar	AUD	036
-//	COLOMBIA	Colombian Peso	COP	170
-//	COLOMBIA	Unidad de Valor Real	COU	970
-//	COMOROS (THE)	Comoro Franc	KMF	174
-//	CONGO (THE DEMOCRATIC REPUBLIC OF THE)	Congolese Franc	CDF	976
-//	CONGO (THE)	CFA Franc BEAC	XAF	950
-//	COOK ISLANDS (THE)	New Zealand Dollar	NZD	554
-//	COSTA RICA	Costa Rican Colon	CRC	188
-//	CROATIA	Kuna	HRK	191
-//	CUBA	Peso Convertible	CUC	931
-//	CUBA	Cuban Peso	CUP	192
-//	CURAÇAO	Netherlands Antillean Guilder	ANG	532
-//	CYPRUS	Euro	EUR	978
-//	CZECH REPUBLIC (THE)	Czech Koruna	CZK	203
-//	CÔTE D'IVOIRE	CFA Franc BCEAO	XOF	952
-//	DENMARK	Danish Krone	DKK	208
-//	DJIBOUTI	Djibouti Franc	DJF	262
-//	DOMINICA	East Caribbean Dollar	XCD	951
-//	DOMINICAN REPUBLIC (THE)	Dominican Peso	DOP	214
-//	ECUADOR	US Dollar	USD	840
-//	EGYPT	Egyptian Pound	EGP	818
-//	EL SALVADOR	El Salvador Colon	SVC	222
-//	EL SALVADOR	US Dollar	USD	840
-//	EQUATORIAL GUINEA	CFA Franc BEAC	XAF	950
-//	ERITREA	Nakfa	ERN	232
-//	ESTONIA	Euro	EUR	978
-//	ETHIOPIA	Ethiopian Birr	ETB	230
-//	EUROPEAN UNION	Euro	EUR	978
-//	FALKLAND ISLANDS (THE) [MALVINAS]	Falkland Islands Pound	FKP	238
-//	FAROE ISLANDS (THE)	Danish Krone	DKK	208
-//	FIJI	Fiji Dollar	FJD	242
-//	FINLAND	Euro	EUR	978
-//	FRANCE	Euro	EUR	978
-//	FRENCH GUIANA	Euro	EUR	978
-//	FRENCH POLYNESIA	CFP Franc	XPF	953
-//	FRENCH SOUTHERN TERRITORIES (THE)	Euro	EUR	978
-//	GABON	CFA Franc BEAC	XAF	950
-//	GAMBIA (THE)	Dalasi	GMD	270
-//	GEORGIA	Lari	GEL	981
-//	GERMANY	Euro	EUR	978
-//	GHANA	Ghana Cedi	GHS	936
-//	GIBRALTAR	Gibraltar Pound	GIP	292
-//	GREECE	Euro	EUR	978
-//	GREENLAND	Danish Krone	DKK	208
-//	GRENADA	East Caribbean Dollar	XCD	951
-//	GUADELOUPE	Euro	EUR	978
-//	GUAM	US Dollar	USD	840
-//	GUATEMALA	Quetzal	GTQ	320
-//	GUERNSEY	Pound Sterling	GBP	826
-//	GUINEA	Guinea Franc	GNF	324
-//	GUINEA-BISSAU	CFA Franc BCEAO	XOF	952
-//	GUYANA	Guyana Dollar	GYD	328
-//	HAITI	Gourde	HTG	332
-//	HAITI	US Dollar	USD	840
-//	HEARD ISLAND AND McDONALD ISLANDS	Australian Dollar	AUD	036
-//	HOLY SEE (THE)	Euro	EUR	978
-//	HONDURAS	Lempira	HNL	340
-//	HONG KONG	Hong Kong Dollar	HKD	344
-//	HUNGARY	Forint	HUF	348
-//	ICELAND	Iceland Krona	ISK	352
-//	INDIA	Indian Rupee	INR	356
-//	INDONESIA	Rupiah	IDR	360
-//	INTERNATIONAL MONETARY FUND (IMF) 	SDR (Special Drawing Right)	XDR	960
-//	IRAN (ISLAMIC REPUBLIC OF)	Iranian Rial	IRR	364
-//	IRAQ	Iraqi Dinar	IQD	368
-//	IRELAND	Euro	EUR	978
-//	ISLE OF MAN	Pound Sterling	GBP	826
-//	ISRAEL	New Israeli Sheqel	ILS	376
-//	ITALY	Euro	EUR	978
-//	JAMAICA	Jamaican Dollar	JMD	388
-//	JAPAN	Yen	JPY	392
-//	JERSEY	Pound Sterling	GBP	826
-//	JORDAN	Jordanian Dinar	JOD	400
-//	KAZAKHSTAN	Tenge	KZT	398
-//	KENYA	Kenyan Shilling	KES	404
-//	KIRIBATI	Australian Dollar	AUD	036
-//	KOREA (THE DEMOCRATIC PEOPLE’S REPUBLIC OF)	North Korean Won	KPW	408
-//	KOREA (THE REPUBLIC OF)	Won	KRW	410
-//	KUWAIT	Kuwaiti Dinar	KWD	414
-//	KYRGYZSTAN	Som	KGS	417
-//	LAO PEOPLE’S DEMOCRATIC REPUBLIC (THE)	Kip	LAK	418
-//	LATVIA	Euro	EUR	978
-//	LEBANON	Lebanese Pound	LBP	422
-//	LESOTHO	Loti	LSL	426
-//	LESOTHO	Rand	ZAR	710
-//	LIBERIA	Liberian Dollar	LRD	430
-//	LIBYA	Libyan Dinar	LYD	434
-//	LIECHTENSTEIN	Swiss Franc	CHF	756
-//	LITHUANIA	Euro	EUR	978
-//	LUXEMBOURG	Euro	EUR	978
-//	MACAO	Pataca	MOP	446
-//	MADAGASCAR	Malagasy Ariary	MGA	969
-//	MALAWI	Kwacha	MWK	454
-//	MALAYSIA	Malaysian Ringgit	MYR	458
-//	MALDIVES	Rufiyaa	MVR	462
-//	MALI	CFA Franc BCEAO	XOF	952
-//	MALTA	Euro	EUR	978
-//	MARSHALL ISLANDS (THE)	US Dollar	USD	840
-//	MARTINIQUE	Euro	EUR	978
-//	MAURITANIA	Ouguiya	MRU	929
-//	MAURITIUS	Mauritius Rupee	MUR	480
-//	MAYOTTE	Euro	EUR	978
-//	MEMBER COUNTRIES OF THE AFRICAN DEVELOPMENT BANK GROUP	ADB Unit of Account	XUA	965
-//	MEXICO	Mexican Peso	MXN	484
-//	MEXICO	Mexican Unidad de Inversion (UDI)	MXV	979
-//	MICRONESIA (FEDERATED STATES OF)	US Dollar	USD	840
-//	MOLDOVA (THE REPUBLIC OF)	Moldovan Leu	MDL	498
-//	MONACO	Euro	EUR	978
-//	MONGOLIA	Tugrik	MNT	496
-//	MONTENEGRO	Euro	EUR	978
-//	MONTSERRAT	East Caribbean Dollar	XCD	951
-//	MOROCCO	Moroccan Dirham	MAD	504
-//	MOZAMBIQUE	Mozambique Metical	MZN	943
-//	MYANMAR	Kyat	MMK	104
-//	NAMIBIA	Namibia Dollar	NAD	516
-//	NAMIBIA	Rand	ZAR	710
-//	NAURU	Australian Dollar	AUD	036
-//	NEPAL	Nepalese Rupee	NPR	524
-//	NETHERLANDS (THE)	Euro	EUR	978
-//	NEW CALEDONIA	CFP Franc	XPF	953
-//	NEW ZEALAND	New Zealand Dollar	NZD	554
-//	NICARAGUA	Cordoba Oro	NIO	558
-//	NIGER (THE)	CFA Franc BCEAO	XOF	952
-//	NIGERIA	Naira	NGN	566
-//	NIUE	New Zealand Dollar	NZD	554
-//	NORFOLK ISLAND	Australian Dollar	AUD	036
-//	NORTHERN MARIANA ISLANDS (THE)	US Dollar	USD	840
-//	NORWAY	Norwegian Krone	NOK	578
-//	OMAN	Rial Omani	OMR	512
-//	PAKISTAN	Pakistan Rupee	PKR	586
-//	PALAU	US Dollar	USD	840
-//	PALESTINE, STATE OF	No universal currency		
-//	PANAMA	Balboa	PAB	590
-//	PANAMA	US Dollar	USD	840
-//	PAPUA NEW GUINEA	Kina	PGK	598
-//	PARAGUAY	Guarani	PYG	600
-//	PERU	Nuevo Sol	PEN	604
-//	PHILIPPINES (THE)	Philippine Peso	PHP	608
-//	PITCAIRN	New Zealand Dollar	NZD	554
-//	POLAND	Zloty	PLN	985
-//	PORTUGAL	Euro	EUR	978
-//	PUERTO RICO	US Dollar	USD	840
-//	QATAR	Qatari Rial	QAR	634
-//	REPUBLIC OF NORTH MACEDONIA	Denar	MKD	807
-//	ROMANIA	Romanian Leu	RON	946
-//	RUSSIAN FEDERATION (THE)	Russian Ruble	RUB	643
-//	RWANDA	Rwanda Franc	RWF	646
-//	RÉUNION	Euro	EUR	978
-//	SAINT BARTHÉLEMY	Euro	EUR	978
-//	SAINT HELENA, ASCENSION AND TRISTAN DA CUNHA	Saint Helena Pound	SHP	654
-//	SAINT KITTS AND NEVIS	East Caribbean Dollar	XCD	951
-//	SAINT LUCIA	East Caribbean Dollar	XCD	951
-//	SAINT MARTIN (FRENCH PART)	Euro	EUR	978
-//	SAINT PIERRE AND MIQUELON	Euro	EUR	978
-//	SAINT VINCENT AND THE GRENADINES	East Caribbean Dollar	XCD	951
-//	SAMOA	Tala	WST	882
-//	SAN MARINO	Euro	EUR	978
-//	SAO TOME AND PRINCIPE	Dobra	STN	930
-//	SAUDI ARABIA	Saudi Riyal	SAR	682
-//	SENEGAL	CFA Franc BCEAO	XOF	952
-//	SERBIA	Serbian Dinar	RSD	941
-//	SEYCHELLES	Seychelles Rupee	SCR	690
-//	SIERRA LEONE	Leone	SLL	694
-//	SINGAPORE	Singapore Dollar	SGD	702
-//	SINT MAARTEN (DUTCH PART)	Netherlands Antillean Guilder	ANG	532
-//	SISTEMA UNITARIO DE COMPENSACION REGIONAL DE PAGOS "SUCRE"	Sucre	XSU	994
-//	SLOVAKIA	Euro	EUR	978
-//	SLOVENIA	Euro	EUR	978
-//	SOLOMON ISLANDS	Solomon Islands Dollar	SBD	090
-//	SOMALIA	Somali Shilling	SOS	706
-//	SOUTH AFRICA	Rand	ZAR	710
-//	SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS	No universal currency		
-//	SOUTH SUDAN	South Sudanese Pound	SSP	728
-//	SPAIN	Euro	EUR	978
-//	SRI LANKA	Sri Lanka Rupee	LKR	144
-//	SUDAN (THE)	Sudanese Pound	SDG	938
-//	SURINAME	Surinam Dollar	SRD	968
-//	SVALBARD AND JAN MAYEN	Norwegian Krone	NOK	578
-//	SWAZILAND	Lilangeni	SZL	748
-//	SWEDEN	Swedish Krona	SEK	752
-//	SWITZERLAND	WIR Euro	CHE	947
-//	SWITZERLAND	Swiss Franc	CHF	756
-//	SWITZERLAND	WIR Franc	CHW	948
-//	SYRIAN ARAB REPUBLIC	Syrian Pound	SYP	760
-//	TAIWAN (PROVINCE OF CHINA)	New Taiwan Dollar	TWD	901
-//	TAJIKISTAN	Somoni	TJS	972
-//	TANZANIA, UNITED REPUBLIC OF	Tanzanian Shilling	TZS	834
-//	THAILAND	Baht	THB	764
-//	TIMOR-LESTE	US Dollar	USD	840
-//	TOGO	CFA Franc BCEAO	XOF	952
-//	TOKELAU	New Zealand Dollar	NZD	554
-//	TONGA	Pa’anga	TOP	776
-//	TRINIDAD AND TOBAGO	Trinidad and Tobago Dollar	TTD	780
-//	TUNISIA	Tunisian Dinar	TND	788
-//	TURKEY	Turkish Lira	TRY	949
-//	TURKMENISTAN	Turkmenistan New Manat	TMT	934
-//	TURKS AND CAICOS ISLANDS (THE)	US Dollar	USD	840
-//	TUVALU	Australian Dollar	AUD	036
-//	UGANDA	Uganda Shilling	UGX	800
-//	UKRAINE	Hryvnia	UAH	980
-//	UNITED ARAB EMIRATES (THE)	UAE Dirham	AED	784
-//	UNITED KINGDOM OF GREAT BRITAIN AND NORTHERN IRELAND (THE)	Pound Sterling	GBP	826
-//	UNITED STATES MINOR OUTLYING ISLANDS (THE)	US Dollar	USD	840
-//	UNITED STATES OF AMERICA (THE)	US Dollar	USD	840
-//	UNITED STATES OF AMERICA (THE)	US Dollar (Next day)	USN	997
-//	URUGUAY	Uruguay Peso en Unidades Indexadas (URUIURUI)	UYI	940
-//	URUGUAY	Peso Uruguayo	UYU	858
-//	UZBEKISTAN	Uzbekistan Sum	UZS	860
-//	VANUATU	Vatu	VUV	548
-//	VENEZUELA (BOLIVARIAN REPUBLIC OF)	Bolivar	VEF	937
-//	VIET NAM	Dong	VND	704
-//	VIRGIN ISLANDS (BRITISH)	US Dollar	USD	840
-//	VIRGIN ISLANDS (U.S.)	US Dollar	USD	840
-//	WALLIS AND FUTUNA	CFP Franc	XPF	953
-//	WESTERN SAHARA	Moroccan Dirham	MAD	504
-//	YEMEN	Yemeni Rial	YER	886
-//	ZAMBIA	Zambian Kwacha	ZMW	967
-//	ZIMBABWE	Zimbabwe Dollar	ZWL	932
-//	ÅLAND ISLANDS	Euro	EUR
+//	ALBANIA	Lek	ALL
+//	ALGERIA	Algerian Dinar	DZD
+//	AMERICAN SAMOA	US Dollar	USD
+//	ANGOLA	Kwanza	AOA
+//	ANGUILLA	East Caribbean Dollar	XCD		
+//	ANTIGUA AND BARBUDA	East Caribbean Dollar	XCD
+//	ARGENTINA	Argentine Peso	ARS
+//	ARMENIA	Armenian Dram	AMD
+//	ARUBA	Aruban Florin	AWG
+//	AUSTRALIA	Australian Dollar	AUD
+//	AZERBAIJAN	Azerbaijanian Manat	AZN
+//	BAHAMAS (THE)	Bahamian Dollar	BSD
+//	BAHRAIN	Bahraini Dinar	BHD
+//	BANGLADESH	Taka	BDT
+//	BARBADOS	Barbados Dollar	BBD
+//	BELARUS	Belarussian Ruble	BYN
+//	BELIZE	Belize Dollar	BZD
+//	BENIN	CFA Franc BCEAO	XOF
+//	BERMUDA	Bermudian Dollar	BMD
+//	BHUTAN	Ngultrum	BTN
+//	BHUTAN	Indian Rupee	INR
+//	BOLIVIA (PLURINATIONAL STATE OF)	Boliviano	BOB
+//	BOLIVIA (PLURINATIONAL STATE OF)	Mvdol	BOV
+//	BONAIRE, SINT EUSTATIUS AND SABA	US Dollar	USD
+//	BOSNIA AND HERZEGOVINA	Convertible Mark	BAM
+//	BOTSWANA	Pula	BWP
+//	BOUVET ISLAND	Norwegian Krone	NOK
+//	BRAZIL	Brazilian Real	BRL
+//	BRITISH INDIAN OCEAN TERRITORY (THE)	US Dollar	USD
+//	BRUNEI DARUSSALAM	Brunei Dollar	BND
+//	BULGARIA	Bulgarian Lev	BGN
+//	BURKINA FASO	CFA Franc BCEAO	XOF
+//	BURUNDI	Burundi Franc	BIF
+//	CABO VERDE	Cabo Verde Escudo	CVE
+//	CAMBODIA	Riel	KHR
+//	CAMEROON	CFA Franc BEAC	XAF
+//	CANADA	Canadian Dollar	CAD
+//	CAYMAN ISLANDS (THE)	Cayman Islands Dollar	KYD
+//	CENTRAL AFRICAN REPUBLIC (THE)	CFA Franc BEAC	XAF
+//	CHAD	CFA Franc BEAC	XAF
+//	CHILE	Unidad de Fomento	CLF
+//	CHILE	Chilean Peso	CLP
+//	CHINA	Yuan Renminbi	CNY
+//	CHRISTMAS ISLAND	Australian Dollar	AUD
+//	COCOS (KEELING) ISLANDS (THE)	Australian Dollar	AUD
+//	COLOMBIA	Colombian Peso	COP
+//	COLOMBIA	Unidad de Valor Real	COU
+//	COMOROS (THE)	Comoro Franc	KMF
+//	CONGO (THE DEMOCRATIC REPUBLIC OF THE)	Congolese Franc	CDF
+//	CONGO (THE)	CFA Franc BEAC	XAF
+//	COOK ISLANDS (THE)	New Zealand Dollar	NZD
+//	COSTA RICA	Costa Rican Colon	CRC
+//	CROATIA	Kuna	HRK
+//	CUBA	Peso Convertible	CUC
+//	CUBA	Cuban Peso	CUP
+//	CURAÇAO	Netherlands Antillean Guilder	ANG
+//	CZECH REPUBLIC (THE)	Czech Koruna	CZK
+//	CÔTE D'IVOIRE	CFA Franc BCEAO	XOF
+//	DENMARK	Danish Krone	DKK
+//	DJIBOUTI	Djibouti Franc	DJF
+//	DOMINICA	East Caribbean Dollar	XCD
+//	DOMINICAN REPUBLIC (THE)	Dominican Peso	DOP
+//	ECUADOR	US Dollar	USD
+//	EGYPT	Egyptian Pound	EGP
+//	EL SALVADOR	El Salvador Colon	SVC
+//	EL SALVADOR	US Dollar	USD
+//	EQUATORIAL GUINEA	CFA Franc BEAC	XAF
+//	ERITREA	Nakfa	ERN
+//	ETHIOPIA	Ethiopian Birr	ETB
+//	EUROPEAN UNION	Euro	EUR
+//	FALKLAND ISLANDS (THE) [MALVINAS]	Falkland Islands Pound	FKP
+//	FAROE ISLANDS (THE)	Danish Krone	DKK
+//	FIJI	Fiji Dollar	FJD
+//	FRENCH POLYNESIA	CFP Franc	XPF
+//	GABON	CFA Franc BEAC	XAF
+//	GAMBIA (THE)	Dalasi	GMD
+//	GEORGIA	Lari	GEL
+//	GHANA	Ghana Cedi	GHS
+//	GIBRALTAR	Gibraltar Pound	GIP
+//	GREENLAND	Danish Krone	DKK
+//	GRENADA	East Caribbean Dollar	XCD
+//	GUAM	US Dollar	USD
+//	GUATEMALA	Quetzal	GTQ
+//	GUERNSEY	Pound Sterling	GBP
+//	GUINEA	Guinea Franc	GNF
+//	GUINEA-BISSAU	CFA Franc BCEAO	XOF
+//	GUYANA	Guyana Dollar	GYD
+//	HAITI	Gourde	HTG
+//	HEARD ISLAND AND McDONALD ISLANDS	Australian Dollar	AUD
+//	HONDURAS	Lempira	HNL
+//	HONG KONG	Hong Kong Dollar	HKD
+//	HUNGARY	Forint	HUF
+//	ICELAND	Iceland Krona	ISK
+//	INDIA	Indian Rupee	INR
+//	INDONESIA	Rupiah	IDR
+//	INTERNATIONAL MONETARY FUND (IMF) 	SDR (Special Drawing Right)	XDR
+//	IRAN (ISLAMIC REPUBLIC OF)	Iranian Rial	IRR
+//	IRAQ	Iraqi Dinar	IQD
+//	ISLE OF MAN	Pound Sterling	GBP
+//	ISRAEL	New Israeli Sheqel	ILS
+//	JAMAICA	Jamaican Dollar	JMD
+//	JAPAN	Yen	JPY
+//	JERSEY	Pound Sterling	GBP
+//	JORDAN	Jordanian Dinar	JOD
+//	KAZAKHSTAN	Tenge	KZT
+//	KENYA	Kenyan Shilling	KES
+//	KIRIBATI	Australian Dollar	AUD
+//	KOREA (THE DEMOCRATIC PEOPLE’S REPUBLIC OF)	North Korean Won	KPW
+//	KOREA (THE REPUBLIC OF)	Won	KRW
+//	KUWAIT	Kuwaiti Dinar	KWD
+//	KYRGYZSTAN	Som	KGS
+//	LAO PEOPLE’S DEMOCRATIC REPUBLIC (THE)	Kip	LAK
+//	LEBANON	Lebanese Pound	LBP
+//	LESOTHO	Loti	LSL
+//	LESOTHO	Rand	ZAR
+//	LIBERIA	Liberian Dollar	LRD
+//	LIBYA	Libyan Dinar	LYD
+//	LIECHTENSTEIN	Swiss Franc	CHF
+//	MACAO	Pataca	MOP
+//	MADAGASCAR	Malagasy Ariary	MGA
+//	MALAWI	Kwacha	MWK
+//	MALAYSIA	Malaysian Ringgit	MYR
+//	MALDIVES	Rufiyaa	MVR
+//	MALI	CFA Franc BCEAO	XOF
+//	MAURITANIA	Ouguiya	MRU
+//	MAURITIUS	Mauritius Rupee	MUR
+//	MEMBER COUNTRIES OF THE AFRICAN DEVELOPMENT BANK GROUP	ADB Unit of Account	XUA
+//	MEXICO	Mexican Peso	MXN
+//	MEXICO	Mexican Unidad de Inversion (UDI)	MXV
+//	MICRONESIA (FEDERATED STATE
+//	MOLDOVA (THE REPUBLIC OF)	Moldovan Leu	MDL
+//	MONGOLIA	Tugrik	MNT
+//	MONTSERRAT	East Caribbean Dollar	XCD
+//	MOROCCO	Moroccan Dirham	MAD
+//	MOZAMBIQUE	Mozambique Metical	MZN
+//	MYANMAR	Kyat	MMK
+//	NAMIBIA	Namibia Dollar	NAD
+//	NAMIBIA	Rand	ZAR
+//	NAURU	Australian Dollar	AUD
+//	NEPAL	Nepalese Rupee	NPR
+//	NEW CALEDONIA	CFP Franc	XPF
+//	NEW ZEALAND	New Zealand Dollar	NZD
+//	NICARAGUA	Cordoba Oro	NIO
+//	NIGER (THE)	CFA Franc BCEAO	XOF
+//	NIGERIA	Naira	NGN
+//	NIUE	New Zealand Dollar	NZD
+//	NORFOLK ISLAND	Australian Dollar	AUD
+//	NORTHERN MARIANA ISLANDS 
+//	NORWAY	Norwegian Krone	NOK
+//	OMAN	Rial Omani	OMR
+//	PAKISTAN	Pakistan Rupee	PKR
+//	PALAU	US Dollar	USD	
+//	PANAMA	Balboa	PAB
+//	PAPUA NEW GUINEA	Kina	PGK
+//	PARAGUAY	Guarani	PYG
+//	PERU	Nuevo Sol	PEN
+//	PHILIPPINES (THE)	Philippine Peso	PHP
+//	PITCAIRN	New Zealand Dollar	NZD
+//	POLAND	Zloty	PLN
+//	QATAR	Qatari Rial	QAR
+//	REPUBLIC OF NORTH MACEDONIA	Denar	MKD
+//	ROMANIA	Romanian Leu	RON
+//	RUSSIAN FEDERATION (THE)	Russian Ruble	RUB
+//	RWANDA	Rwanda Franc	RWF
+//	SAINT HELENA, ASCENSION AND TRISTAN DA CUNHA	Saint Helena Pound	SHP
+//	SAINT KITTS AND NEVIS	East Caribbean Dollar	XCD
+//	SAINT LUCIA	East Caribbean Dollar	XCD
+//	SAINT VINCENT AND THE GRENADINES	East Caribbean Dollar	XCD
+//	SAMOA	Tala	WST
+//	SAO TOME AND PRINCIPE	Dobra	STN
+//	SAUDI ARABIA	Saudi Riyal	SAR
+//	SENEGAL	CFA Franc BCEAO	XOF
+//	SERBIA	Serbian Dinar	RSD
+//	SEYCHELLES	Seychelles Rupee	SCR
+//	SIERRA LEONE	Leone	SLL
+//	SINGAPORE	Singapore Dollar	SGD
+//	SINT MAARTEN (DUTCH PART)	Netherlands Antillean Guilder	ANG
+//	SISTEMA UNITARIO DE COMPENSACION REGIONAL DE PAGOS "SUCRE"	Sucre	XSU
+//	SOLOMON ISLANDS	Solomon Islands Dollar	SBD
+//	SOMALIA	Somali Shilling	SOS
+//	SOUTH AFRICA	Rand	ZAR	
+//	SOUTH SUDAN	South Sudanese Pound	SSP
+//	SRI LANKA	Sri Lanka Rupee	LKR
+//	SUDAN (THE)	Sudanese Pound	SDG
+//	SURINAME	Surinam Dollar	SRD
+//	SVALBARD AND JAN MAYEN	Norwegian Krone	NOK
+//	SWAZILAND	Lilangeni	SZL
+//	SWEDEN	Swedish Krona	SEK
+//	SWITZERLAND	WIR Euro	CHE
+//	SWITZERLAND	Swiss Franc	CHF
+//	SWITZERLAND	WIR Franc	CHW
+//	SYRIAN ARAB REPUBLIC	Syrian Pound	SYP
+//	TAIWAN (PROVINCE OF CHINA)	New Taiwan Dollar	TWD
+//	TAJIKISTAN	Somoni	TJS
+//	TANZANIA, UNITED REPUBLIC OF	Tanzanian Shilling	TZS
+//	THAILAND	Baht	THB
+//	TOGO	CFA Franc BCEAO	XOF
+//	TOKELAU	New Zealand Dollar	NZD
+//	TONGA	Pa’anga	TOP
+//	TRINIDAD AND TOBAGO	Trinidad and Tobago Dollar	TTD
+//	TUNISIA	Tunisian Dinar	TND
+//	TURKEY	Turkish Lira	TRY
+//	TURKMENISTAN	Turkmenistan New Manat	TMT
+//	TUVALU	Australian Dollar	AUD
+//	UGANDA	Uganda Shilling	UGX
+//	UKRAINE	Hryvnia	UAH
+//	UNITED ARAB EMIRATES (THE)	UAE Dirham	AED
+//	UNITED KINGDOM OF GREAT BRITAIN AND NORTHERN IRELAND (THE)	Pound Sterling	GBP
+//	UNITED STATES OF AMERIC
+//	UNITED STATES OF AMERICA (THE)	US Dollar (Next day)	USN
+//	URUGUAY	Uruguay Peso en Unidades Indexadas (URUIURUI)	UYI
+//	URUGUAY	Peso Uruguayo	UYU
+//	UZBEKISTAN	Uzbekistan Sum	UZS
+//	VANUATU	Vatu	VUV
+//	VENEZUELA (BOLIVARIAN REPUBLIC OF)	Bolivar	VEF
+//	VIET NAM	Dong	VND
+//	WALLIS AND FUTUNA	CFP XPF	
+//	WESTERN SAHARA MAD	
+//	YEMEN	YER	
+//	ZAMBIA	Zambian ZMW	
+//	ZIMBABWE ZWL
 }
