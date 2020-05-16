@@ -10,14 +10,8 @@ import Foundation
 
 class WeatherNetworkManager: NetworkManager {
 
-	// MARK: - Public Properties
-
-	/// setting up weather delegate
-	weak var delegate: WeatherDelegate?
-
 	// MARK: - Private Properties
 	private var urlGenerator = URLGeneratorForWeather()
-
 	private var task: URLSessionDataTask?
 	internal var session: URLSession
 

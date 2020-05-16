@@ -25,6 +25,10 @@ class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CurrencyCell
 
 		guard let currencyResult = currencyResult else { return UITableViewCell() }
+		let currencyCodes = Array(currencyResult.rates.keys)
+		let imageCode = currencyCodes.description
+		print(imageCode)
+		
 
 		//sorting keys only results in values being off in the tableview
 		let currencyBases = currencyResult.rates.map { "\($0) \($1)" }.sorted()
@@ -32,12 +36,11 @@ class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
 		let currencyValue = currencyBases[indexPath.row]
 
 		cell.currencyBaseAndRate.text = currencyValue
+		cell.imageView?.image = UIImage(named: imageCode)
 		return cell
 	}
 }
 
 class CurrencyTableViewDelegate: NSObject, UITableViewDelegate {
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-	}
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { }
 }

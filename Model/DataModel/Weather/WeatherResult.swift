@@ -10,13 +10,22 @@ import Foundation
 
 /// defining weather data
 struct WeatherResult: Codable {
-	let weather: [WeatherElement]
-	let base: String
-	let main: Main
-	let name: String
+	let coord: Coord?
+	let weather: [WeatherElement]?
+	let base: String?
+	let main: Main?
+	let visibility: Int? 
+	let wind: Wind? 
+	let clouds: Clouds? 
+	let dt: Int? 
+	let sys: Sys? 
+	let timezone: Int?
+	let name: String?
+	let cod: Int? 
 }
 
 /// defining keys for  the weather data 
 private enum CodingKeys: String, CodingKey {
-	case base, name
+	case coord, weather, base, main, visibility, wind, clouds, dt, sys, timezone, name
+	case cod = "code"
 }

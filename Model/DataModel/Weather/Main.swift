@@ -10,12 +10,12 @@ import Foundation
 
 ///defining weatherElement data and its keys
 struct Main: Codable {
-	let temp: Double
-	let feelsLike: Double
-	let tempMin: Double
-	let tempMax: Double
-	let pressure: Int
-	let humidity: Int
+	let temp: Double?
+	let feelsLike: Double?
+	let tempMin: Double?
+	let tempMax: Double?
+	let pressure: Int?
+	let humidity: Int?
 }
 
 private enum CodingKeys: String, CodingKey {

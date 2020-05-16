@@ -9,38 +9,38 @@
 import UIKit
 
 // swiftlint:disable force_cast
-extension WeatherTableViewController: UITableViewDataSource {
+class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
+	
+	var weatherResult: WeatherResult?
+	
 	// MARK: - Methods
 
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return weatherResult?.name.count ?? 0
+		return weatherResult?.weather?.count ?? 0
 	}
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return weatherResult?.name.count ?? 0
+		return weatherResult?.weather?.count ?? 0
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! WeatherCell
 
 		guard let weatherResult = weatherResult else { return UITableViewCell() }
-		let mainWeather = weatherResult.main.temp
-		let weatherWeather = weatherResult.weather.map { (result) -> WeatherElement in
-			let weathersWeather = result
-			return weathersWeather
-		}
-
-		cell.temperatureLabel.text = mainWeather.description
-		cell.weatherDescriptionLabel.text = weatherWeather[indexPath.row].description.description
-		cell.cityNameLabel.text = weatherResult.name.description
-		cell.weatherImageLabel.image = UIImage(named: "sleet")
+		
+		let temp = weatherResult.main?.temp
+		let desc = weatherResult.weather?.first?.weatherDescription
+		let cityName = weatherResult.name
+		guard let weatherImage = weatherResult.weather?.first?.icon else { return UITableViewCell() }
+		
+		cell.temperatureLabel.text = "\(Int((temp!-273.15)))°C"
+		cell.weatherDescriptionLabel.text = desc
+		cell.cityNameLabel.text = cityName
+		cell.weatherImageLabel.image = UIImage(named: weatherImage)
+		
 		return cell
 	}
 }
 
-extension WeatherTableViewController: UITableViewDelegate { }
-
-extension WeatherTableViewController: WeatherDelegate {
-	func didGetWeatherData(weatherResult: WeatherResult) {
-		self.weatherResult = weatherResult
-	}
+class WeatherTableViewDelegate: NSObject, UITableViewDelegate { 
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { }
 }
