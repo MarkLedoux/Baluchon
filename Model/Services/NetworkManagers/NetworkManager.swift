@@ -15,6 +15,7 @@ protocol NetworkManager: class {
 		completion: @escaping(Result<T, NetworkManagerError>) -> Void)
 }
 
+// TODO: - extend NetworkManager to be able to handle post requests
 extension NetworkManager {
 	func fetch<T: Codable>(
 		with url: URL,

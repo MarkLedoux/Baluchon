@@ -17,7 +17,6 @@ class TranslationNetworkManager: NetworkManager {
 	// MARK: - Private Properties
 
 	private var urlGenerator = URLGeneratorForTranslate()
-	private var request: URLRequest?
 	private var textToTranslate: String?
 
 	private var task: URLSessionDataTask?

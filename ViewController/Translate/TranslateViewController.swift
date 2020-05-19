@@ -14,6 +14,7 @@ extension TranslateViewController: TranslateDelegate {
 	}
 }
 
+// swiftlint:disable weak_delegate
 final class TranslateViewController: UIViewController {
 	
 	// MARK: - Private Properties
@@ -29,8 +30,7 @@ final class TranslateViewController: UIViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 	}
-
-
+	
 	private let translationNetworkManager = TranslationNetworkManager()
 	private let translationTextFieldDelegate = TranslateTextFieldDelegate()
 	private let translationTextViewDelegate = TranslateTextViewDelegate()
@@ -51,12 +51,16 @@ final class TranslateViewController: UIViewController {
 		animateButton(sendTranslationButton)
 		performSegue(withIdentifier: "translation", sender: self)
 	}
-
+	
+	/// preparing the modal view to receive the translated text
+	/// - Parameters:
+	///   - segue: segue from translateViewController to TranslatedTextViewController
+	///   - sender: send data from translateViewController after received it from the network request
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		let vc = segue.destination as? TranslatedTextViewController
 
 		guard let textToTranslate = translationInput.text else { return }
-		translationNetworkManager.makeRequest(textToTranslate: textToTranslate) { [weak self] result in
+		translationNetworkManager.makeRequest(textToTranslate: textToTranslate) { result in
 			switch result { 
 			case .success(let translationResult): 
 				DispatchQueue.main.async {

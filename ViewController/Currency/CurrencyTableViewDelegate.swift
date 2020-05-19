@@ -34,7 +34,7 @@ final class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
 		let currencyValue = currencyBases[indexPath.row]
 
 		cell.currencyBaseAndRate.text = currencyValue
-		cell.imageView?.image = UIImage(named: imageCode)
+		cell.imageView?.image = UIImage(named: "japan")
 		return cell
 	}
 	

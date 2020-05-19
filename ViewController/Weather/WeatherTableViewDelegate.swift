@@ -11,15 +11,15 @@ import UIKit
 // swiftlint:disable force_cast
 class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
 	
-	var weatherResult: WeatherResult?
+	var weatherInformations: [String : WeatherResult?]
 	
 	// MARK: - Methods
 
 	func numberOfSections(in tableView: UITableView) -> Int {
-		return weatherResult?.weather?.count ?? 0
+		return 1
 	}
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return weatherResult?.weather?.count ?? 0
+		return weatherInformations.count
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -32,11 +32,12 @@ class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
 		let cityName = weatherResult.name
 		guard let weatherImage = weatherResult.weather?.first?.icon else { return UITableViewCell() }
 		
+		// TODO: - Create extension to return the temperatures in celsius? 
 		cell.temperatureLabel.text = "\(Int((temp!-273.15)))°C"
 		cell.weatherDescriptionLabel.text = desc
 		cell.cityNameLabel.text = cityName
 		
-			guard let url = URL(string: "http://openweathermap.org/img/w/\(weatherImage).png") else { return UITableViewCell() }
+			guard let url = URL(string: "http://openweathermap.org/img/w/01n.png") else { return UITableViewCell() }
 			URLSession.shared.dataTask(with: url) { iconData, _, _ in 
 				if let data = iconData { 
 					DispatchQueue.main.async {
@@ -52,5 +53,7 @@ class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
 }
 
 class WeatherTableViewDelegate: NSObject, UITableViewDelegate { 
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { }
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let vc = WeatherDetailViewController()
+	}
 }

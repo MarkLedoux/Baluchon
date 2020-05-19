@@ -12,7 +12,7 @@ final class URLGeneratorForTranslate {
 	private var components = URLComponentManager()
 
 	func createTranslateURL() -> URL? {
-		let currencyURL = components.createURL(
+		let translateURL = components.createURL(
 			scheme: "https",
 			host: "translation.googleapis.com",
 			path: "/language/translate/v2",
@@ -30,6 +30,6 @@ final class URLGeneratorForTranslate {
 					name: "target",
 					value: "fr")
 		])
-		return currencyURL
+		return translateURL
 	}
 }

@@ -10,6 +10,7 @@ import UIKit
 
 // swiftlint:disable weak_delegate
 extension WeatherViewController: WeatherDelegate {
+	// TODO: - fetch not only weatherresult but also get the information of the images, scroll while loading the images and check that the URL corresponds to the basic URL 
 	func didGetWeatherData(weatherResult: WeatherResult) {
 		weatherTableViewDataSource.weatherResult = weatherResult
 		weatherTableView.reloadData()
@@ -41,7 +42,15 @@ final class WeatherViewController: UIViewController {
 				print("Failed to fetch weather data ")
 			}
 		}
+		
+		
+		
+		navigationItem.rightBarButtonItems = [
+			UIBarButtonItem(image: UIImage(named: "icPlus"), style: .plain, target: self, action: #selector())
+		]
 	}
+	
+	func addCurrencyMonitoring
 	
 	func handle(weatherResult: WeatherResult) {
 		weatherTableViewDataSource.weatherResult = weatherResult
