@@ -29,21 +29,11 @@ final class CurrencyViewController: UIViewController {
 		currencyTableView.delegate = currencyTableViewDelegate
 	}
 
+	
 	/// calling loadCurrency to fetch currency data
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		currencyNetworkManager.loadCurrency { [weak self] result in
-			guard let self = self else { return }
-			switch result {
-			case .success(let currencyResult):
-				DispatchQueue.main.async {
-					self.handle(currencyResult: currencyResult)
-				}
-				print("Successfully fetched currency data")
-			case .failure:
-				print("Failed to fetch currency data")
-			}
-		}
+		fetchCurrencuData()
 	}
 
 	private func handle(currencyResult: CurrencyResult) {
@@ -78,8 +68,46 @@ final class CurrencyViewController: UIViewController {
 		let session = URLSession(configuration: .default)
 		currencyNetworkManager = CurrencyNetworkManager(session: session)
 	}
+	
+	private func fetchCurrencuData() {
+		currencyNetworkManager.loadCurrency { [weak self] result in
+			guard let self = self else { return }
+			switch result {
+			case .success(let currencyResult):
+				DispatchQueue.main.async {
+					self.handle(currencyResult: currencyResult)
+				}
+				print("Successfully fetched currency data")
+			case .failure:
+				self.fetchDataFailure(retry: true)
+				print("Failed to fetch currency data")
+			}
+		}
+	}
 
 	@objc private func edit() { }
 
 	@objc private func addItem() { }
+	
+	private func fetchDataFailure(retry: Bool) { 
+		
+		// Present an alert, which in a regular width environment is displayed as an alert
+		let alert = UIAlertController(title: nil, message: "Failed to fetch Currency data", preferredStyle: .alert)
+		
+		// Ask the user if they want to try and load the data again if it failed 
+		if retry { 
+			alert.addAction(UIAlertAction(title: "Try again", style: .default, handler: { _ in
+				self.fetchCurrencuData()
+				self.retryButtonWasPressed()
+			}))
+		}
+		
+		alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+		
+		present(alert, animated: true, completion: nil)
+	}
+	
+	private func retryButtonWasPressed() { 
+		dismiss(animated: true, completion: nil)
+	}
 }

@@ -9,36 +9,26 @@
 import Foundation
 
 class TranslationNetworkManager: NetworkManager {
-
-	// MARK: - Public Properties
-	/// setting up weather delegate
-	weak var delegate: TranslateDelegate?
-
-	// MARK: - Private Properties
-
-	private var urlGenerator = URLGeneratorForTranslate()
-	private var textToTranslate: String?
-
-	private var task: URLSessionDataTask?
-	internal var session: URLSession
-
-	init(session: URLSession) {
-		self.session = session
+	
+	// MARK: - Init 
+	init(session: URLSession, urlGenerator: URLGeneratorForTranslateProtocol = URLGeneratorForTranslate()) { 
+		self.session = session 
+		self.urlGenerator = urlGenerator
 	}
-
-	init(configuration: URLSessionConfiguration = .default) {
-		session = URLSession(configuration: configuration)
-	}
-
-	///test function to make the request work
+	
+	// MARK: - Public Methods
 	func makeRequest(
-		textToTranslate: String,
-		completion: @escaping(Result<TranslationResult, NetworkManagerError>) -> Void) {
-		guard let url = urlGenerator.createTranslateURL() else {
+		textToTranslate: String, 
+		completion: @escaping(Result<TranslationResult, NetworkManagerError>) -> Void) { 
+		guard let url = urlGenerator.createTranslateURL() else { 
 			completion(.failure(.failedToCreateURL(message: #function)))
-			return
+			return 
 		}
-
 		fetch(with: url, completion: completion)
 	}
+	
+	// MARK: - Private Properties
+	private var urlGenerator: URLGeneratorForTranslateProtocol
+	private var task: URLSessionDataTask? 
+	internal var session: URLSession
 }

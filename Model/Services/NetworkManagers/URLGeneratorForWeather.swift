@@ -8,11 +8,14 @@
 
 import Foundation
 
-final class URLGeneratorForWeather {
-	private var components = URLComponentManager()
+protocol URLGeneratorForWeatherProtocol {
+	func createWeatherURL()  -> URL? 
+}
+
+final class URLGeneratorForWeather: URLComponentManager, URLGeneratorForWeatherProtocol {
 
 	func createWeatherURL() -> URL? {
-		let currencyURL = components.createURL(
+		let currencyURL = createURL(
 			scheme: "http",
 			host: "api.openweathermap.org",
 			path: "/data/2.5/weather",

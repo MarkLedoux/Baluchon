@@ -8,8 +8,12 @@
 
 import Foundation
 
-final class URLComponentManager {
-	private var components = URLComponents()
+protocol URLComponentsManagerProtocol {
+	var components: URLComponents { get }
+}
+
+class URLComponentManager: URLComponentsManagerProtocol {
+	internal var components = URLComponents()
 	func createURL(scheme: String, host: String, path: String, queryItems: [URLQueryItem]? ) -> URL? {
 		var url: URL? {
 			components.scheme = scheme

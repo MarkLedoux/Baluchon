@@ -31,7 +31,7 @@ final class TranslateViewController: UIViewController {
 		super.viewDidAppear(animated)
 	}
 	
-	private let translationNetworkManager = TranslationNetworkManager()
+	private var translationNetworkManager: TranslationNetworkManager!
 	private let translationTextFieldDelegate = TranslateTextFieldDelegate()
 	private let translationTextViewDelegate = TranslateTextViewDelegate()
 	private var translationResult: TranslationResult?
@@ -44,12 +44,21 @@ final class TranslateViewController: UIViewController {
 	}
 
 	private func setUpTranslationNetworkManager() {
-		translationNetworkManager.delegate = self
+		let session = URLSession(configuration: .default)
+		translationNetworkManager = TranslationNetworkManager(session: session)
 	}
 
 	@IBAction func sendTextToTranslate(_ sender: Any) {
 		animateButton(sendTranslationButton)
-		performSegue(withIdentifier: "translation", sender: self)
+		if #available(iOS 13.0, *) {
+			guard let vc = storyboard?.instantiateViewController(
+				identifier: "TranslatedTextViewController", 
+				creator: prepareTranslateDetailViewController) else { return }
+			
+			present(vc, animated: true, completion: nil)
+		} else {
+			// Fallback on earlier versions
+		}
 	}
 	
 	/// preparing the modal view to receive the translated text
@@ -82,5 +91,9 @@ final class TranslateViewController: UIViewController {
 				sender.transform = CGAffineTransform(scaleX: 0.975, y: 0.96)}, completion: { _ in
 					UIButton.animate(withDuration: 0.2, animations: { sender.transform = CGAffineTransform.identity })
 		})
+	}
+	
+	@IBSegueAction func prepareTranslateDetailViewController(coder: NSCoder) -> TranslatedTextViewController { 
+		return TranslatedTextViewController(coder: coder, text: translationResult?.translations.keys.description ?? "")!
 	}
 }

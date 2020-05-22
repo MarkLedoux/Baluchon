@@ -17,6 +17,30 @@ protocol NetworkManager: class {
 
 // TODO: - extend NetworkManager to be able to handle post requests
 extension NetworkManager {
+//	typealias TaskCompletionHander = (Codable?, NetworkManagerError?) -> Void
+//	private func decodingTask<T: Codable>(
+//		with url: URL,
+//		decodingType: T.Type,
+//		completionHandler completion: @escaping TaskCompletionHander) -> URLSessionDataTask {
+//		
+//		let task = session.dataTask(with: url) { (data, response, error) in
+//			DispatchQueue.main.async {
+//				guard let data = data, error == nil else {
+//					completion(nil, .requestFailed)
+//					return
+//				}
+//				guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+//					completion(nil, .responseUnsuccessful)
+//					return
+//				}
+//				guard (try? JSONDecoder().decode(decodingType, from: data)) != nil else {
+//					completion(nil, .jsonConversionFailure)
+//					return
+//				}
+//			}
+//		}
+//		return task
+//	}
 	func fetch<T: Codable>(
 		with url: URL,
 		completion: @escaping (Result<T, NetworkManagerError>) -> Void) {

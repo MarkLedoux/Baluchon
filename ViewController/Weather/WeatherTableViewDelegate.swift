@@ -11,7 +11,7 @@ import UIKit
 // swiftlint:disable force_cast
 class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
 	
-	var weatherInformations: [String : WeatherResult?]
+	var weatherResult: [String : WeatherResult?] = [:]
 	
 	// MARK: - Methods
 
@@ -19,7 +19,7 @@ class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
 		return 1
 	}
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return weatherInformations.count
+		return weatherResult.count
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

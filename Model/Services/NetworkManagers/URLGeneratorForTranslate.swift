@@ -8,11 +8,14 @@
 
 import Foundation
 
-final class URLGeneratorForTranslate {
-	private var components = URLComponentManager()
+protocol URLGeneratorForTranslateProtocol {  
+	func createTranslateURL() -> URL?
+}
+
+final class URLGeneratorForTranslate: URLComponentManager, URLGeneratorForTranslateProtocol {
 
 	func createTranslateURL() -> URL? {
-		let translateURL = components.createURL(
+		let translateURL = createURL(
 			scheme: "https",
 			host: "translation.googleapis.com",
 			path: "/language/translate/v2",

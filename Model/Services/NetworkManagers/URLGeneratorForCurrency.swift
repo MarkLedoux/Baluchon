@@ -12,11 +12,10 @@ protocol URLGeneratorForCurrencyProtocol {
 	func createCurrencyURL() -> URL?
 }
 
-final class URLGeneratorForCurrency: URLGeneratorForCurrencyProtocol {
-	private var components = URLComponentManager()
+final class URLGeneratorForCurrency: URLComponentManager, URLGeneratorForCurrencyProtocol {
 
 	func createCurrencyURL() -> URL? {
-		let currencyURL = components.createURL(
+		let currencyURL = createURL(
 			scheme: "http",
 			host: "data.fixer.io",
 			path: "/api/latest",
@@ -32,10 +31,10 @@ final class URLGeneratorForCurrency: URLGeneratorForCurrencyProtocol {
 	}
 }
 
-final class URLGeneratorForCurrencyMock: URLGeneratorForCurrencyProtocol {
-	private var components = URLComponentManager()
-
-	func createCurrencyURL() -> URL? {
-		return nil
-	}
-}
+//final class URLGeneratorForCurrencyMock: URLGeneratorForCurrencyProtocol {
+//	private var components = URLComponentManager()
+//
+//	func createCurrencyURL() -> URL? {
+//		return nil
+//	}
+//}

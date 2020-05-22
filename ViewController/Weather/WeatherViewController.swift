@@ -42,15 +42,7 @@ final class WeatherViewController: UIViewController {
 				print("Failed to fetch weather data ")
 			}
 		}
-		
-		
-		
-		navigationItem.rightBarButtonItems = [
-			UIBarButtonItem(image: UIImage(named: "icPlus"), style: .plain, target: self, action: #selector())
-		]
 	}
-	
-	func addCurrencyMonitoring
 	
 	func handle(weatherResult: WeatherResult) {
 		weatherTableViewDataSource.weatherResult = weatherResult
