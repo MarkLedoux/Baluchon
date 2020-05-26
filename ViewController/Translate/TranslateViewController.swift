@@ -69,7 +69,7 @@ final class TranslateViewController: UIViewController {
 		let vc = segue.destination as? TranslatedTextViewController
 
 		guard let textToTranslate = translationInput.text else { return }
-		translationNetworkManager.makeRequest(textToTranslate: textToTranslate) { result in
+		translationNetworkManager.fetchTranslationData(textToTranslate: textToTranslate) { result in
 			switch result { 
 			case .success(let translationResult): 
 				DispatchQueue.main.async {

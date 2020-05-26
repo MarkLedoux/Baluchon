@@ -25,13 +25,7 @@ class WeatherNetworkManager: NetworkManager {
 			completion(.failure(.failedToCreateURL(message: #function)))
 			return
 		}
-		fetch(with: url) { _ in
-			getWeatherImage { (data) in
-				if let data = data {
-					print(data)
-				}
-			}
-		}
+		fetch(with: url, completion: completion)
 	}
 	
 	// MARK: - Private Properties

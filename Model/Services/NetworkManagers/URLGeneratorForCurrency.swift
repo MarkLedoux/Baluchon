@@ -30,11 +30,3 @@ final class URLGeneratorForCurrency: URLComponentManager, URLGeneratorForCurrenc
 		return currencyURL
 	}
 }
-
-//final class URLGeneratorForCurrencyMock: URLGeneratorForCurrencyProtocol {
-//	private var components = URLComponentManager()
-//
-//	func createCurrencyURL() -> URL? {
-//		return nil
-//	}
-//}

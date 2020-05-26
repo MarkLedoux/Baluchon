@@ -8,6 +8,10 @@
 
 import Foundation
 
+enum HTTPMethod: String {
+	case get = "GET", post = "POST"
+}
+
 class TranslationNetworkManager: NetworkManager {
 	
 	// MARK: - Init 
@@ -17,13 +21,21 @@ class TranslationNetworkManager: NetworkManager {
 	}
 	
 	// MARK: - Public Methods
-	func makeRequest(
+	func fetchTranslationData(
 		textToTranslate: String, 
 		completion: @escaping(Result<TranslationResult, NetworkManagerError>) -> Void) { 
 		guard let url = urlGenerator.createTranslateURL() else { 
 			completion(.failure(.failedToCreateURL(message: #function)))
 			return 
 		}
+		
+		var urlRequest = URLRequest(url: url)
+		urlRequest.httpMethod = HTTPMethod.post.rawValue
+		
+	
+		
+		
+		
 		fetch(with: url, completion: completion)
 	}
 	
