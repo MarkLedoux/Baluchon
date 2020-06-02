@@ -8,10 +8,6 @@
 
 import Foundation
 
-enum HTTPMethod: String {
-	case get = "GET", post = "POST"
-}
-
 class TranslationNetworkManager: NetworkManager {
 	
 	// MARK: - Init 
@@ -36,7 +32,7 @@ class TranslationNetworkManager: NetworkManager {
 		
 		
 		
-		fetch(with: url, completion: completion)
+		fetch(with: URLRequest(url: url), completion: completion)
 	}
 	
 	// MARK: - Private Properties

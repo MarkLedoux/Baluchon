@@ -25,7 +25,7 @@ class WeatherNetworkManager: NetworkManager {
 			completion(.failure(.failedToCreateURL(message: #function)))
 			return
 		}
-		fetch(with: url, completion: completion)
+		fetch(with: URLRequest(url: url), completion: completion)
 	}
 	
 	// MARK: - Private Properties
