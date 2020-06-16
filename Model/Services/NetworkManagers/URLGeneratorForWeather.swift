@@ -9,7 +9,7 @@
 import Foundation
 
 protocol URLGeneratorForWeatherProtocol {
-	func createWeatherURL()  -> URL? 
+	func createWeatherURL() -> URL? 
 }
 
 final class URLGeneratorForWeather: URLComponentManager, URLGeneratorForWeatherProtocol {
@@ -23,6 +23,9 @@ final class URLGeneratorForWeather: URLComponentManager, URLGeneratorForWeatherP
 				URLQueryItem(
 					name: "q",
 					value: "London,uk"),
+				URLQueryItem(
+					name: "q", 
+					value: "Lyon, fr"),
 				URLQueryItem(
 					name: "APPID",
 					value: "43e33607fe2ad4493bd13aeabd87e12f")

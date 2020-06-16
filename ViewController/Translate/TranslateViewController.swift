@@ -47,18 +47,9 @@ final class TranslateViewController: UIViewController {
 		let session = URLSession(configuration: .default)
 		translationNetworkManager = TranslationNetworkManager(session: session)
 	}
-
+	
 	@IBAction func sendTextToTranslate(_ sender: Any) {
 		animateButton(sendTranslationButton)
-		if #available(iOS 13.0, *) {
-			guard let vc = storyboard?.instantiateViewController(
-				identifier: "TranslatedTextViewController", 
-				creator: prepareTranslateDetailViewController) else { return }
-			
-			present(vc, animated: true, completion: nil)
-		} else {
-			// Fallback on earlier versions
-		}
 	}
 	
 	/// preparing the modal view to receive the translated text
@@ -69,14 +60,16 @@ final class TranslateViewController: UIViewController {
 		let vc = segue.destination as? TranslatedTextViewController
 
 		guard let textToTranslate = translationInput.text else { return }
+		guard textToTranslate != "" else { return }
 		translationNetworkManager.fetchTranslationData(textToTranslate: textToTranslate) { result in
 			switch result { 
 			case .success(let translationResult): 
 				DispatchQueue.main.async {
-					vc?.translatedText.text = translationResult.translations.keys.description
+					vc?.translatedText.text = translationResult.translations.description
 				}
 				print("Successfully fetched translation data")
 			case .failure: 
+				print(textToTranslate)
 				print("Failed to fetch translation data")
 			}
 		}
@@ -91,9 +84,5 @@ final class TranslateViewController: UIViewController {
 				sender.transform = CGAffineTransform(scaleX: 0.975, y: 0.96)}, completion: { _ in
 					UIButton.animate(withDuration: 0.2, animations: { sender.transform = CGAffineTransform.identity })
 		})
-	}
-	
-	@IBSegueAction func prepareTranslateDetailViewController(coder: NSCoder) -> TranslatedTextViewController { 
-		return TranslatedTextViewController(coder: coder, text: translationResult?.translations.keys.description ?? "")!
 	}
 }

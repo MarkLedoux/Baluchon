@@ -9,18 +9,7 @@
 import UIKit
 
 class TranslatedTextViewController: UIViewController {
-	let textToDisplay: String
 	@IBOutlet weak var translatedText: UITextView!
-	
-	init?(coder: NSCoder, text: String) { 
-		self.textToDisplay = translatedText.text
-		super.init(coder: coder)
-	}
-	
-	required init?(coder: NSCoder) {
-		self.textToDisplay = ""
-		super.init(coder: coder)
-	}
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()

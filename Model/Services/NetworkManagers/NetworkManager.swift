@@ -10,16 +10,19 @@ import Foundation
 
 protocol NetworkManager: class {
 	var session: URLSession { get }
-	func fetch<T: Codable>(
-		with url: URLRequest,
-		completion: @escaping(Result<T, NetworkManagerError>) -> Void)
+//	func fetch<T: Codable>(
+//		with url: URLRequest,
+//		completion: @escaping(Result<T, NetworkManagerError>) -> Void)
 }
 
 // TODO: - extend NetworkManager to be able to handle post requests
 extension NetworkManager {
 	typealias JSONTaskCompletionHandler = (Codable?, NetworkManagerError?) -> Void
 	
-	private func decodingTask<T: Codable>(with request: URLRequest, decodingType: T.Type, completionHandler completion: @escaping JSONTaskCompletionHandler) -> URLSessionDataTask { 
+	private func decodingTask<T: Codable>(
+		with request: URLRequest, 
+		decodingType: T.Type, 
+		completionHandler completion: @escaping JSONTaskCompletionHandler) -> URLSessionDataTask { 
 		
 		let task = session.dataTask(with: request) { data, response, error in 
 			guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { 
@@ -41,7 +44,11 @@ extension NetworkManager {
 		return task
 	}
 	
-	func fetch<T: Codable>(with request: URLRequest, decode: @escaping (Codable) -> T?, completion: @escaping (Result<T, NetworkManagerError>) -> Void) { 
+	func fetch<T: Codable>(
+		with request: URLRequest, 
+		decode: @escaping (Codable) -> T?, 
+		completion: @escaping (Result<T, NetworkManagerError>) -> Void) { 
+		
 		let task = decodingTask(with: request, decodingType: T.self) { (result, error) in
 			DispatchQueue.main.async {
 				guard let result = result else { 

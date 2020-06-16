@@ -25,7 +25,7 @@ final class URLGeneratorForTranslate: URLComponentManager, URLGeneratorForTransl
 					value: "AIzaSyC-qFZOLKSpUQSmQS41iKGz8vJ7NXQKAFA"),
 				URLQueryItem(
 					name: "q",
-					value: "textToTranslate"),
+					value: ""),
 				URLQueryItem(
 					name: "source",
 					value: "en"),

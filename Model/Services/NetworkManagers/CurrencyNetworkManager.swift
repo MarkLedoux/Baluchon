@@ -9,7 +9,6 @@
 import Foundation
 
 class CurrencyNetworkManager: NetworkManager {
-
 	// MARK: - Init
 	init(session: URLSession, urlGenerator: URLGeneratorForCurrencyProtocol = URLGeneratorForCurrency()) {
 		self.session = session
@@ -24,7 +23,10 @@ class CurrencyNetworkManager: NetworkManager {
 			completion(.failure(.failedToCreateURL(message: #function)))
 			return
 		}
-		fetch(with: URLRequest(url: url), completion: completion)
+		fetch(with: URLRequest(url: url), decode: { (result) -> CurrencyResult? in
+			guard let result = result as? CurrencyResult else { return nil }
+			return result
+		}, completion: completion)
 	}
 
 	// MARK: - Private Properties

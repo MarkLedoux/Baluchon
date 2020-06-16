@@ -9,7 +9,6 @@
 import Foundation
 
 class TranslationNetworkManager: NetworkManager {
-	
 	// MARK: - Init 
 	init(session: URLSession, urlGenerator: URLGeneratorForTranslateProtocol = URLGeneratorForTranslate()) { 
 		self.session = session 
@@ -24,15 +23,23 @@ class TranslationNetworkManager: NetworkManager {
 			completion(.failure(.failedToCreateURL(message: #function)))
 			return 
 		}
+		let parameters: [String: Any] = [
+			"key": "AIzaSyC-qFZOLKSpUQSmQS41iKGz8vJ7NXQKAFA", 
+			"q": "textToTranslate", 
+			"source": "en", 
+			"target": "fr"
+		]
+		var request = URLRequest(url: url)
+		request.httpMethod = HTTPMethod.post.rawValue
+		request.setValue("Application/json", forHTTPHeaderField: "Content-Type")
+		guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
+		request.httpBody  = httpBody
+		request.timeoutInterval = 20
 		
-		var urlRequest = URLRequest(url: url)
-		urlRequest.httpMethod = HTTPMethod.post.rawValue
-		
-	
-		
-		
-		
-		fetch(with: URLRequest(url: url), completion: completion)
+		fetch(with: request, decode: { (result) -> TranslationResult? in
+			guard let result = result as? TranslationResult else { return nil }
+			return result
+		}, completion: completion)
 	}
 	
 	// MARK: - Private Properties

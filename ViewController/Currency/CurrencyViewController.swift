@@ -29,7 +29,6 @@ final class CurrencyViewController: UIViewController {
 		currencyTableView.delegate = currencyTableViewDelegate
 	}
 	
-	
 	/// calling loadCurrency to fetch currency data
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
