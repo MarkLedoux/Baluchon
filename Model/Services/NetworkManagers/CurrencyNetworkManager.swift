@@ -23,10 +23,14 @@ class CurrencyNetworkManager: NetworkManager {
 			completion(.failure(.failedToCreateURL(message: #function)))
 			return
 		}
-		fetch(with: URLRequest(url: url), decode: { (result) -> CurrencyResult? in
-			guard let result = result as? CurrencyResult else { return nil }
-			return result
-		}, completion: completion)
+		fetch(with: URLRequest(url: url)) { (result: Result<CurrencyResult, NetworkManagerError>) in
+			switch result { 
+			case .failure(let error): 
+				completion(.failure(error))
+			case .success(let success): 
+				completion(.success(success))
+			}
+		}
 	}
 
 	// MARK: - Private Properties

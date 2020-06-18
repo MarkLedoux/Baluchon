@@ -24,9 +24,6 @@ final class URLGeneratorForWeather: URLComponentManager, URLGeneratorForWeatherP
 					name: "q",
 					value: "London,uk"),
 				URLQueryItem(
-					name: "q", 
-					value: "Lyon, fr"),
-				URLQueryItem(
 					name: "APPID",
 					value: "43e33607fe2ad4493bd13aeabd87e12f")
 		])

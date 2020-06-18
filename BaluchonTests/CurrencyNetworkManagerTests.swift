@@ -33,30 +33,6 @@ class CurrencyNetworkManagerTests: XCTestCase {
 			URL(string: "http://data.fixer.io/api/latest?access_key=ec4830ae63993cf83fa637d7c488b1bf&symbols=EUR,USD,GBP,AUD,JPY"))
 	}
 
-	func testGetCurrencyDataShoulFailCompletionIfErrorTestasdpoaspoadkspoasdkpoadk() {
-		// Given
-		let currencyNetworkManager = CurrencyNetworkManager(
-			session: URLSessionFake(
-				data: nil,
-				response: nil,
-				error: NetworkManagerError.failedToFetchRessource(underlineError: nil)),
-			urlGenerator: URLGeneratorForCurrencyMock()
-		)
-
-		// When
-		let expectation = XCTestExpectation(description: "Wait for queue change")
-
-		currencyNetworkManager.loadCurrency { (result) in
-			if
-				case .failure(let error) = result,
-				case NetworkManagerError.failedToCreateURL(message: _) = error
-			{
-				expectation.fulfill()
-			}
-		}
-		wait(for: [expectation], timeout: 0.01)
-	}
-
 	func testGetCurrencyDataShoulFailCompletionIfError() {
 		// Given
 		let currencyNetworkManager = CurrencyNetworkManager(

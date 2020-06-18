@@ -7,6 +7,7 @@
 //
 
 import Foundation
+@testable import Baluchon
 
 // swiftlint:disable force_try
 class FakeTranslateResponseData: TranslationNetworkManager {

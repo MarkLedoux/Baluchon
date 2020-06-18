@@ -8,6 +8,7 @@
 
 import Foundation
 
+@testable import Baluchon
 class URLSessionFake: URLSession {
 	var data: Data?
 	var response: URLResponse?

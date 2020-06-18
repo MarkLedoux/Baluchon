@@ -9,6 +9,7 @@
 import Foundation
 
 // swiftlint:disable force_try
+@testable import Baluchon
 class FakeWeatherResponseData: WeatherNetworkManager {
 	// MARK: - Data
 	static var weatherCorrectData: Data? {

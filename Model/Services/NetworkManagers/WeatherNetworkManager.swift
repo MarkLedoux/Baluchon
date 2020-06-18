@@ -25,10 +25,14 @@ class WeatherNetworkManager: NetworkManager {
 			completion(.failure(.failedToCreateURL(message: #function)))
 			return
 		}
-		fetch(with: URLRequest(url: url), decode: { (result) -> WeatherResult? in
-			guard let result = result as? WeatherResult else { return nil }
-			return result
-		}, completion: completion)
+		fetch(with: URLRequest(url: url)) { (result: Result<WeatherResult, NetworkManagerError>) in
+			switch result { 
+			case .failure(let error): 
+				completion(.failure(error))
+			case .success(let result): 
+				completion(.success(result))
+			}
+		}
 	}
 	
 	// MARK: - Private Properties

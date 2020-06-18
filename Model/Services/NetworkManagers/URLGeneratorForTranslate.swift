@@ -9,12 +9,12 @@
 import Foundation
 
 protocol URLGeneratorForTranslateProtocol {  
-	func createTranslateURL() -> URL?
+	func createTranslateURL(textToTranslate: String) -> URL?
 }
 
 final class URLGeneratorForTranslate: URLComponentManager, URLGeneratorForTranslateProtocol {
 
-	func createTranslateURL() -> URL? {
+	func createTranslateURL(textToTranslate: String) -> URL? {
 		let translateURL = createURL(
 			scheme: "https",
 			host: "translation.googleapis.com",
@@ -25,7 +25,7 @@ final class URLGeneratorForTranslate: URLComponentManager, URLGeneratorForTransl
 					value: "AIzaSyC-qFZOLKSpUQSmQS41iKGz8vJ7NXQKAFA"),
 				URLQueryItem(
 					name: "q",
-					value: ""),
+					value: textToTranslate),
 				URLQueryItem(
 					name: "source",
 					value: "en"),

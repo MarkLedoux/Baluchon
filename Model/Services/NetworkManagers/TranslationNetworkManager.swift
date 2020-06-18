@@ -19,7 +19,7 @@ class TranslationNetworkManager: NetworkManager {
 	func fetchTranslationData(
 		textToTranslate: String, 
 		completion: @escaping(Result<TranslationResult, NetworkManagerError>) -> Void) { 
-		guard let url = urlGenerator.createTranslateURL() else { 
+		guard let url = urlGenerator.createTranslateURL(textToTranslate: textToTranslate) else { 
 			completion(.failure(.failedToCreateURL(message: #function)))
 			return 
 		}
@@ -36,10 +36,14 @@ class TranslationNetworkManager: NetworkManager {
 		request.httpBody  = httpBody
 		request.timeoutInterval = 20
 		
-		fetch(with: request, decode: { (result) -> TranslationResult? in
-			guard let result = result as? TranslationResult else { return nil }
-			return result
-		}, completion: completion)
+		fetch(with: URLRequest(url: url)) { (result: Result<TranslationResult, NetworkManagerError>) in
+			switch result { 
+			case .failure(let error): 
+				completion(.failure(error))
+			case .success(let result): 
+				completion(.success(result))
+			}
+		}
 	}
 	
 	// MARK: - Private Properties

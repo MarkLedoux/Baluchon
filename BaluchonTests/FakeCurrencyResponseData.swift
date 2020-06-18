@@ -7,8 +7,10 @@
 //
 
 import Foundation
+@testable import Baluchon
 
 // swiftlint:disable force_try
+
 class FakeCurrencyResponseData: CurrencyNetworkManager {
 	// MARK: - Data
 	static var currencyCorrectData: Data? {

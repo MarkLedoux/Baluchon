@@ -10,6 +10,7 @@ import XCTest
 @testable import Baluchon
 
 // swiftlint:disable line_length
+
 class TranslationNetworkManagerTests: XCTestCase {
 
 	override func setUpWithError() throws {
@@ -25,10 +26,10 @@ class TranslationNetworkManagerTests: XCTestCase {
 		let generator = URLGeneratorForTranslate()
 
 		// When
-		let translateURL = generator.createTranslateURL()
+		let translateURL = generator.createTranslateURL(textToTranslate: "")
 
 		// Then
-		XCTAssertEqual(translateURL, URL(string: "https://translation.googleapis.com/language/translate/v2?key=AIzaSyC-qFZOLKSpUQSmQS41iKGz8vJ7NXQKAFA&q=textToTranslate&source=en&target=fr"))
+		XCTAssertEqual(translateURL, URL(string: "https://translation.googleapis.com/language/translate/v2?key=AIzaSyC-qFZOLKSpUQSmQS41iKGz8vJ7NXQKAFA&q=&source=en&target=fr"))
 	}
 
 	func testGetTranslationDataShoulFailCompletionIfError() {
@@ -41,7 +42,7 @@ class TranslationNetworkManagerTests: XCTestCase {
 
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		translationNetworkManager.makeRequest(textToTranslate: "") { result in
+		translationNetworkManager.fetchTranslationData(textToTranslate: "") { result in
 			// Then
 			if
 				case .failure(let error) = result,
@@ -63,7 +64,7 @@ class TranslationNetworkManagerTests: XCTestCase {
 
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		translationNetworkManager.makeRequest(textToTranslate: "") { _ in
+		translationNetworkManager.fetchTranslationData(textToTranslate: "") { _ in
 			// Then
 			XCTAssertNotNil(FakeTranslateResponseData.error)
 			expectation.fulfill()
@@ -81,7 +82,7 @@ class TranslationNetworkManagerTests: XCTestCase {
 
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		translationNetworkManager.makeRequest(textToTranslate: "") { result in
+		translationNetworkManager.fetchTranslationData(textToTranslate: "") { result in
 			// Then
 			if
 				case .failure(let error) = result,
@@ -103,7 +104,7 @@ class TranslationNetworkManagerTests: XCTestCase {
 
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		translationNetworkManager.makeRequest(textToTranslate: "") { _ in
+		translationNetworkManager.fetchTranslationData(textToTranslate: "") { _ in
 			// Then
 			XCTAssertNotNil(NetworkManagerError.noDataAfterFetchingResource)
 			expectation.fulfill()
@@ -121,14 +122,13 @@ class TranslationNetworkManagerTests: XCTestCase {
 
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		translationNetworkManager.makeRequest(textToTranslate: "", completion: { (result) in
+		translationNetworkManager.fetchTranslationData(textToTranslate: "", completion: { (result) in
 			// Then
 			XCTAssertNotNil(result)
-			let translationResult = [
-				"translatedText": "La Gran Pirámide de Giza (también conocida como la Pirámide de Khufu o la Pirámide de Keops) es la más antigua y más grande de las tres pirámides en el complejo de la pirámide de Giza."
-			]
+			let translationResult =
+				"La Gran Pirámide de Giza (también conocida como la Pirámide de Khufu o la Pirámide de Keops) es la más antigua y más grande de las tres pirámides en el complejo de la pirámide de Giza."
 			if case let .success(translatedTextResult) = result {
-				XCTAssertEqual(translatedTextResult.translations, translationResult)
+				XCTAssertEqual(translatedTextResult.data.translations.first!.translatedText, translationResult)
 			}
 			expectation.fulfill()
 		})
