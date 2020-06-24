@@ -30,3 +30,9 @@ final class URLGeneratorForCurrency: URLComponentManager, URLGeneratorForCurrenc
 		return currencyURL
 	}
 }
+
+final class URLGeneratorForCurrencyStub: URLGeneratorForCurrencyProtocol {
+	func createCurrencyURL() -> URL? {
+		return nil
+	}
+}

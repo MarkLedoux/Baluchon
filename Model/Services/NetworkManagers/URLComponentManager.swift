@@ -9,11 +9,12 @@
 import Foundation
 
 protocol URLComponentsManagerProtocol {
-	var components: URLComponents { get }
+	func createURL(scheme: String, host: String, path: String, queryItems: [URLQueryItem]? ) -> URL?
 }
 
 class URLComponentManager: URLComponentsManagerProtocol {
-	internal var components = URLComponents()
+	private var components = URLComponents()
+	
 	func createURL(scheme: String, host: String, path: String, queryItems: [URLQueryItem]? ) -> URL? {
 		var url: URL? {
 			components.scheme = scheme
@@ -23,5 +24,11 @@ class URLComponentManager: URLComponentsManagerProtocol {
 			return components.url
 		}
 		return url
+	}
+}
+
+class URLComponentManagerStub: URLComponentsManagerProtocol {
+	func createURL(scheme: String, host: String, path: String, queryItems: [URLQueryItem]? ) -> URL? {
+		return nil
 	}
 }
