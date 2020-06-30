@@ -9,7 +9,7 @@
 import Foundation
 
 class WeatherNetworkManager: NetworkManager {
-	let pictureUrl = URL(string: "http://openweathermap.org/img/w/01n.png")!
+	let pictureUrl = URL(string:"http://openweathermap.org/img/w/01n.png")
 
 	// MARK: - Init
 	init(session: URLSession, urlGenerator: URLGeneratorForWeatherProtocol = URLGeneratorForWeather()) {
@@ -20,8 +20,10 @@ class WeatherNetworkManager: NetworkManager {
 	// MARK: - Public Methods
 	/// fetching currency data and decoding it
 	/// - Parameter completion: Result with CurrencyResult and NetworkManagerError
-	func loadWeatherData(completion: @escaping(Result<WeatherResult, NetworkManagerError>) -> Void) {
-		guard let url = urlGenerator.createWeatherURL() else {
+	private func loadWeatherData(
+		cityName: String, 
+		completion: @escaping(Result<WeatherResult, NetworkManagerError>) -> Void) {
+		guard let url = urlGenerator.createWeatherURLForMainCity(name: cityName) else {
 			completion(.failure(.failedToCreateURL(message: #function)))
 			return
 		}
@@ -29,8 +31,29 @@ class WeatherNetworkManager: NetworkManager {
 			switch result { 
 			case .failure(let error): 
 				completion(.failure(error))
-			case .success(let result): 
+			case .success(let result):
 				completion(.success(result))
+			}
+		}
+	}
+	
+	func loadMultipleWeatherData(
+		cityNames: [String], 
+		completion: @escaping(Result<[String: WeatherResult], NetworkManagerError>) -> Void) {
+		
+		var weatherDic: [String: WeatherResult] = [:]
+		
+		for cityName in cityNames {
+			loadWeatherData(cityName: cityName) { result in
+				switch result { 
+				case .failure(let error): 
+					completion(.failure(error))
+				case .success(let result):
+					weatherDic[cityName] = result
+					if weatherDic.count >= cityNames.count { 
+						completion(.success(weatherDic))
+					}
+				}
 			}
 		}
 	}
@@ -41,14 +64,12 @@ class WeatherNetworkManager: NetworkManager {
 	internal var session: URLSession
 	
 	// MARK: - Private Methods
-	private func getWeatherImage(completionHandler: @escaping ((Data?) -> Void)) {
-		let session = URLSession(configuration: .default)
-		let task = session.dataTask(with: pictureUrl) { (data, response, error) in
-			if let data = data, error == nil {
-				if let response = response as? HTTPURLResponse, response.statusCode == 200 {
-					completionHandler(data) // On passe les données via le completionHandler
-				}
-			}
+	func getWeatherImage(completion: @escaping ((Data?) -> Void)) {
+		
+		let task = session.dataTask(with: pictureUrl!) { (data, response, error) in
+			guard let data = data, error == nil else { return }
+			guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { return }
+			completion(data)
 		}
 		task.resume()
 	}

@@ -9,12 +9,12 @@
 import Foundation
 
 protocol URLGeneratorForWeatherProtocol {
-	func createWeatherURL() -> URL? 
+	func createWeatherURLForMainCity(name: String) -> URL? 
 }
 
 final class URLGeneratorForWeather: URLComponentManager, URLGeneratorForWeatherProtocol {
 
-	func createWeatherURL() -> URL? {
+	func createWeatherURLForMainCity(name: String) -> URL? {
 		let currencyURL = createURL(
 			scheme: "http",
 			host: "api.openweathermap.org",
@@ -22,11 +22,18 @@ final class URLGeneratorForWeather: URLComponentManager, URLGeneratorForWeatherP
 			queryItems: [
 				URLQueryItem(
 					name: "q",
-					value: "London,uk"),
+					value: name),
 				URLQueryItem(
 					name: "APPID",
 					value: "43e33607fe2ad4493bd13aeabd87e12f")
 		])
 		return currencyURL
+	}
+}
+
+final class URLGeneratorForWeatherStub: URLComponentManagerStub, URLGeneratorForWeatherProtocol {
+	func createWeatherURLForMainCity(name: String) -> URL? {
+		_  = createURL(scheme: "", host: "", path: "", queryItems: [])
+		return nil
 	}
 }

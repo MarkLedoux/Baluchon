@@ -31,8 +31,9 @@ final class URLGeneratorForCurrency: URLComponentManager, URLGeneratorForCurrenc
 	}
 }
 
-final class URLGeneratorForCurrencyStub: URLGeneratorForCurrencyProtocol {
+final class URLGeneratorForCurrencyStub: URLComponentManagerStub, URLGeneratorForCurrencyProtocol {
 	func createCurrencyURL() -> URL? {
+		_  = createURL(scheme: "", host: "", path: "", queryItems: [])
 		return nil
 	}
 }

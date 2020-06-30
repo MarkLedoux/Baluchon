@@ -10,7 +10,7 @@ import UIKit
 
 class WeatherCell: UITableViewCell {
 	@IBOutlet var cityNameLabel: UILabel!
-	@IBOutlet var weatherImageLabel: UIImageView!
+	@IBOutlet var weatherImage: UIImageView!
 	@IBOutlet var weatherDescriptionLabel: UILabel!
 	@IBOutlet var temperatureLabel: UILabel!
 

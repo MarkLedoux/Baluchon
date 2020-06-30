@@ -31,6 +31,29 @@ class TranslationNetworkManagerTests: XCTestCase {
 		// Then
 		XCTAssertEqual(translateURL, URL(string: "https://translation.googleapis.com/language/translate/v2?key=AIzaSyC-qFZOLKSpUQSmQS41iKGz8vJ7NXQKAFA&q=&source=en&target=fr"))
 	}
+	
+	func testURLComponentsManagerShouldFailWhenWrongURLIsPassedIn() { 
+		// Given 
+		let generator = URLGeneratorForTranslateStub()
+		let translationNetworkManager = TranslationNetworkManager(
+			session: URLSessionFake(
+				data: nil, 
+				response: nil, 
+				error: nil), 
+			urlGenerator: generator)
+		
+		// When
+		let expectation = XCTestExpectation(description: "Wait for queue change")
+		
+		translationNetworkManager.fetchTranslationData(textToTranslate: "") { result in 
+			if 
+				case .failure(let error) = result, 
+				case NetworkManagerError.failedToCreateURL(message: "fetchTranslationData(textToTranslate:completion:)") = error { 
+				expectation.fulfill()
+			}
+		}
+		wait(for: [expectation], timeout: 0.01)
+	}
 
 	func testGetTranslationDataShoulFailCompletionIfError() {
 		// Given

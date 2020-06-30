@@ -9,13 +9,6 @@
 import UIKit
 
 // swiftlint:disable weak_delegate
-extension WeatherViewController: WeatherDelegate {
-	// TODO: - fetch not only weatherresult but also get the information of the images, scroll while loading the images and check that the URL corresponds to the basic URL 
-	func didGetWeatherData(weatherResult: WeatherResult) {
-		weatherTableViewDataSource.weatherResult = weatherResult
-		weatherTableView.reloadData()
-	}
-}
 
 final class WeatherViewController: UIViewController {
 	@IBOutlet var weatherTableView: UITableView!
@@ -30,22 +23,27 @@ final class WeatherViewController: UIViewController {
 	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		weatherNetWorkManager.loadWeatherData { [weak self] result in
+		weatherNetWorkManager.loadMultipleWeatherData(cityNames: ["New York", "London", "Tassin-La-Demi-Lune", "Moscow", "Tokyo"]) { [weak self] result in
 			guard let self = self else { return }
 			switch result { 
-			case .success(let weatherResult): 
+			case .success(let weatherResultDic): 
+				self.weatherNetWorkManager.getWeatherImage { (data) in
+						if let data = data { 
+							// update the ImageView in the cell? 
+							print(data)
+						}
+					}
 				DispatchQueue.main.async {
-					self.handle(weatherResult: weatherResult)
+					self.handle(weatherResult: weatherResultDic)
 				}
-				print("Successfully fetched weather data")
 			case .failure: 
 				print("Failed to fetch weather data ")
 			}
 		}
 	}
 	
-	func handle(weatherResult: WeatherResult) {
-		weatherTableViewDataSource.weatherResult = weatherResult
+	func handle(weatherResult: [String: WeatherResult]) {
+		weatherTableViewDataSource.weatherResults = weatherResult.map { $0.value }
 		weatherTableView.reloadData()
 	}
 

@@ -36,3 +36,10 @@ final class URLGeneratorForTranslate: URLComponentManager, URLGeneratorForTransl
 		return translateURL
 	}
 }
+
+final class URLGeneratorForTranslateStub: URLComponentManagerStub, URLGeneratorForTranslateProtocol {
+	func createTranslateURL(textToTranslate: String) -> URL? {
+		_  = createURL(scheme: "", host: "", path: "", queryItems: [])
+		return nil
+	}
+}

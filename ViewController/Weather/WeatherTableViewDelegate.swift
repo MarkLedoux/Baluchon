@@ -11,7 +11,7 @@ import UIKit
 // swiftlint:disable force_cast
 class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
 	
-	var weatherResult: WeatherResult?
+	var weatherResults: [WeatherResult] = []
 	
 	// MARK: - Methods
 
@@ -19,13 +19,13 @@ class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
 		return 1
 	}
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return weatherResult?.weather?.count ?? 0
+		return weatherResults.count
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! WeatherCell
 
-		guard let weatherResult = weatherResult else { return UITableViewCell() }
+		let weatherResult = weatherResults[indexPath.row]
 		
 		let temp = weatherResult.main?.temp
 		let desc = weatherResult.weather?.first?.weatherDescription
@@ -36,24 +36,11 @@ class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
 		cell.temperatureLabel.text = "\(Int((temp!-273.15)))°C"
 		cell.weatherDescriptionLabel.text = desc
 		cell.cityNameLabel.text = cityName
-		
-			guard let url = URL(string: "http://openweathermap.org/img/w/01n.png") else { return UITableViewCell() }
-			URLSession.shared.dataTask(with: url) { iconData, _, _ in 
-				if let data = iconData { 
-					DispatchQueue.main.async {
-						cell.weatherImageLabel.image = UIImage(data: data)
-					}
-				} else { 
-					print("Failed to fetch image data")
-				}
-			}
-		cell.weatherImageLabel.image = UIImage(named: weatherImage)
+		cell.weatherImage.image = UIImage(named: "01n")
 		return cell
 	}
 }
 
 class WeatherTableViewDelegate: NSObject, UITableViewDelegate { 
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let vc = WeatherDetailViewController()
-	}
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
 }
