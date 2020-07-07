@@ -8,10 +8,31 @@
 
 import UIKit
 
+
+protocol WeatherResultContainerDelegate: class { 
+	func didUpdateImageData()
+}
+
+class WeatherResultContainer {
+	weak var delegate: WeatherResultContainerDelegate?
+	
+	init(weatherResult: WeatherResult, imageData: Data? = nil) {
+		self.weatherResult = weatherResult
+		self.imageData = imageData
+	}
+	
+	let weatherResult: WeatherResult
+	var imageData: Data? {
+		didSet { 
+			delegate?.didUpdateImageData()
+		}
+	}
+}
+
 // swiftlint:disable force_cast
 class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
 	
-	var weatherResults: [WeatherResult] = []
+	var weatherResults: [WeatherResultContainer] = []
 	
 	// MARK: - Methods
 
@@ -27,16 +48,20 @@ class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
 
 		let weatherResult = weatherResults[indexPath.row]
 		
-		let temp = weatherResult.main?.temp
-		let desc = weatherResult.weather?.first?.weatherDescription
-		let cityName = weatherResult.name
-		guard let weatherImage = weatherResult.weather?.first?.icon else { return UITableViewCell() }
-		
+		let temp = weatherResult.weatherResult.main?.temp
+		let desc = weatherResult.weatherResult.weather?.first?.weatherDescription
+		let cityName = weatherResult.weatherResult.name
+		guard
+			let weatherImageData = weatherResult.imageData,
+			let weatherImage = UIImage(data: weatherImageData)
+		else { return UITableViewCell() }
+	
 		// TODO: - Create extension to return the temperatures in celsius? 
 		cell.temperatureLabel.text = "\(Int((temp!-273.15)))°C"
 		cell.weatherDescriptionLabel.text = desc
 		cell.cityNameLabel.text = cityName
-		cell.weatherImage.image = UIImage(named: "01n")
+		
+		cell.weatherImage.image = weatherImage
 		return cell
 	}
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 class WeatherNetworkManager: NetworkManager {
-	let pictureUrl = URL(string:"http://openweathermap.org/img/w/01n.png")
+	let pictureUrl = "http://openweathermap.org/img/w/"
 
 	// MARK: - Init
 	init(session: URLSession, urlGenerator: URLGeneratorForWeatherProtocol = URLGeneratorForWeather()) {
@@ -64,9 +64,9 @@ class WeatherNetworkManager: NetworkManager {
 	internal var session: URLSession
 	
 	// MARK: - Private Methods
-	func getWeatherImage(completion: @escaping ((Data?) -> Void)) {
-		
-		let task = session.dataTask(with: pictureUrl!) { (data, response, error) in
+	func getWeatherImage(imageIdentifier: String, completion: @escaping ((Data?) -> Void)) {
+		let url = URL(string: pictureUrl + imageIdentifier + ".png")!
+		let task = session.dataTask(with: url) { (data, response, error) in
 			guard let data = data, error == nil else { return }
 			guard let response = response as? HTTPURLResponse, response.statusCode == 200 else { return }
 			completion(data)

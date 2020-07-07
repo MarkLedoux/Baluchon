@@ -44,7 +44,7 @@ class WeatherNetworkManagerTests: XCTestCase {
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
 		
-		weatherNetworkManager.loadWeatherData(cityName: "New York") { result in
+		weatherNetworkManager.loadMultipleWeatherData(cityNames: ["New York"]) { result in
 			// Then
 			if
 				case .failure(let error) = result,
@@ -65,7 +65,7 @@ class WeatherNetworkManagerTests: XCTestCase {
 		
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		weatherNetworkManager.loadWeatherData(cityName: "New York") { result in
+		weatherNetworkManager.loadMultipleWeatherData(cityNames: ["New York"]) { result in
 			// Then
 			if
 				case .failure(let error) = result,
@@ -87,7 +87,7 @@ class WeatherNetworkManagerTests: XCTestCase {
 		
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		weatherNetworkManager.loadWeatherData(cityName: "New York") { _ in
+		weatherNetworkManager.loadMultipleWeatherData(cityNames: ["New York"]) { _ in
 			// Then
 			XCTAssertNotNil(FakeWeatherResponseData.error)
 			expectation.fulfill()
@@ -105,7 +105,7 @@ class WeatherNetworkManagerTests: XCTestCase {
 		
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		weatherNetworkManager.loadWeatherData(cityName: "New York") { result in
+		weatherNetworkManager.loadMultipleWeatherData(cityNames: ["New York"]) { result in
 			// Then
 			if
 				case .failure(let error) = result,
@@ -127,7 +127,7 @@ class WeatherNetworkManagerTests: XCTestCase {
 		
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		weatherNetworkManager.loadWeatherData(cityName: "New York") { _ in
+		weatherNetworkManager.loadMultipleWeatherData(cityNames: ["New York"]) { _ in
 			// Then
 			XCTAssertNotNil(NetworkManagerError.failedToFetchRessource)
 			expectation.fulfill()
@@ -145,7 +145,7 @@ class WeatherNetworkManagerTests: XCTestCase {
 		
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		weatherNetworkManager.loadWeatherData(cityName: "New York") { result in
+		weatherNetworkManager.loadMultipleWeatherData(cityNames: ["New York"]) { result in
 			// Then
 			XCTAssertNotNil(result)
 			let tempWeatherResult = 285.83

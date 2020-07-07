@@ -8,6 +8,14 @@
 
 import UIKit
 
+extension WeatherViewController: WeatherResultContainerDelegate {
+	func didUpdateImageData() {
+		DispatchQueue.main.async {
+			self.weatherTableView.reloadData()
+		}
+	}
+}
+
 // swiftlint:disable weak_delegate
 
 final class WeatherViewController: UIViewController {
@@ -21,18 +29,29 @@ final class WeatherViewController: UIViewController {
 		weatherTableView.delegate = weatherTableViewDelegate
 	}
 	
+	private func fetchImageData(_ weatherResultDic: ([WeatherResultContainer])) {
+		for weatherResult in weatherResultDic { 
+			guard let imageIdentifier = weatherResult.weatherResult.weather?.first?.icon else { continue }
+			self.weatherNetWorkManager.getWeatherImage(imageIdentifier: imageIdentifier) { (data) in
+				if let data = data { 
+					// update the ImageView in the cell? 
+					print(data)
+					
+					weatherResult.imageData = data
+					
+				}
+			}
+		}
+	}
+	
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		weatherNetWorkManager.loadMultipleWeatherData(cityNames: ["New York", "London", "Tassin-La-Demi-Lune", "Moscow", "Tokyo"]) { [weak self] result in
+		weatherNetWorkManager.loadMultipleWeatherData(
+		cityNames: ["New York", "London", "Tassin-La-Demi-Lune", "Moscow", "Tokyo"]) { [weak self] result in
 			guard let self = self else { return }
 			switch result { 
 			case .success(let weatherResultDic): 
-				self.weatherNetWorkManager.getWeatherImage { (data) in
-						if let data = data { 
-							// update the ImageView in the cell? 
-							print(data)
-						}
-					}
+				
 				DispatchQueue.main.async {
 					self.handle(weatherResult: weatherResultDic)
 				}
@@ -43,8 +62,15 @@ final class WeatherViewController: UIViewController {
 	}
 	
 	func handle(weatherResult: [String: WeatherResult]) {
-		weatherTableViewDataSource.weatherResults = weatherResult.map { $0.value }
+		weatherTableViewDataSource.weatherResults = weatherResult
+			.map { $0.value }
+			.map {
+				let container = WeatherResultContainer(weatherResult: $0)
+				container.delegate = self
+				return container
+		} 
 		weatherTableView.reloadData()
+		fetchImageData(weatherTableViewDataSource.weatherResults)
 	}
 
 	// MARK: - Properties

@@ -10,6 +10,7 @@ import Foundation
 
 /// defining weather data
 struct WeatherResult: Codable {
+	
 	let coord: Coord?
 	let weather: [WeatherElement]?
 	let base: String?
