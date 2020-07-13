@@ -282,9 +282,8 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="Cl8-ji-7Fp" firstAttribute="top" secondItem="9Rs-xO-vZC" secondAttribute="bottom" constant="25" id="0ku-CG-0Jg"/>
                             <constraint firstItem="9Rs-xO-vZC" firstAttribute="leading" secondItem="iIz-WE-G08" secondAttribute="leading" constant="50" id="20T-6B-Oal"/>
-                            <constraint firstItem="iIz-WE-G08" firstAttribute="bottom" secondItem="Cl8-ji-7Fp" secondAttribute="bottom" constant="303" id="ACj-6f-nvj"/>
+                            <constraint firstItem="iIz-WE-G08" firstAttribute="bottom" secondItem="Cl8-ji-7Fp" secondAttribute="bottom" constant="303" id="3SH-Qk-B1C"/>
                             <constraint firstItem="iIz-WE-G08" firstAttribute="trailing" secondItem="9Rs-xO-vZC" secondAttribute="trailing" constant="50" id="Bcw-8p-ukU"/>
                             <constraint firstItem="bpl-cy-VST" firstAttribute="centerX" secondItem="ZSt-mL-Kpk" secondAttribute="centerX" id="QTa-5G-Fy3"/>
                             <constraint firstItem="Cl8-ji-7Fp" firstAttribute="centerX" secondItem="ZSt-mL-Kpk" secondAttribute="centerX" id="WJp-U7-HmG"/>
@@ -292,6 +291,7 @@
                             <constraint firstItem="iIz-WE-G08" firstAttribute="trailing" secondItem="bpl-cy-VST" secondAttribute="trailing" constant="50" id="bwh-iO-hfw"/>
                             <constraint firstItem="Cl8-ji-7Fp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iIz-WE-G08" secondAttribute="leading" id="gMD-rA-MrT"/>
                             <constraint firstItem="bpl-cy-VST" firstAttribute="leading" secondItem="iIz-WE-G08" secondAttribute="leading" constant="50" id="nej-zm-b96"/>
+                            <constraint firstItem="Cl8-ji-7Fp" firstAttribute="top" secondItem="9Rs-xO-vZC" secondAttribute="bottom" constant="25" id="oHi-mZ-aya"/>
                             <constraint firstItem="bpl-cy-VST" firstAttribute="top" secondItem="iIz-WE-G08" secondAttribute="top" constant="30" id="oIn-bc-KdH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iIz-WE-G08"/>

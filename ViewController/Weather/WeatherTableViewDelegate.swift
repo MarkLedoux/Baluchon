@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 protocol WeatherResultContainerDelegate: class { 
 	func didUpdateImageData()
 }

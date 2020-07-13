@@ -63,7 +63,6 @@ class WeatherNetworkManagerTests: XCTestCase {
 				response: nil,
 				error: NetworkManagerError.failedToFetchRessource(underlineError: nil)))
 		
-		
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
 		let imageData = "image".data(using: .utf8)!
