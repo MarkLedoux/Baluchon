@@ -48,7 +48,7 @@ class WeatherNetworkManagerTests: XCTestCase {
 			// Then
 			if
 				case .failure(let error) = result,
-				case NetworkManagerError.failedToCreateURL(message: "loadWeatherData(name:completion:)") = error { 
+				case NetworkManagerError.failedToCreateURL(message: "loadWeatherData(cityName:completion:)") = error { 
 				expectation.fulfill()
 			}
 		}
@@ -63,8 +63,10 @@ class WeatherNetworkManagerTests: XCTestCase {
 				response: nil,
 				error: NetworkManagerError.failedToFetchRessource(underlineError: nil)))
 		
+		
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
+		let imageData = "image".data(using: .utf8)!
 		weatherNetworkManager.loadMultipleWeatherData(cityNames: ["New York"]) { result in
 			// Then
 			if
@@ -152,9 +154,11 @@ class WeatherNetworkManagerTests: XCTestCase {
 			let nameWeatherResult = "New York"
 			let mainWeatherResult = "Clouds"
 			if case let .success(weatherTempResult) = result { 
-				XCTAssertEqual(weatherTempResult.main?.temp, tempWeatherResult)
-				XCTAssertEqual(weatherTempResult.name, nameWeatherResult)
-				XCTAssertEqual(weatherTempResult.weather?.first?.main, mainWeatherResult)
+				let weatherResult = weatherTempResult
+					.map { $0.value }
+				XCTAssertEqual(weatherResult.first?.main?.temp, tempWeatherResult)
+				XCTAssertEqual(weatherResult.first?.name, nameWeatherResult)
+				XCTAssertEqual(weatherResult.first?.weather?.first?.main, mainWeatherResult)
 			}
 			expectation.fulfill()
 		}

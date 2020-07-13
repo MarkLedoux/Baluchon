@@ -34,7 +34,6 @@ final class WeatherViewController: UIViewController {
 			guard let imageIdentifier = weatherResult.weatherResult.weather?.first?.icon else { continue }
 			self.weatherNetWorkManager.getWeatherImage(imageIdentifier: imageIdentifier) { (data) in
 				if let data = data { 
-					// update the ImageView in the cell? 
 					print(data)
 					
 					weatherResult.imageData = data
@@ -51,7 +50,6 @@ final class WeatherViewController: UIViewController {
 			guard let self = self else { return }
 			switch result { 
 			case .success(let weatherResultDic): 
-				
 				DispatchQueue.main.async {
 					self.handle(weatherResult: weatherResultDic)
 				}

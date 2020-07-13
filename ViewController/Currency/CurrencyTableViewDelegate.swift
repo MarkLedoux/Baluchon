@@ -25,8 +25,6 @@ final class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CurrencyCell
 
 		guard let currencyResult = currencyResult else { return UITableViewCell() }
-		let currencyCodes = Array(currencyResult.rates.keys)
-		let imageCode = currencyCodes.description
 
 		//sorting keys only results in values being off in the tableview
 		let currencyBases = currencyResult.rates.map { "\($0) \($1)" }.sorted()
@@ -40,15 +38,7 @@ final class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
 	func tableView(
 		_ tableView: UITableView, 
 		commit editingStyle: UITableViewCell.EditingStyle, 
-		forRowAt indexPath: IndexPath) {
-		
-//		if editingStyle == .delete {
-//			objects.remove(at: indexPath.row)
-//			tableView.deleteRows(at: [indexPath], with: .fade)
-//		} else if editingStyle == .insert {
-//			// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-//		}
-	}
+		forRowAt indexPath: IndexPath) { }
 }
 
 final class CurrencyTableViewDelegate: NSObject, UITableViewDelegate {

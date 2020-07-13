@@ -10,7 +10,7 @@ import UIKit
 
 extension TranslateViewController: TranslateDelegate {
 	func didFetchTranslationData(translationResult: TranslationResult) {
-		translationInput.delegate = translationTextFieldDelegate
+		translationInput.delegate = translationTextFieldDelegate as? UITextViewDelegate
 	}
 }
 
@@ -19,7 +19,7 @@ final class TranslateViewController: UIViewController {
 	
 	// MARK: - Private Properties
 	@IBOutlet private weak var sendTranslationButton: UIButton!
-	@IBOutlet private weak var translationInput: UITextField!
+	@IBOutlet private weak var translationInput: UITextView!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
