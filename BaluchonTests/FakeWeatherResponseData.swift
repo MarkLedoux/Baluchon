@@ -19,7 +19,7 @@ class FakeWeatherResponseData: WeatherNetworkManager {
 	}
 
 	static let weatherIncorrectData = "erreur".data(using: .utf8)!
-	static let imageData = "image".data(using: .utf8)!
+	static let imageData = "icon".data(using: .utf8)!
 
 	// MARK: - Response
 	static let responseOK = HTTPURLResponse(url: URL(string: "https://openclassrooms.com")!,

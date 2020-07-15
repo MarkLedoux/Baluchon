@@ -48,6 +48,7 @@ class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
 		let weatherResult = weatherResults[indexPath.row]
 		
 		let temp = weatherResult.weatherResult.main?.temp
+		let temperature = Temperature(degreesK: temp ?? 0)
 		let desc = weatherResult.weatherResult.weather?.first?.weatherDescription
 		let cityName = weatherResult.weatherResult.name
 		guard
@@ -55,8 +56,7 @@ class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
 			let weatherImage = UIImage(data: weatherImageData)
 		else { return UITableViewCell() }
 	
-		// TODO: - Create extension to return the temperatures in celsius? 
-		cell.temperatureLabel.text = "\(Int((temp!-273.15)))°C"
+		cell.temperatureLabel.text = "\(Int((temperature.degreesC)))°C"
 		cell.weatherDescriptionLabel.text = desc
 		cell.cityNameLabel.text = cityName
 		

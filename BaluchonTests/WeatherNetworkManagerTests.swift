@@ -55,7 +55,7 @@ class WeatherNetworkManagerTests: XCTestCase {
 		wait(for: [expectation], timeout: 0.01)
 	}
 	
-	func testGetWeatherDataShoulFailCompletionIfError() {
+	func testGetWeatherDataShouldFailCompletionIfError() {
 		// Given
 		let weatherNetworkManager = WeatherNetworkManager(
 			session: URLSessionFake(
@@ -65,7 +65,6 @@ class WeatherNetworkManagerTests: XCTestCase {
 		
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		let imageData = "image".data(using: .utf8)!
 		weatherNetworkManager.loadMultipleWeatherData(cityNames: ["New York"]) { result in
 			// Then
 			if
@@ -78,7 +77,7 @@ class WeatherNetworkManagerTests: XCTestCase {
 		wait(for: [expectation], timeout: 0.01)
 	}
 	
-	func testGetWeatherDataShoulFailCompletionIfNoData() {
+	func testGetWeatherDataShouldFailCompletionIfNoData() {
 		// Given
 		let weatherNetworkManager = WeatherNetworkManager(
 			session: URLSessionFake(
@@ -96,7 +95,7 @@ class WeatherNetworkManagerTests: XCTestCase {
 		wait(for: [expectation], timeout: 0.01)
 	}
 	
-	func testGetWeatherDataShoulFailCompletionIfIncorrectResponse() {
+	func testGetWeatherDataShouldFailCompletionIfIncorrectResponse() {
 		// Given
 		let weatherNetworkManager = WeatherNetworkManager(
 			session: URLSessionFake(
@@ -118,7 +117,7 @@ class WeatherNetworkManagerTests: XCTestCase {
 		wait(for: [expectation], timeout: 0.01)
 	}
 	
-	func testGetWeatherDataShoulFailCompletionIfIncorrectData() {
+	func testGetWeatherDataShouldFailCompletionIfIncorrectData() {
 		// Given
 		let weatherNetworkManager = WeatherNetworkManager(
 			session: URLSessionFake(
@@ -136,7 +135,7 @@ class WeatherNetworkManagerTests: XCTestCase {
 		wait(for: [expectation], timeout: 0.01)
 	}
 	
-	func testGetWeatherDtaShouldSucceedCompletionIfCorrectDataAndCorrectResponseNoError() {
+	func testGetWeatherDataShouldSucceedCompletionIfCorrectDataAndCorrectResponseNoError() {
 		// Given
 		let weatherNetworkManager = WeatherNetworkManager(
 			session: URLSessionFake(
@@ -149,6 +148,7 @@ class WeatherNetworkManagerTests: XCTestCase {
 		weatherNetworkManager.loadMultipleWeatherData(cityNames: ["New York"]) { result in
 			// Then
 			XCTAssertNotNil(result)
+			let imageData = "icon".data(using: .utf8)!
 			let tempWeatherResult = 285.83
 			let nameWeatherResult = "New York"
 			let mainWeatherResult = "Clouds"
@@ -158,6 +158,7 @@ class WeatherNetworkManagerTests: XCTestCase {
 				XCTAssertEqual(weatherResult.first?.main?.temp, tempWeatherResult)
 				XCTAssertEqual(weatherResult.first?.name, nameWeatherResult)
 				XCTAssertEqual(weatherResult.first?.weather?.first?.main, mainWeatherResult)
+				XCTAssertEqual(imageData, FakeWeatherResponseData.imageData)
 			}
 			expectation.fulfill()
 		}
