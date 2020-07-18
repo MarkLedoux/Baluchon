@@ -20,7 +20,9 @@ final class TranslateViewController: UIViewController {
 	// MARK: - Private Properties
 	@IBOutlet private weak var sendTranslationButton: UIButton!
 	@IBOutlet private weak var translationInput: UITextView!
-
+	@IBOutlet weak var targetLanguage: UIButton!
+	@IBOutlet weak var inputLanguage: UIButton!
+	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setNavigationBar()
@@ -52,6 +54,13 @@ final class TranslateViewController: UIViewController {
 		animateButton(sendTranslationButton)
 	}
 	
+	@IBAction func switchInputAndTargetLanguage(_ sender: Any) {
+		let inputLanguageButtonText = inputLanguage.titleLabel?.text
+		
+		inputLanguage.setTitle(targetLanguage.titleLabel?.text, for: .normal)
+		targetLanguage.setTitle(inputLanguageButtonText, for: .normal)
+	}
+	
 	/// preparing the modal view to receive the translated text
 	/// - Parameters:
 	///   - segue: segue from translateViewController to TranslatedTextViewController
@@ -60,8 +69,13 @@ final class TranslateViewController: UIViewController {
 		let vc = segue.destination as? TranslatedTextViewController
 
 		guard let textToTranslate = translationInput.text else { return }
+		guard let source = inputLanguage.titleLabel?.text else { return }
+		guard let target = targetLanguage.titleLabel?.text else { return }
 		guard textToTranslate != "" else { return }
-		translationNetworkManager.fetchTranslationData(textToTranslate: textToTranslate) { result in
+		translationNetworkManager.fetchTranslationData(
+		textToTranslate: textToTranslate) { result in
+			print(source)
+			print(target)
 			switch result { 
 			case .success(let translationResult): 
 				DispatchQueue.main.async {

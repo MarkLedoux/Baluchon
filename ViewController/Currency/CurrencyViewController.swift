@@ -9,10 +9,11 @@
 import UIKit
 
 // swiftlint:disable weak_delegate
-extension CurrencyViewController: CurrencyDelegate {
-	func didGetCurrencyData(currencyResult: CurrencyResult) {
-		currencyTableViewDataSource.currencyResult = currencyResult
-		currencyTableView.reloadData()
+extension CurrencyViewController: CurrencyResultContainerDelegate {
+	func didUpdateCurrencyData() {
+		DispatchQueue.main.async {
+			self.currencyTableView.reloadData()
+		}
 	}
 }
 
@@ -35,8 +36,14 @@ final class CurrencyViewController: UIViewController {
 		fetchCurrencyData()
 	}
 	
-	private func handle(currencyResult: CurrencyResult) {
-		currencyTableViewDataSource.currencyResult = currencyResult
+	private func handle(currencyResult: [String: CurrencyResult]) {
+		currencyTableViewDataSource.currencyResults = currencyResult
+			.map { $0.value }
+			.map { 
+				let container = CurrencyResultContainer(currencyResult: $0)
+				container.delegate = self
+				return container
+		}
 		currencyTableView.reloadData()
 	}
 	
@@ -70,12 +77,13 @@ final class CurrencyViewController: UIViewController {
 	}
 	
 	private func fetchCurrencyData() {
-		currencyNetworkManager.loadCurrency { [weak self] result in
+		currencyNetworkManager.loadMultipleCurrencies(
+		currencyBaseNames: ["EUR", "USD", "GBP", "CAD", "AUD", "JPY"]) { [weak self] result in
 			guard let self = self else { return }
-			switch result {
-			case .success(let currencyResult):
+			switch result { 
+			case .success(let currencyResultDic):
 				DispatchQueue.main.async {
-					self.handle(currencyResult: currencyResult)
+					self.handle(currencyResult: currencyResultDic)
 				}
 				print("Successfully fetched currency data")
 			case .failure:

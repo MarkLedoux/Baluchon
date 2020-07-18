@@ -65,6 +65,7 @@ class WeatherNetworkManager: NetworkManager {
 	
 	// MARK: - Private Methods
 	func getWeatherImage(imageIdentifier: String, completion: @escaping ((Data?) -> Void)) {
+		guard let imageURL = urlGenerator.createWeatherImageURL() else { return }
 		let url = URL(string: pictureUrl + imageIdentifier + ".png")!
 		let task = session.dataTask(with: url) { (data, response, error) in
 			guard let data = data, error == nil else { return }

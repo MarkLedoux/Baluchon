@@ -48,7 +48,7 @@ class TranslationNetworkManagerTests: XCTestCase {
 		translationNetworkManager.fetchTranslationData(textToTranslate: "") { result in 
 			if 
 				case .failure(let error) = result, 
-				case NetworkManagerError.failedToCreateURL(message: "fetchTranslationData(textToTranslate:completion:)") = error { 
+				case NetworkManagerError.failedToCreateURL(message: "fetchTranslationData(textToTranslate:source:target:completion:)") = error { 
 				expectation.fulfill()
 			}
 		}

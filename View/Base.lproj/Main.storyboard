@@ -27,11 +27,17 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ds5-IP-HDH">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="61"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="jdz-5d-9bM">
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="jdz-5d-9bM">
                                                     <rect key="frame" x="20" y="20" width="374" height="21"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNl-Jh-jMV">
-                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYs-2H-0BZ" userLabel="CurrencyValue">
+                                                            <rect key="frame" x="0.0" y="0.0" width="177" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mNl-Jh-jMV" userLabel="CurrencyBase">
+                                                            <rect key="frame" x="197" y="0.0" width="177" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -56,7 +62,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="currencyBaseAndRate" destination="mNl-Jh-jMV" id="aRb-Fa-Ifs"/>
+                                    <outlet property="currencyBase" destination="mNl-Jh-jMV" id="Q5B-xl-e8b"/>
+                                    <outlet property="currencyRate" destination="OYs-2H-0BZ" id="Ezm-ff-nrw"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -246,6 +253,9 @@
                                         <state key="normal" image="arrowBlack">
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="small" weight="bold"/>
                                         </state>
+                                        <connections>
+                                            <action selector="switchInputAndTargetLanguage:" destination="05t-OY-jpS" eventType="touchUpInside" id="jIe-rS-cos"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4E2-tg-59s">
                                         <rect key="frame" x="266" y="0.0" width="48" height="30"/>
@@ -300,7 +310,9 @@
                         <inset key="imageInsets" minX="0.0" minY="239" maxX="0.0" maxY="239"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="inputLanguage" destination="Lz9-rb-u2F" id="kRB-FW-zli"/>
                         <outlet property="sendTranslationButton" destination="Cl8-ji-7Fp" id="Y2X-tc-l2t"/>
+                        <outlet property="targetLanguage" destination="4E2-tg-59s" id="k55-mN-JRG"/>
                         <outlet property="translationInput" destination="9Rs-xO-vZC" id="unj-j0-iW2"/>
                     </connections>
                 </viewController>
