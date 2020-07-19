@@ -80,16 +80,6 @@ final class WeatherViewController: UIViewController {
 	// MARK: - Private Methods
 	private func setUpNavigationBar() {
 		navigationItem.title = "Weather"
-
-		navigationItem.leftBarButtonItem = UIBarButtonItem(
-			barButtonSystemItem: .edit,
-			target: self,
-			action: #selector(edit))
-
-		navigationItem.rightBarButtonItem = UIBarButtonItem(
-			barButtonSystemItem: .add,
-			target: self,
-			action: #selector(addItem))
 	}
 
 	private func setUpWeatherNetworkManager() {

@@ -10,7 +10,7 @@ import UIKit
 
 extension TranslateViewController: TranslateDelegate {
 	func didFetchTranslationData(translationResult: TranslationResult) {
-		translationInput.delegate = translationTextFieldDelegate as? UITextViewDelegate
+		translationInput.delegate = translationTextViewDelegate
 	}
 }
 
@@ -34,7 +34,6 @@ final class TranslateViewController: UIViewController {
 	}
 	
 	private var translationNetworkManager: TranslationNetworkManager!
-	private let translationTextFieldDelegate = TranslateTextFieldDelegate()
 	private let translationTextViewDelegate = TranslateTextViewDelegate()
 	private var translationResult: TranslationResult?
 	private var targetText: String?
@@ -69,13 +68,9 @@ final class TranslateViewController: UIViewController {
 		let vc = segue.destination as? TranslatedTextViewController
 
 		guard let textToTranslate = translationInput.text else { return }
-		guard let source = inputLanguage.titleLabel?.text else { return }
-		guard let target = targetLanguage.titleLabel?.text else { return }
 		guard textToTranslate != "" else { return }
 		translationNetworkManager.fetchTranslationData(
 		textToTranslate: textToTranslate) { result in
-			print(source)
-			print(target)
 			switch result { 
 			case .success(let translationResult): 
 				DispatchQueue.main.async {

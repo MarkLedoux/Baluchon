@@ -10,7 +10,7 @@ import UIKit
 
 class CurrencyCell: UITableViewCell {
 	@IBOutlet var currencyRate: UILabel!
-	@IBOutlet var currencyBase : UILabel!
+	@IBOutlet var currencyBase: UITextField!
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()
@@ -22,5 +22,4 @@ class CurrencyCell: UITableViewCell {
 
 		// Configure the view for the selected state
 	}
-
 }

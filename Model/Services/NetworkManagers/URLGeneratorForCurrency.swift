@@ -25,7 +25,7 @@ final class URLGeneratorForCurrency: URLComponentManager, URLGeneratorForCurrenc
 					value: "ec4830ae63993cf83fa637d7c488b1bf"),
 				URLQueryItem(
 					name: "symbols",
-					value: "EUR,USD,GBP,AUD,JPY")
+					value: "EUR,USD,GBP,JPY")
 		])
 		return currencyURL
 	}

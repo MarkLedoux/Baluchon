@@ -29,6 +29,7 @@ class CurrencyResultContainer {
 
 // swiftlint:disable force_cast
 final class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
+	private let currencyTextFieldDelegate = CurrencyTextFieldDelegate()
 	/// instantiating CurrencyResult and setting properties to reload data of the tableView
 	var currencyResults: [CurrencyResultContainer] = []
 
@@ -42,6 +43,7 @@ final class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
 	/// defining what cell needs to be returned  - line 51-60 need to be moved to a subclass of the cell
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CurrencyCell
+		cell.currencyBase.delegate = currencyTextFieldDelegate
 
 		let currencyResult = currencyResults[indexPath.row]
 

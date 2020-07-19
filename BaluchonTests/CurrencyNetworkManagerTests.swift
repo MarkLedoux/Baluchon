@@ -33,7 +33,7 @@ class CurrencyNetworkManagerTests: XCTestCase {
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
 		
-		currencyNetworkManager.loadCurrency { (result) in
+		currencyNetworkManager.loadMultipleCurrencies(currencyBaseNames: ["EUR", "USD", "GBP", "CAD", "AUD", "JPY"]) { result in
 			if
 				case .failure(let error) = result,
 				case NetworkManagerError.failedToCreateURL(message: "loadCurrency(completion:)") = error {
@@ -54,7 +54,7 @@ class CurrencyNetworkManagerTests: XCTestCase {
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
 		
-		currencyNetworkManager.loadCurrency { (result) in
+		currencyNetworkManager.loadMultipleCurrencies(currencyBaseNames: ["EUR", "USD", "GBP", "CAD", "AUD", "JPY"]) { result in
 			if
 				case .failure(let error) = result,
 				case NetworkManagerError.failedToFetchRessource(underlineError: _) = error
@@ -75,7 +75,7 @@ class CurrencyNetworkManagerTests: XCTestCase {
 		
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		currencyNetworkManager.loadCurrency { (_) in
+		currencyNetworkManager.loadMultipleCurrencies(currencyBaseNames: ["EUR", "USD", "GBP", "CAD", "AUD", "JPY"]) { (_) in
 			XCTAssertNotNil(FakeCurrencyResponseData.error)
 			expectation.fulfill()
 		}
@@ -94,7 +94,7 @@ class CurrencyNetworkManagerTests: XCTestCase {
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
 		
-		currencyNetworkManager.loadCurrency { (result) in
+		currencyNetworkManager.loadMultipleCurrencies(currencyBaseNames: ["EUR", "USD", "GBP", "CAD", "AUD", "JPY"]) { result in
 			if
 				case .failure(let error) = result,
 				case NetworkManagerError.responseUnsuccessful = error
@@ -116,7 +116,7 @@ class CurrencyNetworkManagerTests: XCTestCase {
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
 		
-		currencyNetworkManager.loadCurrency { (_) in
+		currencyNetworkManager.loadMultipleCurrencies(currencyBaseNames: ["EUR", "USD", "GBP", "CAD", "AUD", "JPY"]) { (_) in
 			XCTAssertNotNil(NetworkManagerError.noDataAfterFetchingResource)
 			expectation.fulfill()
 		}
@@ -135,7 +135,7 @@ class CurrencyNetworkManagerTests: XCTestCase {
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
 		
-		currencyNetworkManager.loadCurrency { (result) in
+		currencyNetworkManager.loadMultipleCurrencies(currencyBaseNames: ["EUR", "USD", "GBP", "CAD", "AUD", "JPY"]) { result in
 			
 			XCTAssertNotNil(result)
 			let rateResult = [
@@ -146,7 +146,7 @@ class CurrencyNetworkManagerTests: XCTestCase {
 				"JPY": 117.225674
 			]
 			if case let .success(currencyRatesResult) = result {
-				XCTAssertEqual(currencyRatesResult.rates, rateResult)
+				XCTAssertEqual(currencyRatesResult.values.first?.rates, rateResult)
 			}
 			expectation.fulfill()
 		}

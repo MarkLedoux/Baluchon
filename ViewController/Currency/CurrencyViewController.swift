@@ -59,16 +59,6 @@ final class CurrencyViewController: UIViewController {
 	/// setup for the navigation bar
 	private func setupNavigationBar() {
 		navigationItem.title = "Currency"
-		
-		navigationItem.leftBarButtonItem = UIBarButtonItem(
-			barButtonSystemItem: .edit,
-			target: self,
-			action: #selector(edit))
-		
-		navigationItem.rightBarButtonItem = UIBarButtonItem(
-			barButtonSystemItem: .add,
-			target: self,
-			action: #selector(addItem))
 	}
 	
 	private func setUpCurrencyNetworkManager() {
@@ -78,7 +68,7 @@ final class CurrencyViewController: UIViewController {
 	
 	private func fetchCurrencyData() {
 		currencyNetworkManager.loadMultipleCurrencies(
-		currencyBaseNames: ["EUR", "USD", "GBP", "CAD", "AUD", "JPY"]) { [weak self] result in
+		currencyBaseNames: ["EUR", "USD", "GBP", "JPY"]) { [weak self] result in
 			guard let self = self else { return }
 			switch result { 
 			case .success(let currencyResultDic):
