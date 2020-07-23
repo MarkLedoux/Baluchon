@@ -49,7 +49,7 @@ class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
 		
 		let temp = weatherResult.weatherResult.main?.temp
 		let temperature = Temperature(degreesK: temp ?? 0)
-		let desc = weatherResult.weatherResult.weather?.first?.weatherDescription
+		let desc = weatherResult.weatherResult.weather?.first?.main
 		let cityName = weatherResult.weatherResult.name
 		guard
 			let weatherImageData = weatherResult.imageData,
