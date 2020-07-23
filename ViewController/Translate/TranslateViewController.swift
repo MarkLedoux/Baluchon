@@ -71,7 +71,7 @@ final class TranslateViewController: UIViewController {
 			switch result { 
 			case .success(let translationResult): 
 				DispatchQueue.main.async {
-					vc?.translatedText.text = translationResult.data.translations.first?.translatedText
+					vc?.translatedText.text = translationResult.data.translations.first?.translatedText.htmlDecoded
 				}
 				print("Successfully fetched translation data")
 			case .failure: 
