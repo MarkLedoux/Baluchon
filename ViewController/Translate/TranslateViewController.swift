@@ -27,6 +27,9 @@ final class TranslateViewController: UIViewController {
 		super.viewDidLoad()
 		setNavigationBar()
 		setUpTranslationNetworkManager()
+		translationInput.layer.borderWidth = 1
+		translationInput.layer.borderColor = UIColor.black.cgColor
+		translationInput.layer.cornerRadius = 10
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -34,9 +37,11 @@ final class TranslateViewController: UIViewController {
 	}
 	
 	private var translationNetworkManager: TranslationNetworkManager!
-	private let translationTextViewDelegate = TranslateTextViewDelegate()
 	private var translationResult: TranslationResult?
 	private var targetText: String?
+	
+	private let translationTextViewDelegate = TranslateTextViewDelegate()
+	private let alertManager = AlertManager()
 
 	// MARK: - Private Methods
 	
@@ -60,15 +65,7 @@ final class TranslateViewController: UIViewController {
 		targetLanguage.setTitle(inputLanguageButtonText, for: .normal)
 	}
 	
-	/// preparing the modal view to receive the translated text
-	/// - Parameters:
-	///   - segue: segue from translateViewController to TranslatedTextViewController
-	///   - sender: send data from translateViewController after received it from the network request
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		let vc = segue.destination as? TranslatedTextViewController
-
-		guard let textToTranslate = translationInput.text else { return }
-		guard textToTranslate != "" else { return }
+	fileprivate func fetchTranslateData(_ textToTranslate: String, _ vc: TranslatedTextViewController?) {
 		translationNetworkManager.fetchTranslationData(
 		textToTranslate: textToTranslate) { result in
 			switch result { 
@@ -81,6 +78,18 @@ final class TranslateViewController: UIViewController {
 				print("Failed to fetch translation data")
 			}
 		}
+	}
+	
+	/// preparing the modal view to receive the translated text
+	/// - Parameters:
+	///   - segue: segue from translateViewController to TranslatedTextViewController
+	///   - sender: send data from translateViewController after received it from the network requestch
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		let vc = segue.destination as? TranslatedTextViewController
+
+		guard let textToTranslate = translationInput.text else { return }
+		guard textToTranslate != "" else { return }
+		fetchTranslateData(textToTranslate, vc)
 	}
 
 	/// button animation on tap when sending request

@@ -27,32 +27,41 @@ class CurrencyResultContainer {
 	
 }
 
+struct CurrencyDataRow {
+	let title: String
+	let rate: Double
+}
+
 // swiftlint:disable force_cast
 final class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
-	private let currencyTextFieldDelegate = CurrencyTextFieldDelegate()
 	/// instantiating CurrencyResult and setting properties to reload data of the tableView
-	var currencyResults: [CurrencyResultContainer] = []
+	var currencyResults: CurrencyResult?
 
+	var dataToPresent: [CurrencyDataRow] {
+		guard let currencyResults = currencyResults else { return [] }
+		return currencyResults.rates.map {
+			CurrencyDataRow(title: $0, rate: $1)
+		}
+	}
 	// MARK: - Methods
 
 	/// setting the number of rows to the count of rates
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return currencyResults.count
+		return dataToPresent.count 
 	}
 
 	/// defining what cell needs to be returned  - line 51-60 need to be moved to a subclass of the cell
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CurrencyCell
-		cell.currencyBase.delegate = currencyTextFieldDelegate
 
-		let currencyResult = currencyResults[indexPath.row]
+		let currencyResult = dataToPresent[indexPath.row]
 
 		//sorting keys only results in values being off in the tableview
-		let currencyBase = currencyResult.currencyResult.rates.first?.key
+		let currencyBase = currencyResult.title
 		
-		let currencyValue = currencyResult.currencyResult.rates.first?.value
+		let currencyValue = currencyResult.rate
 		
-		cell.currencyBase.text = "\(String(currencyValue?.description ?? ""))"
+		cell.currencyBase.text = currencyValue.description
 		cell.currencyRate.text = currencyBase
 		return cell
 	}
@@ -64,5 +73,9 @@ final class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
 }
 
 final class CurrencyTableViewDelegate: NSObject, UITableViewDelegate {
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { }
+	private let alertManager = AlertManager() 
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let viewController = CurrencyViewController()
+		alertManager.presentTextFieldAlert(on: viewController)
+	}
 }

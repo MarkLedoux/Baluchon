@@ -43,8 +43,7 @@ final class WeatherViewController: UIViewController {
 		}
 	}
 	
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
+	private func fetchWeatherData() {
 		weatherNetWorkManager.loadMultipleWeatherData(
 		cityNames: ["New York", "London", "Tassin-La-Demi-Lune", "Moscow", "Tokyo"]) { [weak self] result in
 			guard let self = self else { return }
@@ -57,6 +56,11 @@ final class WeatherViewController: UIViewController {
 				print("Failed to fetch weather data ")
 			}
 		}
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		fetchWeatherData()
 	}
 	
 	func handle(weatherResult: [String: WeatherResult]) {
@@ -76,6 +80,7 @@ final class WeatherViewController: UIViewController {
 	
 	private let weatherTableViewDataSource = WeatherTableViewDataSource()
 	private let weatherTableViewDelegate = WeatherTableViewDelegate()
+	private let alertManager = AlertManager()
 
 	// MARK: - Private Methods
 	private func setUpNavigationBar() {
@@ -87,7 +92,23 @@ final class WeatherViewController: UIViewController {
 		weatherNetWorkManager = WeatherNetworkManager(session: session)
 	}
 
-	@objc private func edit() { }
-
-	@objc private func addItem() { }
+	private func onFetchWeatherDataFailure() {
+		alertManager.presentTwoButtonsAlert(
+			title: "Failure to fetch data", 
+			message: "", 
+			defaultButtonTitle: "", 
+			cancelButtonTitle: "", 
+			onDefaultButtonTapAction: onTryAgainAlertButtonTapAction(alertAction:),
+			on: self)
+		print("Failed to fetch currency data")
+	}
+	
+	private func onTryAgainAlertButtonTapAction(alertAction: UIAlertAction) {
+		fetchWeatherData()
+		retryButtonWasPressed()
+	}
+	
+	private func retryButtonWasPressed() { 
+		dismiss(animated: true, completion: nil)
+	}
 }

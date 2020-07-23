@@ -33,7 +33,28 @@ class AlertManager {
 		
 	}
 	
-	func presentSingleButtonAlert() {
+	func presentSingleButtonAlert(title: String, message: String) {
 		
+	}
+	
+	func presentTextFieldAlert(on viewController: UIViewController) { 
+		let alertController = UIAlertController(title: "Add New Name", message: "", preferredStyle: .alert)
+		alertController.addTextField { (textField: UITextField!) -> Void in
+			textField.placeholder = "Enter Second Name"
+		}
+		let saveAction = UIAlertAction(title: "Save", style: .default, handler: { _ -> Void in
+			let firstTextField = alertController.textFields![0] as UITextField
+			let secondTextField = alertController.textFields![1] as UITextField
+			print("firstName \(firstTextField.text), secondName \(secondTextField.text)")
+		})
+		let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { (action : UIAlertAction!) -> Void in })
+		alertController.addTextField { (textField : UITextField!) -> Void in
+			textField.placeholder = "Enter First Name"
+		}
+		
+		alertController.addAction(saveAction)
+		alertController.addAction(cancelAction)
+		
+		viewController.present(alertController, animated: true, completion: nil)
 	}
 }

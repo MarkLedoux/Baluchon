@@ -18,8 +18,8 @@ class CurrencyNetworkManager: NetworkManager {
 	// MARK: - Public Methods
 	/// fetching currency data and decoding it
 	/// - Parameter completion: Result with CurrencyResult and NetworkManagerError
-	private func loadCurrency(completion: @escaping(Result<CurrencyResult, NetworkManagerError>) -> Void) {
-		guard let url = urlGenerator.createCurrencyURL() else {
+	func loadCurrency(completion: @escaping(Result<CurrencyResult, NetworkManagerError>) -> Void) {
+		guard let url = urlGenerator.createCurrencyURL(baseNames: ["EUR", "USD", "CAD", "JPY"]) else {
 			completion(.failure(.failedToCreateURL(message: #function)))
 			return
 		}
@@ -29,27 +29,6 @@ class CurrencyNetworkManager: NetworkManager {
 				completion(.failure(error))
 			case .success(let success): 
 				completion(.success(success))
-			}
-		}
-	}
-	
-	func loadMultipleCurrencies(
-		currencyBaseNames: [String], 
-		completion: @escaping(Result<[String: CurrencyResult], NetworkManagerError>) -> Void) { 
-		
-		var currencyDic: [String: CurrencyResult] = [:]
-		
-		for currencyBaseName in currencyBaseNames { 
-			loadCurrency { result in
-				switch result { 
-				case .failure(let error): 
-					completion(.failure(error))
-				case .success(let result):
-					currencyDic[currencyBaseName] = result
-					if currencyDic.count >= currencyBaseNames.count { 
-						completion(.success(currencyDic))
-					}
-				}
 			}
 		}
 	}

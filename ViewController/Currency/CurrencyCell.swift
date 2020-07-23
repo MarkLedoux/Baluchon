@@ -10,7 +10,7 @@ import UIKit
 
 class CurrencyCell: UITableViewCell {
 	@IBOutlet var currencyRate: UILabel!
-	@IBOutlet var currencyBase: UITextField!
+	@IBOutlet var currencyBase: UILabel!
 	
 	override func awakeFromNib() {
 		super.awakeFromNib()

@@ -36,16 +36,10 @@ final class CurrencyViewController: UIViewController {
 		fetchCurrencyData()
 	}
 	
-	private func handle(currencyResult: [String: CurrencyResult]) {
+	private func handle(currencyResult: CurrencyResult) {
 		currencyTableViewDataSource.currencyResults = currencyResult
-			.map { $0.value }
-			.map { 
-				let container = CurrencyResultContainer(currencyResult: $0)
-				container.delegate = self
-				return container
-		}
 		currencyTableView.reloadData()
-	}
+	} 
 	
 	// MARK: - Properties
 	/// instantiating CurrencyNetworkManager for model-viewController communication
@@ -67,13 +61,12 @@ final class CurrencyViewController: UIViewController {
 	}
 	
 	private func fetchCurrencyData() {
-		currencyNetworkManager.loadMultipleCurrencies(
-		currencyBaseNames: ["EUR", "USD", "GBP", "JPY"]) { [weak self] result in
+		currencyNetworkManager.loadCurrency { [weak self] result in
 			guard let self = self else { return }
 			switch result { 
-			case .success(let currencyResultDic):
+			case .success(let currencyResult):
 				DispatchQueue.main.async {
-					self.handle(currencyResult: currencyResultDic)
+					self.handle(currencyResult: currencyResult)
 				}
 				print("Successfully fetched currency data")
 			case .failure:
@@ -97,10 +90,6 @@ final class CurrencyViewController: UIViewController {
 		fetchCurrencyData()
 		retryButtonWasPressed()
 	}
-	
-	@objc private func edit() { }
-	
-	@objc private func addItem() { }
 	
 	private func retryButtonWasPressed() { 
 		dismiss(animated: true, completion: nil)
