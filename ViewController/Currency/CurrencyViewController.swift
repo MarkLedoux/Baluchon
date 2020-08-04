@@ -8,7 +8,6 @@
 
 import UIKit
 
-// swiftlint:disable weak_delegate
 extension CurrencyViewController: CurrencyResultContainerDelegate {
 	func didUpdateCurrencyData() {
 		DispatchQueue.main.async {
@@ -36,8 +35,6 @@ extension CurrencyViewController: UITableViewDelegate {
 				else { return }
 			
 			self.selectedValue = inputDouble
-			
-			
 		}
 		
 		ac.addAction(submitAction)
@@ -101,7 +98,7 @@ final class CurrencyViewController: BaseViewController {
 	
 	private func fetchCurrencyData() {
 		showLoadingIndicator()
-		currencyNetworkManager.loadCurrency() { [weak self] result in
+		currencyNetworkManager.loadCurrency { [weak self] result in
 			guard let self = self else { return }
 			switch result { 
 			case .success(let currencyResult):

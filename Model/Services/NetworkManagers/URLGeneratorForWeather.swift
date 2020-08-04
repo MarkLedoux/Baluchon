@@ -9,8 +9,7 @@
 import Foundation
 
 protocol URLGeneratorForWeatherProtocol {
-	func createWeatherURLForMainCity(name: String) -> URL? 
-	func createWeatherImageURL() -> URL?
+	func createWeatherURLForMainCity(name: String) -> URL?
 }
 
 final class URLGeneratorForWeather: URLComponentManager, URLGeneratorForWeatherProtocol {
@@ -30,24 +29,11 @@ final class URLGeneratorForWeather: URLComponentManager, URLGeneratorForWeatherP
 		])
 		return weatherURL
 	}
-	
-	func createWeatherImageURL() -> URL? { 
-		let weatherImageURL = createURL(
-			scheme: "http",
-			host: "api.openweathermap.org",
-			path: "/img/w/",
-			queryItems: [])
-		return weatherImageURL
-	}
 }
 
 final class URLGeneratorForWeatherStub: URLComponentManagerStub, URLGeneratorForWeatherProtocol {
 	func createWeatherURLForMainCity(name: String) -> URL? {
 		_  = createURL(scheme: "", host: "", path: "", queryItems: [])
-		return nil
-	}
-	func createWeatherImageURL() -> URL? { 
-		_ = createURL(scheme: "", host: "", path: "", queryItems: [])
 		return nil
 	}
 }

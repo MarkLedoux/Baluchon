@@ -49,13 +49,12 @@ final class TranslateViewController: BaseViewController {
 		}
 	}
 	
-	private var sourceLanguage: Languages = .french  {
+	private var sourceLanguage: Languages = .french {
 		didSet {
 			inputLanguageButton.setTitle(sourceLanguage.title, for: .normal)
 		}
 	}
 	
-
 	// MARK: - Private Methods
 	
 	private func setNavigationBar() {

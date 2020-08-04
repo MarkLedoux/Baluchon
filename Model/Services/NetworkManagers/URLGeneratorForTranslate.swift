@@ -37,8 +37,6 @@ final class URLGeneratorForTranslate: URLComponentManager, URLGeneratorForTransl
 	}
 }
 
-//TODO : - find a way to exchange the source and the target
-
 final class URLGeneratorForTranslateStub: URLComponentManagerStub, URLGeneratorForTranslateProtocol {
 	func createTranslateURL(
 		target: Languages, 

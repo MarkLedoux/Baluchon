@@ -26,7 +26,7 @@ class TranslationNetworkManagerTests: XCTestCase {
 		let generator = URLGeneratorForTranslate()
 
 		// When
-		let translateURL = generator.createTranslateURL(textToTranslate: "")
+		let translateURL = generator.createTranslateURL(target: .english, source: .french, textToTranslate: "")
 
 		// Then
 		XCTAssertEqual(translateURL, URL(string: "https://translation.googleapis.com/language/translate/v2?key=AIzaSyC-qFZOLKSpUQSmQS41iKGz8vJ7NXQKAFA&q=&source=fr&target=en"))
@@ -45,10 +45,11 @@ class TranslationNetworkManagerTests: XCTestCase {
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
 		
-		translationNetworkManager.fetchTranslationData(textToTranslate: "") { result in 
+		translationNetworkManager.fetchTranslationData(source: .french, target: .english, textToTranslate: "") { result in 
 			if 
 				case .failure(let error) = result, 
-				case NetworkManagerError.failedToCreateURL(message: "fetchTranslationData(textToTranslate:completion:)") = error { 
+				case NetworkManagerError.failedToCreateURL(
+					message: "fetchTranslationData(source:target:textToTranslate:completion:)") = error { 
 				expectation.fulfill()
 			}
 		}
@@ -65,7 +66,7 @@ class TranslationNetworkManagerTests: XCTestCase {
 
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		translationNetworkManager.fetchTranslationData(textToTranslate: "") { result in
+		translationNetworkManager.fetchTranslationData(source: .french, target: .english, textToTranslate: "") { result in
 			// Then
 			if
 				case .failure(let error) = result,
@@ -87,7 +88,7 @@ class TranslationNetworkManagerTests: XCTestCase {
 
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		translationNetworkManager.fetchTranslationData(textToTranslate: "") { _ in
+		translationNetworkManager.fetchTranslationData(source: .french, target: .english, textToTranslate: "") { _ in
 			// Then
 			XCTAssertNotNil(FakeTranslateResponseData.error)
 			expectation.fulfill()
@@ -105,7 +106,7 @@ class TranslationNetworkManagerTests: XCTestCase {
 
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		translationNetworkManager.fetchTranslationData(textToTranslate: "") { result in
+		translationNetworkManager.fetchTranslationData(source: .french, target: .english, textToTranslate: "") { result in
 			// Then
 			if
 				case .failure(let error) = result,
@@ -127,7 +128,7 @@ class TranslationNetworkManagerTests: XCTestCase {
 
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		translationNetworkManager.fetchTranslationData(textToTranslate: "") { _ in
+		translationNetworkManager.fetchTranslationData(source: .french, target: .english, textToTranslate: "") { _ in
 			// Then
 			XCTAssertNotNil(NetworkManagerError.noDataAfterFetchingResource)
 			expectation.fulfill()
@@ -145,7 +146,7 @@ class TranslationNetworkManagerTests: XCTestCase {
 
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		translationNetworkManager.fetchTranslationData(textToTranslate: "", completion: { (result) in
+		translationNetworkManager.fetchTranslationData(source: .french, target: .english, textToTranslate: "", completion: { (result) in
 			// Then
 			XCTAssertNotNil(result)
 			let translationResult =
