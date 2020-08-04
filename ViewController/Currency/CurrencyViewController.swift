@@ -17,7 +17,43 @@ extension CurrencyViewController: CurrencyResultContainerDelegate {
 	}
 }
 
-final class CurrencyViewController: UIViewController {
+extension CurrencyViewController: UITableViewDelegate {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		// present alert with textfield
+		promptForAnswer()
+	}
+	
+	private func promptForAnswer() {
+		let ac = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .alert)
+		ac.addTextField()
+		
+		let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned ac] _ in
+			let answer = ac.textFields![0]
+			// do something interesting with "answer" here
+			guard
+				let inputString = answer.text,
+				let inputDouble = Double(inputString)
+				else { return }
+			
+			self.selectedValue = inputDouble
+			
+			
+		}
+		
+		ac.addAction(submitAction)
+		
+		present(ac, animated: true)
+	}
+}
+
+final class CurrencyViewController: BaseViewController {
+	
+	var selectedValue: Double = 100 {
+		didSet {
+			currencyTableViewDataSource.selectedValue = selectedValue
+			currencyTableView.reloadData()
+		}
+	}
 	
 	@IBOutlet var currencyTableView: UITableView!
 	
@@ -27,13 +63,16 @@ final class CurrencyViewController: UIViewController {
 		setupNavigationBar()
 		setUpCurrencyNetworkManager()
 		currencyTableView.dataSource = currencyTableViewDataSource
-		currencyTableView.delegate = currencyTableViewDelegate
+		currencyTableView.delegate = self
+		//currencyTableView.delegate = currencyTableViewDelegate
 	}
 	
 	/// calling loadCurrency to fetch currency data
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
+		showLoadingIndicator()
 		fetchCurrencyData()
+		hideLoadingIndicator()
 	}
 	
 	private func handle(currencyResult: CurrencyResult) {
@@ -46,7 +85,7 @@ final class CurrencyViewController: UIViewController {
 	private var currencyNetworkManager: CurrencyNetworkManager!
 	
 	private let currencyTableViewDataSource = CurrencyTableViewDataSource()
-	private let currencyTableViewDelegate = CurrencyTableViewDelegate()
+	//private let currencyTableViewDelegate = CurrencyTableViewDelegate()
 	private let alertManager = AlertManager()
 	
 	// MARK: - Private Methods
@@ -61,7 +100,8 @@ final class CurrencyViewController: UIViewController {
 	}
 	
 	private func fetchCurrencyData() {
-		currencyNetworkManager.loadCurrency { [weak self] result in
+		showLoadingIndicator()
+		currencyNetworkManager.loadCurrency() { [weak self] result in
 			guard let self = self else { return }
 			switch result { 
 			case .success(let currencyResult):

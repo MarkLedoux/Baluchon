@@ -18,7 +18,7 @@ extension WeatherViewController: WeatherResultContainerDelegate {
 
 // swiftlint:disable weak_delegate
 
-final class WeatherViewController: UIViewController {
+final class WeatherViewController: BaseViewController {
 	@IBOutlet var weatherTableView: UITableView!
 	
 	override func viewDidLoad() {
@@ -53,7 +53,7 @@ final class WeatherViewController: UIViewController {
 					self.handle(weatherResult: weatherResultDic)
 				}
 			case .failure: 
-				print("Failed to fetch weather data ")
+				self.onFetchWeatherDataFailure()
 			}
 		}
 	}

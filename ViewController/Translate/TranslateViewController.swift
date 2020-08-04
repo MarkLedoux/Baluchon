@@ -10,26 +10,26 @@ import UIKit
 
 extension TranslateViewController: TranslateDelegate {
 	func didFetchTranslationData(translationResult: TranslationResult) {
-		translationInput.delegate = translationTextViewDelegate
+		translationInputTextView.delegate = translationTextViewDelegate
 	}
 }
 
 // swiftlint:disable weak_delegate
-final class TranslateViewController: UIViewController {
+final class TranslateViewController: BaseViewController {
 	
 	// MARK: - Private Properties
 	@IBOutlet private weak var sendTranslationButton: UIButton!
-	@IBOutlet private weak var translationInput: UITextView!
-	@IBOutlet weak var targetLanguage: UIButton!
-	@IBOutlet weak var inputLanguage: UIButton!
+	@IBOutlet private weak var translationInputTextView: UITextView!
+	@IBOutlet private weak var targetLanguageButton: UIButton!
+	@IBOutlet private weak var inputLanguageButton: UIButton!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		setNavigationBar()
 		setUpTranslationNetworkManager()
-		translationInput.layer.borderWidth = 1
-		translationInput.layer.borderColor = UIColor.black.cgColor
-		translationInput.layer.cornerRadius = 10
+		translationInputTextView.layer.borderWidth = 1
+		translationInputTextView.layer.borderColor = UIColor.black.cgColor
+		translationInputTextView.layer.cornerRadius = 10
 	}
 
 	override func viewDidAppear(_ animated: Bool) {
@@ -42,6 +42,19 @@ final class TranslateViewController: UIViewController {
 	
 	private let translationTextViewDelegate = TranslateTextViewDelegate()
 	private let alertManager = AlertManager()
+	
+	private var targetLanguage: Languages = .english {
+		didSet {
+			targetLanguageButton.setTitle(targetLanguage.title, for: .normal)
+		}
+	}
+	
+	private var sourceLanguage: Languages = .french  {
+		didSet {
+			inputLanguageButton.setTitle(sourceLanguage.title, for: .normal)
+		}
+	}
+	
 
 	// MARK: - Private Methods
 	
@@ -59,14 +72,13 @@ final class TranslateViewController: UIViewController {
 	}
 	
 	@IBAction func switchInputAndTargetLanguage(_ sender: Any) {
-		let inputLanguageButtonText = inputLanguage.titleLabel?.text
-		
-		inputLanguage.setTitle(targetLanguage.titleLabel?.text, for: .normal)
-		targetLanguage.setTitle(inputLanguageButtonText, for: .normal)
+		swap(&targetLanguage, &sourceLanguage)
 	}
 	
-	fileprivate func fetchTranslateData(_ textToTranslate: String, _ vc: TranslatedTextViewController?) {
+	private func fetchTranslateData(_ textToTranslate: String, _ vc: TranslatedTextViewController?) {
 		translationNetworkManager.fetchTranslationData(
+			source: sourceLanguage,
+			target: targetLanguage,
 		textToTranslate: textToTranslate) { result in
 			switch result { 
 			case .success(let translationResult): 
@@ -87,7 +99,7 @@ final class TranslateViewController: UIViewController {
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		let vc = segue.destination as? TranslatedTextViewController
 
-		guard let textToTranslate = translationInput.text else { return }
+		guard let textToTranslate = translationInputTextView.text else { return }
 		guard textToTranslate != "" else { return }
 		fetchTranslateData(textToTranslate, vc)
 	}

@@ -34,6 +34,7 @@ struct CurrencyDataRow {
 
 // swiftlint:disable force_cast
 final class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
+	var selectedValue: Double = 100
 	/// instantiating CurrencyResult and setting properties to reload data of the tableView
 	var currencyResults: CurrencyResult?
 
@@ -59,7 +60,7 @@ final class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
 		//sorting keys only results in values being off in the tableview
 		let currencyBase = currencyResult.title
 		
-		let currencyValue = currencyResult.rate
+		let currencyValue = currencyResult.rate * selectedValue
 		
 		cell.currencyBase.text = currencyValue.description
 		cell.currencyRate.text = currencyBase
@@ -72,10 +73,8 @@ final class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
 		forRowAt indexPath: IndexPath) { }
 }
 
-final class CurrencyTableViewDelegate: NSObject, UITableViewDelegate {
-	private let alertManager = AlertManager() 
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let viewController = CurrencyViewController()
-		alertManager.presentTextFieldAlert(on: viewController)
-	}
-}
+//final class CurrencyTableViewDelegate: NSObject, UITableViewDelegate {
+//	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//		
+//	}
+//}

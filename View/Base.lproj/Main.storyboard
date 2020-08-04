@@ -67,10 +67,6 @@
                                 </connections>
                             </tableViewCell>
                         </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Gp9-Mu-U6Z" id="meZ-CV-4ym"/>
-                            <outlet property="delegate" destination="Gp9-Mu-U6Z" id="TcZ-si-aAq"/>
-                        </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="p7A-fo-6Mu"/>
                     <connections>
@@ -184,7 +180,7 @@
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="San Francisco" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jy3-K1-veF">
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="San Francisco" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Jy3-K1-veF">
                                                                     <rect key="frame" x="0.0" y="39" width="104.5" height="31"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                                                     <nil key="textColor"/>
@@ -244,8 +240,8 @@
                                 <rect key="frame" x="50" y="74" width="314" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lz9-rb-u2F">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
-                                        <state key="normal" title="English">
+                                        <rect key="frame" x="0.0" y="0.0" width="48" height="30"/>
+                                        <state key="normal" title="French">
                                             <color key="titleColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                     </button>
@@ -263,8 +259,8 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4E2-tg-59s">
-                                        <rect key="frame" x="266" y="0.0" width="48" height="30"/>
-                                        <state key="normal" title="French">
+                                        <rect key="frame" x="264" y="0.0" width="50" height="30"/>
+                                        <state key="normal" title="English">
                                             <color key="titleColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                     </button>
@@ -315,10 +311,10 @@
                         <inset key="imageInsets" minX="0.0" minY="239" maxX="0.0" maxY="239"/>
                     </tabBarItem>
                     <connections>
-                        <outlet property="inputLanguage" destination="Lz9-rb-u2F" id="kRB-FW-zli"/>
+                        <outlet property="inputLanguageButton" destination="Lz9-rb-u2F" id="kRB-FW-zli"/>
                         <outlet property="sendTranslationButton" destination="Cl8-ji-7Fp" id="Y2X-tc-l2t"/>
-                        <outlet property="targetLanguage" destination="4E2-tg-59s" id="k55-mN-JRG"/>
-                        <outlet property="translationInput" destination="9Rs-xO-vZC" id="unj-j0-iW2"/>
+                        <outlet property="targetLanguageButton" destination="4E2-tg-59s" id="k55-mN-JRG"/>
+                        <outlet property="translationInputTextView" destination="9Rs-xO-vZC" id="unj-j0-iW2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y1y-OL-sbZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -17,17 +17,21 @@ class TranslationNetworkManager: NetworkManager {
 	
 	// MARK: - Public Methods
 	func fetchTranslationData(
+		source: Languages, 
+		target: Languages,
 		textToTranslate: String, 
 		completion: @escaping(Result<TranslationResult, NetworkManagerError>) -> Void) { 
-		guard let url = urlGenerator.createTranslateURL(textToTranslate: textToTranslate) else { 
+		guard let url = urlGenerator.createTranslateURL(
+			target: target, source: source,
+			textToTranslate: textToTranslate) else { 
 			completion(.failure(.failedToCreateURL(message: #function)))
 			return 
 		}
 		let parameters: [String: Any] = [
 			"key": "AIzaSyC-qFZOLKSpUQSmQS41iKGz8vJ7NXQKAFA", 
-			"q": "textToTranslate", 
-			"source": "en", 
-			"target": "fr"
+			"q": textToTranslate, 
+			"source": source.rawValue, 
+			"target": target.rawValue
 		]
 		var request = URLRequest(url: url)
 		request.httpMethod = HTTPMethod.post.rawValue
@@ -36,7 +40,7 @@ class TranslationNetworkManager: NetworkManager {
 		request.httpBody  = httpBody
 		request.timeoutInterval = 20
 		
-		fetch(with: URLRequest(url: url)) { (result: Result<TranslationResult, NetworkManagerError>) in
+		fetch(with: request) { (result: Result<TranslationResult, NetworkManagerError>) in
 			switch result { 
 			case .failure(let error): 
 				completion(.failure(error))

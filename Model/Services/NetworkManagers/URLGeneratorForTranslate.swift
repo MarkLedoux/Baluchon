@@ -9,12 +9,12 @@
 import Foundation
 
 protocol URLGeneratorForTranslateProtocol {  
-	func createTranslateURL(textToTranslate: String) -> URL?
+	func createTranslateURL(target: Languages, source: Languages, textToTranslate: String) -> URL?
 }
 
 final class URLGeneratorForTranslate: URLComponentManager, URLGeneratorForTranslateProtocol {
 
-	func createTranslateURL(textToTranslate: String) -> URL? {
+	func createTranslateURL(target: Languages, source: Languages, textToTranslate: String) -> URL? {
 		let translateURL = createURL(
 			scheme: "https",
 			host: "translation.googleapis.com",
@@ -28,17 +28,22 @@ final class URLGeneratorForTranslate: URLComponentManager, URLGeneratorForTransl
 					value: textToTranslate),
 				URLQueryItem(
 					name: "source",
-					value: "en"),
+					value: source.rawValue),
 				URLQueryItem(
 					name: "target",
-					value: "fr")
+					value: target.rawValue)
 		])
 		return translateURL
 	}
 }
 
+//TODO : - find a way to exchange the source and the target
+
 final class URLGeneratorForTranslateStub: URLComponentManagerStub, URLGeneratorForTranslateProtocol {
-	func createTranslateURL(textToTranslate: String) -> URL? {
+	func createTranslateURL(
+		target: Languages, 
+		source: Languages,
+		textToTranslate: String) -> URL? {
 		_  = createURL(scheme: "", host: "", path: "", queryItems: [])
 		return nil
 	}

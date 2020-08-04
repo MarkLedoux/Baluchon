@@ -29,7 +29,7 @@ class TranslationNetworkManagerTests: XCTestCase {
 		let translateURL = generator.createTranslateURL(textToTranslate: "")
 
 		// Then
-		XCTAssertEqual(translateURL, URL(string: "https://translation.googleapis.com/language/translate/v2?key=AIzaSyC-qFZOLKSpUQSmQS41iKGz8vJ7NXQKAFA&q=&source=en&target=fr"))
+		XCTAssertEqual(translateURL, URL(string: "https://translation.googleapis.com/language/translate/v2?key=AIzaSyC-qFZOLKSpUQSmQS41iKGz8vJ7NXQKAFA&q=&source=fr&target=en"))
 	}
 	
 	func testURLComponentsManagerShouldFailWhenWrongURLIsPassedIn() { 
