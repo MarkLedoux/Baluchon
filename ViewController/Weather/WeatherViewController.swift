@@ -53,7 +53,8 @@ final class WeatherViewController: BaseViewController {
 					self.handle(weatherResult: weatherResultDic)
 				}
 			case .failure: 
-				self.onFetchWeatherDataFailure()
+				// TODO: findhow to get in there after a few seconds to trigger the failure
+				self.perform(#selector(self.onFetchWeatherDataFailure), with: nil, afterDelay: 10)
 			}
 		}
 	}
@@ -63,7 +64,7 @@ final class WeatherViewController: BaseViewController {
 		fetchWeatherData()
 	}
 	
-	func handle(weatherResult: [String: WeatherResult]) {
+	private func handle(weatherResult: [String: WeatherResult]) {
 		weatherTableViewDataSource.weatherResults = weatherResult
 			.map { $0.value }
 			.map {
@@ -91,12 +92,12 @@ final class WeatherViewController: BaseViewController {
 		weatherNetWorkManager = WeatherNetworkManager(session: session)
 	}
 
-	private func onFetchWeatherDataFailure() {
+	@objc private func onFetchWeatherDataFailure() {
 		presentTwoButtonsAlert(
 			title: "Failure to fetch data", 
-			message: "", 
-			defaultButtonTitle: "", 
-			cancelButtonTitle: "", 
+			message: "There was an error fetching the data", 
+			defaultButtonTitle: "Retry", 
+			cancelButtonTitle: "Cancel", 
 			onDefaultButtonTapAction: onTryAgainAlertButtonTapAction(alertAction:),
 			on: self)
 		print("Failed to fetch currency data")

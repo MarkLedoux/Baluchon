@@ -8,7 +8,7 @@
 
 import Foundation
 
-// MARK : - Weather Delegate Protocol
+// MARK: - Weather Delegate Protocol
 protocol WeatherDelegate: class {
 	func didGetWeatherData(weatherResult: WeatherResult)
 }

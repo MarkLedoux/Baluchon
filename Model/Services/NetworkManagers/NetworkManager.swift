@@ -8,7 +8,7 @@
 
 import Foundation
 
-// MARK : - Services Main Protocol
+// MARK: - Services Main Protocol
 protocol NetworkManager: class {
 	var session: URLSession { get }
 	func fetch<T: Codable>(
@@ -16,7 +16,7 @@ protocol NetworkManager: class {
 		completion: @escaping(Result<T, NetworkManagerError>) -> Void)
 }
 
-/// MARK: - Extension for services
+// MARK: - Extension for services
 extension NetworkManager {
 	/// Main function used in the whole project for network calls
 	/// - Parameters:

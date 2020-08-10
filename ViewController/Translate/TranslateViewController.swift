@@ -65,11 +65,11 @@ final class TranslateViewController: BaseViewController {
 		translationNetworkManager = TranslationNetworkManager(session: session)
 	}
 	
-	@IBAction func sendTextToTranslate(_ sender: Any) {
+	@IBAction private func sendTextToTranslate(_ sender: Any) {
 		animateButton(sendTranslationButton)
 	}
 	
-	@IBAction func switchInputAndTargetLanguage(_ sender: Any) {
+	@IBAction private func switchInputAndTargetLanguage(_ sender: Any) {
 		swap(&targetLanguage, &sourceLanguage)
 	}
 	
@@ -87,6 +87,7 @@ final class TranslateViewController: BaseViewController {
 				print("Successfully fetched translation data")
 			case .failure: 
 				print("Failed to fetch translation data")
+				self.perform(#selector(self.onFetchTranslationDataFailure), with: nil, afterDelay: 10)
 			}
 		}
 	}
@@ -113,5 +114,24 @@ final class TranslateViewController: BaseViewController {
 				sender.transform = CGAffineTransform(scaleX: 0.975, y: 0.96)}, completion: { _ in
 					UIButton.animate(withDuration: 0.2, animations: { sender.transform = CGAffineTransform.identity })
 		})
+	}
+	
+	@objc private func onFetchTranslationDataFailure() {
+		presentTwoButtonsAlert(
+			title: "Failure to fetch data", 
+			message: "There was an error fetching the data", 
+			defaultButtonTitle: "Retry", 
+			cancelButtonTitle: "Cancel", 
+			onDefaultButtonTapAction: onTryAgainAlertButtonTapAction(alertAction:),
+			on: self)
+		print("Failed to fetch currency data")
+	}
+	
+	private func onTryAgainAlertButtonTapAction(alertAction: UIAlertAction) {
+		retryButtonWasPressed()
+	}
+	
+	private func retryButtonWasPressed() { 
+		dismiss(animated: true, completion: nil)
 	}
 }

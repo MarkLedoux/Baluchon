@@ -64,7 +64,6 @@ final class CurrencyViewController: BaseViewController {
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
 		fetchCurrencyData()
-		hideLoadingIndicator()
 	}
 	
 	private func handle(currencyResult: CurrencyResult) {
@@ -101,17 +100,17 @@ final class CurrencyViewController: BaseViewController {
 				}
 				print("Successfully fetched currency data")
 			case .failure:
-				self.onFetchCurrencyDataFailure()
+				self.perform(#selector(self.onFetchCurrencyDataFailure), with: nil, afterDelay: 10)
 			}
 		}
 	}
 	
-	private func onFetchCurrencyDataFailure() {
+	@objc private func onFetchCurrencyDataFailure() {
 		presentTwoButtonsAlert(
 			title: "Failure to fetch data", 
-			message: "", 
-			defaultButtonTitle: "", 
-			cancelButtonTitle: "", 
+			message: "There was an error fetching the data", 
+			defaultButtonTitle: "Retry", 
+			cancelButtonTitle: "Cancel",  
 			onDefaultButtonTapAction: onTryAgainAlertButtonTapAction(alertAction:),
 			on: self)
 		print("Failed to fetch currency data")
