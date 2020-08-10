@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// defining weather data
+// MARK: - Weather Data
 struct WeatherResult: Codable {
 	
 	let coord: Coord?
@@ -25,7 +25,7 @@ struct WeatherResult: Codable {
 	let cod: Int? 
 }
 
-/// defining keys for  the weather data 
+// MARK: - Weather Data Keys 
 private enum CodingKeys: String, CodingKey {
 	case coord, weather, base, main, visibility, wind, clouds, dt, sys, timezone, name
 	case cod = "code"

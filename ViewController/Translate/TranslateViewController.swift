@@ -41,7 +41,6 @@ final class TranslateViewController: BaseViewController {
 	private var targetText: String?
 	
 	private let translationTextViewDelegate = TranslateTextViewDelegate()
-	private let alertManager = AlertManager()
 	
 	private var targetLanguage: Languages = .english {
 		didSet {
@@ -82,6 +81,7 @@ final class TranslateViewController: BaseViewController {
 			switch result { 
 			case .success(let translationResult): 
 				DispatchQueue.main.async {
+					vc?.hideLoadingIndicator()
 					vc?.translatedText.text = translationResult.data.translations.first?.translatedText.htmlDecoded
 				}
 				print("Successfully fetched translation data")
@@ -101,6 +101,7 @@ final class TranslateViewController: BaseViewController {
 		guard let textToTranslate = translationInputTextView.text else { return }
 		guard textToTranslate != "" else { return }
 		fetchTranslateData(textToTranslate, vc)
+		vc?.showLoadingIndicator()
 	}
 
 	/// button animation on tap when sending request

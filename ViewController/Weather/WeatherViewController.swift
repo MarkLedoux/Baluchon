@@ -35,21 +35,21 @@ final class WeatherViewController: BaseViewController {
 			self.weatherNetWorkManager.getWeatherImage(imageIdentifier: imageIdentifier) { (data) in
 				if let data = data { 
 					print(data)
-					
 					weatherResult.imageData = data
-					
 				}
 			}
 		}
 	}
 	
 	private func fetchWeatherData() {
+		showLoadingIndicator()
 		weatherNetWorkManager.loadMultipleWeatherData(
 		cityNames: ["New York", "London", "Tassin-La-Demi-Lune", "Moscow", "Tokyo"]) { [weak self] result in
 			guard let self = self else { return }
 			switch result { 
 			case .success(let weatherResultDic): 
 				DispatchQueue.main.async {
+					self.hideLoadingIndicator()
 					self.handle(weatherResult: weatherResultDic)
 				}
 			case .failure: 
@@ -80,7 +80,6 @@ final class WeatherViewController: BaseViewController {
 	
 	private let weatherTableViewDataSource = WeatherTableViewDataSource()
 	private let weatherTableViewDelegate = WeatherTableViewDelegate()
-	private let alertManager = AlertManager()
 
 	// MARK: - Private Methods
 	private func setUpNavigationBar() {
@@ -93,7 +92,7 @@ final class WeatherViewController: BaseViewController {
 	}
 
 	private func onFetchWeatherDataFailure() {
-		alertManager.presentTwoButtonsAlert(
+		presentTwoButtonsAlert(
 			title: "Failure to fetch data", 
 			message: "", 
 			defaultButtonTitle: "", 

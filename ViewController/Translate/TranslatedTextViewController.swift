@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TranslatedTextViewController: UIViewController {
+class TranslatedTextViewController: BaseViewController {
 	@IBOutlet weak var translatedText: UITextView!
 	
 	override func viewDidLoad() {

@@ -51,12 +51,6 @@ class WeatherNetworkManagerTests: XCTestCase {
 				case NetworkManagerError.failedToCreateURL(message: "loadWeatherData(cityName:completion:)") = error { 
 				expectation.fulfill()
 			}
-			weatherNetworkManager.getWeatherImage(imageIdentifier: "") {  data in
-				if 
-					let error = data { 
-					expectation.fulfill()
-				}
-			}
 		}
 		wait(for: [expectation], timeout: 0.01)
 	}
@@ -108,7 +102,6 @@ class WeatherNetworkManagerTests: XCTestCase {
 				data: FakeWeatherResponseData.weatherCorrectData,
 				response: FakeWeatherResponseData.responseKO,
 				error: nil))
-		
 		
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")

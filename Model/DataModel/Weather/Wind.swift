@@ -8,13 +8,13 @@
 
 import Foundation
 
+// MARK: - Wind Data
 class Wind: Codable {
-	
 	var speed: Double?
 	var deg: Int?
-	
-	private enum CodingKeys: String, CodingKey {
-		
-		case speed, deg
-	}
+}
+
+// MARK: - Wind Data Keys
+private enum CodingKeys: String, CodingKey {
+	case speed, deg
 }

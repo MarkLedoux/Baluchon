@@ -8,7 +8,7 @@
 
 import Foundation
 
-///defining weatherElement data and its keys
+// MARK: - Main Data
 struct Main: Codable {
 	let temp: Double?
 	let feelsLike: Double?
@@ -18,6 +18,7 @@ struct Main: Codable {
 	let humidity: Int?
 }
 
+// MARK: - Main Data Keys
 private enum CodingKeys: String, CodingKey {
 	case temp, pressure, humidity
 	case feelsLike = "feels_like"

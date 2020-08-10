@@ -33,12 +33,9 @@ extension CurrencyViewController: UITableViewDelegate {
 				let inputString = answer.text,
 				let inputDouble = Double(inputString)
 				else { return }
-			
 			self.selectedValue = inputDouble
 		}
-		
 		ac.addAction(submitAction)
-		
 		present(ac, animated: true)
 	}
 }
@@ -61,13 +58,11 @@ final class CurrencyViewController: BaseViewController {
 		setUpCurrencyNetworkManager()
 		currencyTableView.dataSource = currencyTableViewDataSource
 		currencyTableView.delegate = self
-		//currencyTableView.delegate = currencyTableViewDelegate
 	}
 	
 	/// calling loadCurrency to fetch currency data
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		showLoadingIndicator()
 		fetchCurrencyData()
 		hideLoadingIndicator()
 	}
@@ -82,8 +77,6 @@ final class CurrencyViewController: BaseViewController {
 	private var currencyNetworkManager: CurrencyNetworkManager!
 	
 	private let currencyTableViewDataSource = CurrencyTableViewDataSource()
-	//private let currencyTableViewDelegate = CurrencyTableViewDelegate()
-	private let alertManager = AlertManager()
 	
 	// MARK: - Private Methods
 	/// setup for the navigation bar
@@ -103,6 +96,7 @@ final class CurrencyViewController: BaseViewController {
 			switch result { 
 			case .success(let currencyResult):
 				DispatchQueue.main.async {
+					self.hideLoadingIndicator()
 					self.handle(currencyResult: currencyResult)
 				}
 				print("Successfully fetched currency data")
@@ -113,7 +107,7 @@ final class CurrencyViewController: BaseViewController {
 	}
 	
 	private func onFetchCurrencyDataFailure() {
-		alertManager.presentTwoButtonsAlert(
+		presentTwoButtonsAlert(
 			title: "Failure to fetch data", 
 			message: "", 
 			defaultButtonTitle: "", 

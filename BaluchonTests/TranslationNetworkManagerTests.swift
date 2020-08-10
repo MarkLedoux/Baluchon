@@ -146,11 +146,11 @@ class TranslationNetworkManagerTests: XCTestCase {
 
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		translationNetworkManager.fetchTranslationData(source: .french, target: .english, textToTranslate: "", completion: { (result) in
+		translationNetworkManager.fetchTranslationData(source: .french, target: .french, textToTranslate: "", completion: { (result) in
 			// Then
 			XCTAssertNotNil(result)
 			let translationResult =
-				"La Gran Pirámide de Giza (también conocida como la Pirámide de Khufu o la Pirámide de Keops) es la más antigua y más grande de las tres pirámides en el complejo de la pirámide de Giza."
+				"The Great Pyramid of Giza (also known as the Pyramid of Khufu or the Pyramid of Cheops) is the oldest and largest of the three pyramids in the Giza pyramid complex."
 			if case let .success(translatedTextResult) = result {
 				XCTAssertEqual(translatedTextResult.data.translations.first!.translatedText, translationResult)
 			}
