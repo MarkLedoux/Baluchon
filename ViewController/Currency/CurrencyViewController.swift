@@ -42,7 +42,7 @@ extension CurrencyViewController: UITableViewDelegate {
 
 final class CurrencyViewController: BaseViewController {
 	
-	var selectedValue: Double = 100 {
+	var selectedValue: Double = 1 {
 		didSet {
 			currencyTableViewDataSource.selectedValue = selectedValue
 			currencyTableView.reloadData()
@@ -98,22 +98,19 @@ final class CurrencyViewController: BaseViewController {
 					self.hideLoadingIndicator()
 					self.handle(currencyResult: currencyResult)
 				}
-				print("Successfully fetched currency data")
 			case .failure:
-				self.perform(#selector(self.onFetchCurrencyDataFailure), with: nil, afterDelay: 10)
+				self.perform(#selector(self.onFetchCurrencyDataFailure), with: nil, afterDelay: 0.01)
 			}
 		}
 	}
 	
 	@objc private func onFetchCurrencyDataFailure() {
 		presentTwoButtonsAlert(
-			title: "Failure to fetch data", 
-			message: "There was an error fetching the data", 
+			title: "Failed to fetch data",
 			defaultButtonTitle: "Retry", 
 			cancelButtonTitle: "Cancel",  
 			onDefaultButtonTapAction: onTryAgainAlertButtonTapAction(alertAction:),
 			on: self)
-		print("Failed to fetch currency data")
 	}
 	
 	private func onTryAgainAlertButtonTapAction(alertAction: UIAlertAction) {

@@ -34,7 +34,6 @@ final class WeatherViewController: BaseViewController {
 			guard let imageIdentifier = weatherResult.weatherResult.weather?.first?.icon else { continue }
 			self.weatherNetWorkManager.getWeatherImage(imageIdentifier: imageIdentifier) { (data) in
 				if let data = data { 
-					print(data)
 					weatherResult.imageData = data
 				}
 			}
@@ -53,8 +52,7 @@ final class WeatherViewController: BaseViewController {
 					self.handle(weatherResult: weatherResultDic)
 				}
 			case .failure: 
-				// TODO: findhow to get in there after a few seconds to trigger the failure
-				self.perform(#selector(self.onFetchWeatherDataFailure), with: nil, afterDelay: 10)
+				self.perform(#selector(self.onFetchWeatherDataFailure), with: nil, afterDelay: 0.01)
 			}
 		}
 	}
@@ -94,13 +92,11 @@ final class WeatherViewController: BaseViewController {
 
 	@objc private func onFetchWeatherDataFailure() {
 		presentTwoButtonsAlert(
-			title: "Failure to fetch data", 
-			message: "There was an error fetching the data", 
+			title: "Failed to fetch data", 
 			defaultButtonTitle: "Retry", 
 			cancelButtonTitle: "Cancel", 
 			onDefaultButtonTapAction: onTryAgainAlertButtonTapAction(alertAction:),
 			on: self)
-		print("Failed to fetch currency data")
 	}
 	
 	private func onTryAgainAlertButtonTapAction(alertAction: UIAlertAction) {

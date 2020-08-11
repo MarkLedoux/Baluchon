@@ -23,6 +23,7 @@ class CurrencyNetworkManager: NetworkManager {
 			completion(.failure(.failedToCreateURL(message: #function)))
 			return
 		}
+		/// making network call thorugh main NetworkManager file
 		fetch(with: URLRequest(url: url)) { (result: Result<CurrencyResult, NetworkManagerError>) in
 			switch result { 
 			case .failure(let error): 
@@ -32,7 +33,7 @@ class CurrencyNetworkManager: NetworkManager {
 			}
 		}
 	}
-
+	
 	// MARK: - Private Properties
 	private var urlGenerator: URLGeneratorForCurrencyProtocol
 	private var task: URLSessionDataTask?

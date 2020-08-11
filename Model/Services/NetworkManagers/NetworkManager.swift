@@ -26,7 +26,7 @@ extension NetworkManager {
 		with url: URLRequest,
 		completion: @escaping (Result<T, NetworkManagerError>) -> Void) {
 		
-		//  setting up the task
+		///  setting up the task
 		let task = session.dataTask(with: url) { data, response, error in
 			if let error = error {
 				completion(.failure(.failedToFetchRessource(underlineError: error)))

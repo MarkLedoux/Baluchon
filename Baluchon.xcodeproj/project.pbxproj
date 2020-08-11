@@ -35,6 +35,7 @@
 		6E6604DF246EC092000BA21B /* Coord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6604DE246EC092000BA21B /* Coord.swift */; };
 		6E6604E1246EC127000BA21B /* Clouds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6604E0246EC127000BA21B /* Clouds.swift */; };
 		6E6604E3246EC17F000BA21B /* Sys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6604E2246EC17F000BA21B /* Sys.swift */; };
+		6E6EED1724E2757A00AF0EAC /* response.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E6EED1624E2757A00AF0EAC /* response.png */; };
 		6E7705982438C40A00C3BC66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7705972438C40A00C3BC66 /* AppDelegate.swift */; };
 		6E77059A2438C40A00C3BC66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7705992438C40A00C3BC66 /* SceneDelegate.swift */; };
 		6E77059F2438C40A00C3BC66 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E77059D2438C40A00C3BC66 /* Main.storyboard */; };
@@ -98,6 +99,7 @@
 		6E6604DE246EC092000BA21B /* Coord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coord.swift; sourceTree = "<group>"; };
 		6E6604E0246EC127000BA21B /* Clouds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clouds.swift; sourceTree = "<group>"; };
 		6E6604E2246EC17F000BA21B /* Sys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sys.swift; sourceTree = "<group>"; };
+		6E6EED1624E2757A00AF0EAC /* response.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = response.png; sourceTree = "<group>"; };
 		6E7705942438C40A00C3BC66 /* Baluchon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Baluchon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7705972438C40A00C3BC66 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E7705992438C40A00C3BC66 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				6E8F0E7024485590005FB029 /* FakeCurrencyResponseData.swift */,
 				6EA4B4D22451CBFF00FBB585 /* FakeTranslateResponseData.swift */,
 				6EA4B4D02451CBEE00FBB585 /* FakeWeatherResponseData.swift */,
+				6E6EED1624E2757A00AF0EAC /* response.png */,
 				6E7705B02438C40B00C3BC66 /* Info.plist */,
 			);
 			path = BaluchonTests;
@@ -457,6 +460,7 @@
 			files = (
 				6E8F0E7324487CAA005FB029 /* Currency.json in Resources */,
 				6E21887024547F1F00E31372 /* Weather.json in Resources */,
+				6E6EED1724E2757A00AF0EAC /* response.png in Resources */,
 				6E21886E24547EFD00E31372 /* Translation.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

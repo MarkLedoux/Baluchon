@@ -8,12 +8,20 @@
 
 import Foundation
 
+// MARK: - URL Generator for Translation Protocol
 protocol URLGeneratorForTranslateProtocol {  
 	func createTranslateURL(target: Languages, source: Languages, textToTranslate: String) -> URL?
 }
 
+/// Class to make the translation URL
 final class URLGeneratorForTranslate: URLComponentManager, URLGeneratorForTranslateProtocol {
-
+	
+	/// Function returning currency URL
+	/// - Parameters:
+	///   - target: Languages Enum
+	///   - source: Languages Enum
+	///   - textToTranslate: string provided by UITextView
+	/// - Returns: Fully formed URL for POST Request
 	func createTranslateURL(target: Languages, source: Languages, textToTranslate: String) -> URL? {
 		let translateURL = createURL(
 			scheme: "https",
@@ -37,6 +45,7 @@ final class URLGeneratorForTranslate: URLComponentManager, URLGeneratorForTransl
 	}
 }
 
+/// Stub used in tests
 final class URLGeneratorForTranslateStub: URLComponentManagerStub, URLGeneratorForTranslateProtocol {
 	func createTranslateURL(
 		target: Languages, 

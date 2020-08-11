@@ -12,6 +12,7 @@ import Foundation
 struct Temperature {
 	var degreesK: Double
 	
+	// TODO: - remember to test
 	/// setting Celscius in comparion to Kelvin
 	var degreesC: Double {
 		get { return (degreesK - 273.15) }

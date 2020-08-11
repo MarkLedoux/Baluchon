@@ -84,10 +84,8 @@ final class TranslateViewController: BaseViewController {
 					vc?.hideLoadingIndicator()
 					vc?.translatedText.text = translationResult.data.translations.first?.translatedText.htmlDecoded
 				}
-				print("Successfully fetched translation data")
 			case .failure: 
-				print("Failed to fetch translation data")
-				self.perform(#selector(self.onFetchTranslationDataFailure), with: nil, afterDelay: 10)
+				self.perform(#selector(self.onFetchTranslationDataFailure), with: nil, afterDelay: 0.01)
 			}
 		}
 	}
@@ -118,13 +116,11 @@ final class TranslateViewController: BaseViewController {
 	
 	@objc private func onFetchTranslationDataFailure() {
 		presentTwoButtonsAlert(
-			title: "Failure to fetch data", 
-			message: "There was an error fetching the data", 
+			title: "Failed to fetch data", 
 			defaultButtonTitle: "Retry", 
 			cancelButtonTitle: "Cancel", 
 			onDefaultButtonTapAction: onTryAgainAlertButtonTapAction(alertAction:),
 			on: self)
-		print("Failed to fetch currency data")
 	}
 	
 	private func onTryAgainAlertButtonTapAction(alertAction: UIAlertAction) {

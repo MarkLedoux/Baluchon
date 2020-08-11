@@ -34,7 +34,7 @@ struct CurrencyDataRow {
 
 // swiftlint:disable force_cast
 final class CurrencyTableViewDataSource: NSObject, UITableViewDataSource {
-	var selectedValue: Double = 100
+	var selectedValue: Double = 1
 	/// instantiating CurrencyResult and setting properties to reload data of the tableView
 	var currencyResults: CurrencyResult?
 

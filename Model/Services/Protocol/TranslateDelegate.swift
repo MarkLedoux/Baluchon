@@ -8,7 +8,7 @@
 
 import Foundation
 
-// MARK : - Translation Delegate Protocol
+// MARK: - Translation Delegate Protocol
 protocol TranslateDelegate: class {
 	func didFetchTranslationData(translationResult: TranslationResult)
 }

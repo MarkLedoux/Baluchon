@@ -148,7 +148,6 @@ class WeatherNetworkManagerTests: XCTestCase {
 		weatherNetworkManager.loadMultipleWeatherData(cityNames: ["New York"]) { result in
 			// Then
 			XCTAssertNotNil(result)
-			let imageData = "icon".data(using: .utf8)!
 			let tempWeatherResult = 285.83
 			let nameWeatherResult = "New York"
 			let mainWeatherResult = "Clouds"
@@ -158,10 +157,22 @@ class WeatherNetworkManagerTests: XCTestCase {
 				XCTAssertEqual(weatherResult.first?.main?.temp, tempWeatherResult)
 				XCTAssertEqual(weatherResult.first?.name, nameWeatherResult)
 				XCTAssertEqual(weatherResult.first?.weather?.first?.main, mainWeatherResult)
-				XCTAssertEqual(imageData, FakeWeatherResponseData.imageData)
 			}
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 0.01)
+	}
+	
+	func testMyTesyt() {
+		// Given
+		let weatherNetworkManager = WeatherNetworkManager(
+			session: URLSessionFake(
+				data: FakeWeatherResponseData.weatherImageCorrectData,
+				response: FakeWeatherResponseData.responseOK,
+				error: nil))
+		
+		weatherNetworkManager.getWeatherImage(imageIdentifier: "0001") { (data) in
+			XCTAssertEqual(data, FakeWeatherResponseData.weatherImageCorrectData)
+		}
 	}
 }
