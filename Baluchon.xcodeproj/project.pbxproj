@@ -42,6 +42,33 @@
 		6E6EED2124E2C41100AF0EAC /* WeatherResultContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6EED2024E2C41100AF0EAC /* WeatherResultContainer.swift */; };
 		6E6EED2224E2C63000AF0EAC /* WeatherResultContainerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6EED1E24E2C3E100AF0EAC /* WeatherResultContainerDelegate.swift */; };
 		6E6EED2324E2C63F00AF0EAC /* WeatherResultContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6EED2024E2C41100AF0EAC /* WeatherResultContainer.swift */; };
+		6E6EED2424E2D55100AF0EAC /* CurrencyResultContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6EED1824E29EF400AF0EAC /* CurrencyResultContainer.swift */; };
+		6E6EED2524E2D56700AF0EAC /* WeatherResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9A722B2443C86300BE910F /* WeatherResult.swift */; };
+		6E6EED2624E2D65100AF0EAC /* CurrencyResultContainerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6EED1A24E29FC900AF0EAC /* CurrencyResultContainerDelegate.swift */; };
+		6E6EED2724E2D65A00AF0EAC /* CurrencyResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E335ACA243B80FE00CD22B4 /* CurrencyResult.swift */; };
+		6E6EED2824E2D66800AF0EAC /* Coord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6604DE246EC092000BA21B /* Coord.swift */; };
+		6E6EED2924E2D67000AF0EAC /* NetworkManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4A22172445F77F007AC6C3 /* NetworkManagerError.swift */; };
+		6E6EED2A24E2D67500AF0EAC /* TranslationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF564DC2443E62C00B9BB9A /* TranslationResult.swift */; };
+		6E6EED2B24E2D67900AF0EAC /* Sys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6604E2246EC17F000BA21B /* Sys.swift */; };
+		6E6EED2C24E2D67F00AF0EAC /* Clouds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6604E0246EC127000BA21B /* Clouds.swift */; };
+		6E6EED2D24E2D68200AF0EAC /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E870125244D819900EA810E /* Main.swift */; };
+		6E6EED2E24E2D68400AF0EAC /* WeatherElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9A72312443CF6E00BE910F /* WeatherElement.swift */; };
+		6E6EED2F24E2D68600AF0EAC /* Wind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7FD728246FDB25009E3F74 /* Wind.swift */; };
+		6E6EED3024E2D68900AF0EAC /* Temperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8C86E924BEE82700FE5A1D /* Temperature.swift */; };
+		6E6EED3124E2D68E00AF0EAC /* CurrrenyDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4A21F524445376007AC6C3 /* CurrrenyDelegate.swift */; };
+		6E6EED3224E2D69000AF0EAC /* TranslateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E02197E2448A1FF007C4CBB /* TranslateDelegate.swift */; };
+		6E6EED3324E2D69300AF0EAC /* WeatherDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4A22152445AEAC007AC6C3 /* WeatherDelegate.swift */; };
+		6E6EED3424E2D69D00AF0EAC /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8F0E7424488165005FB029 /* NetworkManager.swift */; };
+		6E6EED3524E2D69F00AF0EAC /* URLComponentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4A22112445ABC0007AC6C3 /* URLComponentManager.swift */; };
+		6E6EED3624E2D6A100AF0EAC /* URLGeneratorForCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E62331B244C49D3008B18E1 /* URLGeneratorForCurrency.swift */; };
+		6E6EED3724E2D6A400AF0EAC /* URLGeneratorForTranslate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2C9861244F31E1009BEBBD /* URLGeneratorForTranslate.swift */; };
+		6E6EED3824E2D6D500AF0EAC /* URLGeneratorForWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2C9863244F3B58009BEBBD /* URLGeneratorForWeather.swift */; };
+		6E6EED3924E2D6D900AF0EAC /* CurrencyNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4A21F324445325007AC6C3 /* CurrencyNetworkManager.swift */; };
+		6E6EED3A24E2D6DB00AF0EAC /* TranslationNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E02197C2448A1BD007C4CBB /* TranslationNetworkManager.swift */; };
+		6E6EED3B24E2D6DE00AF0EAC /* WeatherNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E4A22132445AEA0007AC6C3 /* WeatherNetworkManager.swift */; };
+		6E6EED3C24E2D6E100AF0EAC /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E0CAD70248511BE001655B1 /* HTTPMethod.swift */; };
+		6E6EED3D24E2D6E400AF0EAC /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF125C324C989BB0022C1EF /* String.swift */; };
+		6E6EED3E24E2D6E700AF0EAC /* Languages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EE9928024D29E2E00C5E744 /* Languages.swift */; };
 		6E7705982438C40A00C3BC66 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7705972438C40A00C3BC66 /* AppDelegate.swift */; };
 		6E77059A2438C40A00C3BC66 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E7705992438C40A00C3BC66 /* SceneDelegate.swift */; };
 		6E77059F2438C40A00C3BC66 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6E77059D2438C40A00C3BC66 /* Main.storyboard */; };
@@ -529,6 +556,7 @@
 				6E7BDAEC24686AC000DFAEF5 /* CurrencyTableViewDataSource.swift in Sources */,
 				6E9A72322443CF6E00BE910F /* WeatherElement.swift in Sources */,
 				6E7705982438C40A00C3BC66 /* AppDelegate.swift in Sources */,
+				6E6EED2424E2D55100AF0EAC /* CurrencyResultContainer.swift in Sources */,
 				6E2C9862244F31E1009BEBBD /* URLGeneratorForTranslate.swift in Sources */,
 				6E4CE56F24C42409002515D9 /* CurrencyTextFieldDelegate.swift in Sources */,
 				6E6604E1246EC127000BA21B /* Clouds.swift in Sources */,
@@ -562,15 +590,41 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E6EED3624E2D6A100AF0EAC /* URLGeneratorForCurrency.swift in Sources */,
+				6E6EED2A24E2D67500AF0EAC /* TranslationResult.swift in Sources */,
+				6E6EED2E24E2D68400AF0EAC /* WeatherElement.swift in Sources */,
+				6E6EED2F24E2D68600AF0EAC /* Wind.swift in Sources */,
 				6EA4B4D12451CBEE00FBB585 /* FakeWeatherResponseData.swift in Sources */,
+				6E6EED2924E2D67000AF0EAC /* NetworkManagerError.swift in Sources */,
 				6E6EED1F24E2C3E100AF0EAC /* WeatherResultContainerDelegate.swift in Sources */,
+				6E6EED3024E2D68900AF0EAC /* Temperature.swift in Sources */,
 				6E8F0E7724488A2A005FB029 /* URLSessionFake.swift in Sources */,
+				6E6EED3B24E2D6DE00AF0EAC /* WeatherNetworkManager.swift in Sources */,
 				6EA4B4D32451CBFF00FBB585 /* FakeTranslateResponseData.swift in Sources */,
+				6E6EED2724E2D65A00AF0EAC /* CurrencyResult.swift in Sources */,
+				6E6EED3C24E2D6E100AF0EAC /* HTTPMethod.swift in Sources */,
+				6E6EED3124E2D68E00AF0EAC /* CurrrenyDelegate.swift in Sources */,
+				6E6EED2B24E2D67900AF0EAC /* Sys.swift in Sources */,
 				6E7705AF2438C40B00C3BC66 /* CurrencyNetworkManagerTests.swift in Sources */,
+				6E6EED3A24E2D6DB00AF0EAC /* TranslationNetworkManager.swift in Sources */,
+				6E6EED3E24E2D6E700AF0EAC /* Languages.swift in Sources */,
 				6EA4B4DF2451CD6000FBB585 /* WeatherNetworkManagerTests.swift in Sources */,
+				6E6EED2824E2D66800AF0EAC /* Coord.swift in Sources */,
 				6E6EED1924E29EF400AF0EAC /* CurrencyResultContainer.swift in Sources */,
+				6E6EED3424E2D69D00AF0EAC /* NetworkManager.swift in Sources */,
+				6E6EED2D24E2D68200AF0EAC /* Main.swift in Sources */,
 				6E6EED2124E2C41100AF0EAC /* WeatherResultContainer.swift in Sources */,
+				6E6EED3924E2D6D900AF0EAC /* CurrencyNetworkManager.swift in Sources */,
+				6E6EED2624E2D65100AF0EAC /* CurrencyResultContainerDelegate.swift in Sources */,
+				6E6EED3224E2D69000AF0EAC /* TranslateDelegate.swift in Sources */,
+				6E6EED2524E2D56700AF0EAC /* WeatherResult.swift in Sources */,
+				6E6EED3324E2D69300AF0EAC /* WeatherDelegate.swift in Sources */,
+				6E6EED3824E2D6D500AF0EAC /* URLGeneratorForWeather.swift in Sources */,
+				6E6EED3724E2D6A400AF0EAC /* URLGeneratorForTranslate.swift in Sources */,
+				6E6EED2C24E2D67F00AF0EAC /* Clouds.swift in Sources */,
 				6E01662C2449F9E900E7AC2C /* FakeCurrencyResponseData.swift in Sources */,
+				6E6EED3D24E2D6E400AF0EAC /* String.swift in Sources */,
+				6E6EED3524E2D69F00AF0EAC /* URLComponentManager.swift in Sources */,
 				6EA4B4DD2451CD4200FBB585 /* TranslationNetworkManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

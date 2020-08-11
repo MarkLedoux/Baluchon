@@ -163,7 +163,41 @@ class WeatherNetworkManagerTests: XCTestCase {
 		wait(for: [expectation], timeout: 0.01)
 	}
 	
-	func testMyTesyt() {
+	func testTransformTemperatureShouldSucceedIfProperConversionIsUsed() {  
+		// Given 
+		let temperature = Temperature(degreesK: 489)
+		
+		// Then
+		XCTAssertEqual(Int(temperature.degreesC), Int(215.85))
+	}
+	
+	func testTransformTemperatureShouldFailIfCorrectConversionIsUsedWrongExpectedResult() { 
+		// Given 
+		let temperature = Temperature(degreesK: 489)
+		
+		// Then
+		XCTAssertNotEqual(Int(temperature.degreesC), Int(210.85))
+	}
+	
+	func testGetWeatherImageDataShouldFailCompletionIfIncorrectData() {
+		// Given
+		let weatherNetworkManager = WeatherNetworkManager(
+			session: URLSessionFake(
+				data: FakeWeatherResponseData.weatherImageIncorrectData,
+				response: FakeWeatherResponseData.responseOK,
+				error: nil))
+		
+		// When
+		let expectation = XCTestExpectation(description: "Wait for queue change")
+		weatherNetworkManager.getWeatherImage(imageIdentifier: "01n") { _ in
+			// Then
+			XCTAssertNotNil(NetworkManagerError.failedToFetchRessource)
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 0.01)
+	}
+	
+	func testGetWeatherImageDataShouldSucceedIfCorrectDataAndCorrectResponseNoError() {
 		// Given
 		let weatherNetworkManager = WeatherNetworkManager(
 			session: URLSessionFake(
@@ -171,7 +205,7 @@ class WeatherNetworkManagerTests: XCTestCase {
 				response: FakeWeatherResponseData.responseOK,
 				error: nil))
 		
-		weatherNetworkManager.getWeatherImage(imageIdentifier: "0001") { (data) in
+		weatherNetworkManager.getWeatherImage(imageIdentifier: "01n") { (data) in
 			XCTAssertEqual(data, FakeWeatherResponseData.weatherImageCorrectData)
 		}
 	}

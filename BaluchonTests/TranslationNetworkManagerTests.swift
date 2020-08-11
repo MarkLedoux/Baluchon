@@ -146,7 +146,7 @@ class TranslationNetworkManagerTests: XCTestCase {
 
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
-		translationNetworkManager.fetchTranslationData(source: .french, target: .french, textToTranslate: "", completion: { (result) in
+		translationNetworkManager.fetchTranslationData(source: .french, target: .french, textToTranslate: "") { (result) in
 			// Then
 			XCTAssertNotNil(result)
 			let translationResult =
@@ -155,7 +155,49 @@ class TranslationNetworkManagerTests: XCTestCase {
 				XCTAssertEqual(translatedTextResult.data.translations.first!.translatedText, translationResult)
 			}
 			expectation.fulfill()
-		})
+		}
+		wait(for: [expectation], timeout: 0.01)
+	}
+	
+	func testStringDecodingShouldReturnCorrectValueWhenProperConversionIsUsed() {  
+		
+		// Given 
+		let translationNetworkManager = TranslationNetworkManager(
+			session: URLSessionFake(
+				data: FakeTranslateResponseData.translationCorrectData, 
+				response: FakeTranslateResponseData.responseOK, 
+				error: nil))
+		
+		// When 
+		let textToTranslate = "Table views on iOS display a single column of vertically scrolling content, divided into rows. Each row in the table contains one piece of your app’s content. For example, the Contacts app displays the name of each contact in a separate row, and the main page of the Settings app displays the available groups of settings. You can configure a table to display a single long list of rows, or you can group related rows into sections to make navigating the content easier."
+		let expectation = XCTestExpectation(description: "Wait for queue change")
+		translationNetworkManager.fetchTranslationData(source: .english, target: .french, textToTranslate: textToTranslate) { _ in
+			// Then
+			let translationResult = "Les vues de table sur iOS affichent une seule colonne de contenu défilant verticalement, divisée en lignes. Chaque ligne du tableau contient un élément du contenu de votre application. Par exemple, l'application Contacts affiche le nom de chaque contact sur une ligne distincte et la page principale de l'application Paramètres affiche les groupes de paramètres disponibles. Vous pouvez configurer un tableau pour afficher une seule longue liste de lignes, ou vous pouvez regrouper les lignes associées en sections pour faciliter la navigation dans le contenu."
+			XCTAssertEqual(translationResult, translationResult.htmlDecoded)
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 0.01)
+	}
+	
+	func testStringDecodingShouldReturnInCorrectValueWhenIncorrectConversionIsUsed() {  
+		
+		// Given 
+		let translationNetworkManager = TranslationNetworkManager(
+			session: URLSessionFake(
+				data: FakeTranslateResponseData.translationCorrectData, 
+				response: FakeTranslateResponseData.responseOK, 
+				error: nil))
+		
+		// When 
+		let textToTranslate = "Table views on iOS display a single column of vertically scrolling content, divided into rows. Each row in the table contains one piece of your app’s content. For example, the Contacts app displays the name of each contact in a separate row, and the main page of the Settings app displays the available groups of settings. You can configure a table to display a single long list of rows, or you can group related rows into sections to make navigating the content easier."
+		let expectation = XCTestExpectation(description: "Wait for queue change")
+		translationNetworkManager.fetchTranslationData(source: .english, target: .french, textToTranslate: textToTranslate) { _ in
+			// Then
+			let translationResult = "Les vues de table sur iOS affichent une seule colonne de contenu défilant verticalement, divisée en lignes. Chaque ligne du tableau contient un élément du contenu de votre application. Par exemple, l&#39;application Contacts affiche le nom de chaque contact sur une ligne distincte et la page principale de l&#39;application Paramètres affiche les groupes de paramètres disponibles. Vous pouvez configurer un tableau pour afficher une seule longue liste de lignes, ou vous pouvez regrouper les lignes associées en sections pour faciliter la navigation dans le contenu."
+			XCTAssertNotEqual(translationResult, translationResult.htmlDecoded)
+			expectation.fulfill()
+		}
 		wait(for: [expectation], timeout: 0.01)
 	}
 }
