@@ -9,6 +9,7 @@
 import UIKit
 
 extension WeatherViewController: WeatherResultContainerDelegate {
+	/// reloading the UITableView
 	func didUpdateImageData() {
 		DispatchQueue.main.async {
 			self.weatherTableView.reloadData()
@@ -17,7 +18,6 @@ extension WeatherViewController: WeatherResultContainerDelegate {
 }
 
 // swiftlint:disable weak_delegate
-
 final class WeatherViewController: BaseViewController {
 	@IBOutlet var weatherTableView: UITableView!
 	
@@ -29,6 +29,8 @@ final class WeatherViewController: BaseViewController {
 		weatherTableView.delegate = weatherTableViewDelegate
 	}
 	
+	/// Network call to fetch the weather image data
+	/// - Parameter weatherResultDic: returning an the Array of cities to which we add the UIImage
 	private func fetchImageData(_ weatherResultDic: ([WeatherResultContainer])) {
 		for weatherResult in weatherResultDic { 
 			guard let imageIdentifier = weatherResult.weatherResult.weather?.first?.icon else { continue }
@@ -40,6 +42,7 @@ final class WeatherViewController: BaseViewController {
 		}
 	}
 	
+	/// Network call to fetch the weather data
 	private func fetchWeatherData() {
 		showLoadingIndicator()
 		weatherNetWorkManager.loadMultipleWeatherData(
@@ -62,6 +65,8 @@ final class WeatherViewController: BaseViewController {
 		fetchWeatherData()
 	}
 	
+	/// Mapping reasult of Network Call  before reloading the UITableView
+	/// - Parameter weatherResult: dictionary [String: WeatherResult] for the city names passed in
 	private func handle(weatherResult: [String: WeatherResult]) {
 		weatherTableViewDataSource.weatherResults = weatherResult
 			.map { $0.value }
@@ -91,7 +96,7 @@ final class WeatherViewController: BaseViewController {
 	}
 
 	@objc private func onFetchWeatherDataFailure() {
-		presentTwoButtonsAlert(
+		presentAlertOnFetchDataFailure(
 			title: "Failed to fetch data", 
 			defaultButtonTitle: "Retry", 
 			cancelButtonTitle: "Cancel", 
@@ -99,6 +104,7 @@ final class WeatherViewController: BaseViewController {
 			on: self)
 	}
 	
+	/// Giving the option to the user to try to fetch the data again
 	private func onTryAgainAlertButtonTapAction(alertAction: UIAlertAction) {
 		fetchWeatherData()
 		retryButtonWasPressed()

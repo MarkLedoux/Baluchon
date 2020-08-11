@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Class for the currency network request
 class CurrencyNetworkManager: NetworkManager {
 	// MARK: - Init
 	init(session: URLSession, urlGenerator: URLGeneratorForCurrencyProtocol = URLGeneratorForCurrency()) {

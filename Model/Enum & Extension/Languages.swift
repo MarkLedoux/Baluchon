@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Enum for the languages used in the app for the translation
 enum Languages: String { 
 	case english = "en"
 	case french = "fr"

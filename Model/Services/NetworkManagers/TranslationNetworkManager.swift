@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Class for the translation network request
 class TranslationNetworkManager: NetworkManager {
 	// MARK: - Init 
 	init(session: URLSession, urlGenerator: URLGeneratorForTranslateProtocol = URLGeneratorForTranslate()) { 

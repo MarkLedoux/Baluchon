@@ -20,3 +20,9 @@ struct CurrencyResult: Codable {
 private enum CodingKeys: String, CodingKey {
 	case success, timestamp, base, date, rates
 }
+
+// MARK: - Currency Data Row 
+struct CurrencyDataRow {
+	let title: String
+	let rate: Double
+}

@@ -8,8 +8,9 @@
 
 import Foundation
 
+/// Used to decode the text given back on translation network call
 extension String {
-	// TODO: to Test with
+	// TODO: to Test with a single test
 	var htmlDecoded: String {
 		let decoded = try? NSAttributedString(data: Data(utf8), options: [
 			.documentType: NSAttributedString.DocumentType.html,

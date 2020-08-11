@@ -115,19 +115,9 @@ final class TranslateViewController: BaseViewController {
 	}
 	
 	@objc private func onFetchTranslationDataFailure() {
-		presentTwoButtonsAlert(
-			title: "Failed to fetch data", 
-			defaultButtonTitle: "Retry", 
-			cancelButtonTitle: "Cancel", 
-			onDefaultButtonTapAction: onTryAgainAlertButtonTapAction(alertAction:),
+		presentSingleButtonAlertOnRequestFailure(
+			title: "Failed to Fetch Data", 
+			cancelButtonTitle: "Cancel" , 
 			on: self)
-	}
-	
-	private func onTryAgainAlertButtonTapAction(alertAction: UIAlertAction) {
-		retryButtonWasPressed()
-	}
-	
-	private func retryButtonWasPressed() { 
-		dismiss(animated: true, completion: nil)
 	}
 }

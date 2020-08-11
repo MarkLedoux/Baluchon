@@ -8,6 +8,7 @@
 
 import UIKit
 
+/// Setting up the elements used in the UITableView
 class WeatherCell: UITableViewCell {
 	@IBOutlet var cityNameLabel: UILabel!
 	@IBOutlet var weatherImage: UIImageView!
@@ -16,13 +17,9 @@ class WeatherCell: UITableViewCell {
 
 	override func awakeFromNib() {
 		super.awakeFromNib()
-		// Initialization code
 	}
 
 	override func setSelected(_ selected: Bool, animated: Bool) {
 		super.setSelected(selected, animated: animated)
-
-		// Configure the view for the selected state
 	}
-
 }
