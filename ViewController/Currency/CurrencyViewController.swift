@@ -25,8 +25,10 @@ extension CurrencyViewController: UITableViewDelegate {
 	
 	/// setting up the UITextField so the use can input an amount to change the currency value
 	private func promptForAnswer() {
-		let ac = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .alert)
-		ac.addTextField()
+		let ac = UIAlertController(title: "Input a value", message: nil, preferredStyle: .alert)
+		ac.addTextField { textField in
+			textField.placeholder = "Input the currency value here..."
+		}
 		
 		let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned ac] _ in
 			let answer = ac.textFields![0]
