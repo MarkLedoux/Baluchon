@@ -28,7 +28,7 @@ final class TranslateViewController: BaseViewController {
 		setNavigationBar()
 		setUpTranslationNetworkManager()
 		translationInputTextView.layer.borderWidth = 1
-		translationInputTextView.layer.borderColor = UIColor.black.cgColor
+		translationInputTextView.layer.borderColor = UIColor.systemGray.cgColor
 		translationInputTextView.layer.cornerRadius = 10
 	}
 
@@ -77,16 +77,17 @@ final class TranslateViewController: BaseViewController {
 		translationNetworkManager.fetchTranslationData(
 			source: sourceLanguage,
 			target: targetLanguage,
-		textToTranslate: textToTranslate) { result in
-			switch result { 
-			case .success(let translationResult): 
+			textToTranslate: textToTranslate) { result in
 				DispatchQueue.main.async {
-					vc?.hideLoadingIndicator()
-					vc?.translatedText.text = translationResult.data.translations.first?.translatedText.htmlDecoded
+					switch result { 
+					case .success(let translationResult): 
+						
+						vc?.hideLoadingIndicator()
+						vc?.translatedText.text = translationResult.data.translations.first?.translatedText.htmlDecoded
+					case .failure: 
+						self.onFetchTranslationDataFailure()
+					}
 				}
-			case .failure: 
-				self.perform(#selector(self.onFetchTranslationDataFailure), with: nil, afterDelay: 0.01)
-			}
 		}
 	}
 	
@@ -98,7 +99,9 @@ final class TranslateViewController: BaseViewController {
 		let vc = segue.destination as? TranslatedTextViewController
 
 		guard let textToTranslate = translationInputTextView.text else { return }
-		guard textToTranslate != "" else { return }
+		guard textToTranslate != "" else { 
+			self.perform(#selector(self.onEmptyTextViewFailure))
+			return }
 		fetchTranslateData(textToTranslate, vc)
 		vc?.showLoadingIndicator()
 	}
@@ -118,6 +121,13 @@ final class TranslateViewController: BaseViewController {
 		presentSingleButtonAlertOnRequestFailure(
 			title: "Failed to Fetch Data", 
 			cancelButtonTitle: "Cancel" , 
+			on: self)
+	}
+	
+	@objc private func onEmptyTextViewFailure() { 
+		presentSingleButtonAlertOnRequestFailure(
+			title: "Please input text to translate", 
+			cancelButtonTitle: "OK" , 
 			on: self)
 	}
 }

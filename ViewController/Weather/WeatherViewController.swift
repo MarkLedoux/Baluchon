@@ -48,14 +48,15 @@ final class WeatherViewController: BaseViewController {
 		weatherNetWorkManager.loadMultipleWeatherData(
 		cityNames: ["New York", "London", "Tassin-La-Demi-Lune", "Moscow", "Tokyo"]) { [weak self] result in
 			guard let self = self else { return }
-			switch result { 
-			case .success(let weatherResultDic): 
-				DispatchQueue.main.async {
+			DispatchQueue.main.async {
+				switch result { 
+				case .success(let weatherResultDic): 
+					
 					self.hideLoadingIndicator()
 					self.handle(weatherResult: weatherResultDic)
+				case .failure: 
+					self.onFetchWeatherDataFailure()
 				}
-			case .failure: 
-				self.perform(#selector(self.onFetchWeatherDataFailure), with: nil, afterDelay: 0.01)
 			}
 		}
 	}

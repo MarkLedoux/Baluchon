@@ -100,15 +100,15 @@ final class CurrencyViewController: BaseViewController {
 		showLoadingIndicator()
 		currencyNetworkManager.loadCurrency { [weak self] result in
 			guard let self = self else { return }
-			switch result { 
-			case .success(let currencyResult):
-				DispatchQueue.main.async {
+			DispatchQueue.main.async {
+				switch result { 
+				case .success(let currencyResult):
 					self.hideLoadingIndicator()
 					self.handle(currencyResult: currencyResult)
+				case .failure:
+					self.hideLoadingIndicator()
+					self.onFetchCurrencyDataFailure()
 				}
-			case .failure:
-				self.hideLoadingIndicator()
-				self.perform(#selector(self.onFetchCurrencyDataFailure), with: nil, afterDelay: 0.01)
 			}
 		}
 	}
