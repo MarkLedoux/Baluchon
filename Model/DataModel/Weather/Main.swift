@@ -8,19 +8,20 @@
 
 import Foundation
 
-///defining weatherElement data and its keys
+// MARK: - Main Data
 struct Main: Codable {
-    let temp: Double
-    let feelsLike: Double
-    let tempMin: Double
-    let tempMax: Double
-    let pressure: Int
-    let humidity: Int
+	let temp: Double?
+	let feelsLike: Double?
+	let tempMin: Double?
+	let tempMax: Double?
+	let pressure: Int?
+	let humidity: Int?
 }
 
+// MARK: - Main Data Keys
 private enum CodingKeys: String, CodingKey {
-    case temp, pressure, humidity
-    case feelsLike = "feels_like"
-    case tempMin = "temp_min"
-    case tempMax = "temp_max"
+	case temp, pressure, humidity
+	case feelsLike = "feels_like"
+	case tempMin = "temp_min"
+	case tempMax = "temp_max"
 }

@@ -2,20 +2,22 @@
 //  Sys.swift
 //  Baluchon
 //
-//  Created by Mark LEDOUX on 13/04/2020.
+//  Created by Mark LEDOUX on 15/05/2020.
 //  Copyright © 2020 vinceled. All rights reserved.
 //
 
 import Foundation
 
-/// defining sys and its keys 
+// MARK: - Sys Data
 struct Sys: Codable {
-    let type: Int
-    let id: Int
-    let country: String
-    let sunrise, sunset: Int
+	var type: Int?
+	var id: Int?
+	var country: String?
+	var sunrise: Int?
+	var sunset: Int?
 }
 
+// MARK: - Sys Data Keys
 private enum CodingKeys: String, CodingKey {
-    case type, id, country, sunrise, sunset
+	case type, id, country, sunrise, sunset
 }

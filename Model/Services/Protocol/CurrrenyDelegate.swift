@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - Currency Delegate Protocol
 protocol CurrencyDelegate: class {
-    func didGetCurrencyData(currencyResult: CurrencyResult)
+	func didGetCurrencyData(currencyResult: CurrencyResult)
 }

@@ -8,14 +8,15 @@
 
 import UIKit
 
-class TranslatedTextViewController: UIViewController {
-    @IBOutlet weak var translatedText: UITextView!
+/// UIViewController in charge of  the view on which the text is going to be displayed
+class TranslatedTextViewController: BaseViewController {
+	@IBOutlet weak var translatedText: UITextView!
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+	}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
-    @IBAction func dismiss(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
+	@IBAction func dismiss(_ sender: Any) {
+		dismiss(animated: true, completion: nil)
+	}
 }

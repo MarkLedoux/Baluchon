@@ -8,17 +8,18 @@
 
 import UIKit
 
+/// Setting up the elements used in the UITableView
 class WeatherCell: UITableViewCell {
+	@IBOutlet var cityNameLabel: UILabel!
+	@IBOutlet var weatherImage: UIImageView!
+	@IBOutlet var weatherDescriptionLabel: UILabel!
+	@IBOutlet var temperatureLabel: UILabel!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+	override func awakeFromNib() {
+		super.awakeFromNib()
+	}
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+	override func setSelected(_ selected: Bool, animated: Bool) {
+		super.setSelected(selected, animated: animated)
+	}
 }

@@ -1,9 +1,9 @@
 {
-    "data": {
-        "translations": [
-            {
-                "translatedText": "La Gran Pirámide de Giza (también conocida como la Pirámide de Khufu o la Pirámide de Keops) es la más antigua y más grande de las tres pirámides en el complejo de la pirámide de Giza."
-            }
-        ]
-    }
+	"data": {
+		"translations": [
+			{
+				"translatedText": "The Great Pyramid of Giza (also known as the Pyramid of Khufu or the Pyramid of Cheops) is the oldest and largest of the three pyramids in the Giza pyramid complex."
+			}
+		]
+	}
 }

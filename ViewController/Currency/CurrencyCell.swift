@@ -8,17 +8,16 @@
 
 import UIKit
 
+/// setup of th labels in the currency cell
 class CurrencyCell: UITableViewCell {
+	@IBOutlet var currencyRate: UILabel!
+	@IBOutlet var currencyBase: UILabel!
+	
+	override func awakeFromNib() {
+		super.awakeFromNib()
+	}
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+	override func setSelected(_ selected: Bool, animated: Bool) {
+		super.setSelected(selected, animated: animated)
+	}
 }
