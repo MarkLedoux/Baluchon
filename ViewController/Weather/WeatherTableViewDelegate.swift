@@ -8,29 +8,10 @@
 
 import UIKit
 
-protocol WeatherResultContainerDelegate: class { 
-	func didUpdateImageData()
-}
-
-class WeatherResultContainer {
-	weak var delegate: WeatherResultContainerDelegate?
-	
-	init(weatherResult: WeatherResult, imageData: Data? = nil) {
-		self.weatherResult = weatherResult
-		self.imageData = imageData
-	}
-	
-	let weatherResult: WeatherResult
-	var imageData: Data? {
-		didSet { 
-			delegate?.didUpdateImageData()
-		}
-	}
-}
-
 // swiftlint:disable force_cast
 class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
 	
+	///creating an Array to handle adding multiple cities
 	var weatherResults: [WeatherResultContainer] = []
 	
 	// MARK: - Methods
@@ -38,6 +19,7 @@ class WeatherTableViewDataSource: NSObject, UITableViewDataSource {
 	func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
+	
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return weatherResults.count
 	}

@@ -51,12 +51,6 @@ class WeatherNetworkManagerTests: XCTestCase {
 				case NetworkManagerError.failedToCreateURL(message: "loadWeatherData(cityName:completion:)") = error { 
 				expectation.fulfill()
 			}
-			weatherNetworkManager.getWeatherImage(imageIdentifier: "") {  data in
-				if 
-					let error = data { 
-					expectation.fulfill()
-				}
-			}
 		}
 		wait(for: [expectation], timeout: 0.01)
 	}
@@ -109,7 +103,6 @@ class WeatherNetworkManagerTests: XCTestCase {
 				response: FakeWeatherResponseData.responseKO,
 				error: nil))
 		
-		
 		// When
 		let expectation = XCTestExpectation(description: "Wait for queue change")
 		weatherNetworkManager.loadMultipleWeatherData(cityNames: ["New York"]) { result in
@@ -155,7 +148,6 @@ class WeatherNetworkManagerTests: XCTestCase {
 		weatherNetworkManager.loadMultipleWeatherData(cityNames: ["New York"]) { result in
 			// Then
 			XCTAssertNotNil(result)
-			let imageData = "icon".data(using: .utf8)!
 			let tempWeatherResult = 285.83
 			let nameWeatherResult = "New York"
 			let mainWeatherResult = "Clouds"
@@ -165,10 +157,56 @@ class WeatherNetworkManagerTests: XCTestCase {
 				XCTAssertEqual(weatherResult.first?.main?.temp, tempWeatherResult)
 				XCTAssertEqual(weatherResult.first?.name, nameWeatherResult)
 				XCTAssertEqual(weatherResult.first?.weather?.first?.main, mainWeatherResult)
-				XCTAssertEqual(imageData, FakeWeatherResponseData.imageData)
 			}
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 0.01)
+	}
+	
+	func testTransformTemperatureShouldSucceedIfProperConversionIsUsed() {  
+		// Given 
+		let temperature = Temperature(degreesK: 489)
+		
+		// Then
+		XCTAssertEqual(Int(temperature.degreesC), Int(215.85))
+	}
+	
+	func testTransformTemperatureShouldFailIfCorrectConversionIsUsedWrongExpectedResult() { 
+		// Given 
+		let temperature = Temperature(degreesK: 489)
+		
+		// Then
+		XCTAssertNotEqual(Int(temperature.degreesC), Int(210.85))
+	}
+	
+	func testGetWeatherImageDataShouldFailCompletionIfIncorrectData() {
+		// Given
+		let weatherNetworkManager = WeatherNetworkManager(
+			session: URLSessionFake(
+				data: FakeWeatherResponseData.weatherImageIncorrectData,
+				response: FakeWeatherResponseData.responseOK,
+				error: nil))
+		
+		// When
+		let expectation = XCTestExpectation(description: "Wait for queue change")
+		weatherNetworkManager.getWeatherImage(imageIdentifier: "01n") { _ in
+			// Then
+			XCTAssertNotNil(NetworkManagerError.failedToFetchRessource)
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 0.01)
+	}
+	
+	func testGetWeatherImageDataShouldSucceedIfCorrectDataAndCorrectResponseNoError() {
+		// Given
+		let weatherNetworkManager = WeatherNetworkManager(
+			session: URLSessionFake(
+				data: FakeWeatherResponseData.weatherImageCorrectData,
+				response: FakeWeatherResponseData.responseOK,
+				error: nil))
+		
+		weatherNetworkManager.getWeatherImage(imageIdentifier: "01n") { (data) in
+			XCTAssertEqual(data, FakeWeatherResponseData.weatherImageCorrectData)
+		}
 	}
 }

@@ -8,16 +8,16 @@
 
 import Foundation
 
-class Sys: Codable {
-	
+// MARK: - Sys Data
+struct Sys: Codable {
 	var type: Int?
 	var id: Int?
 	var country: String?
 	var sunrise: Int?
 	var sunset: Int?
-	
-	private enum CodingKeys: String, CodingKey {
-		
-		case type, id, country, sunrise, sunset
-	}
+}
+
+// MARK: - Sys Data Keys
+private enum CodingKeys: String, CodingKey {
+	case type, id, country, sunrise, sunset
 }

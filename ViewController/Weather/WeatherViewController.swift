@@ -9,6 +9,7 @@
 import UIKit
 
 extension WeatherViewController: WeatherResultContainerDelegate {
+	/// reloading the UITableView
 	func didUpdateImageData() {
 		DispatchQueue.main.async {
 			self.weatherTableView.reloadData()
@@ -17,7 +18,6 @@ extension WeatherViewController: WeatherResultContainerDelegate {
 }
 
 // swiftlint:disable weak_delegate
-
 final class WeatherViewController: BaseViewController {
 	@IBOutlet var weatherTableView: UITableView!
 	
@@ -29,31 +29,34 @@ final class WeatherViewController: BaseViewController {
 		weatherTableView.delegate = weatherTableViewDelegate
 	}
 	
+	/// Network call to fetch the weather image data
+	/// - Parameter weatherResultDic: returning an the Array of cities to which we add the UIImage
 	private func fetchImageData(_ weatherResultDic: ([WeatherResultContainer])) {
 		for weatherResult in weatherResultDic { 
 			guard let imageIdentifier = weatherResult.weatherResult.weather?.first?.icon else { continue }
 			self.weatherNetWorkManager.getWeatherImage(imageIdentifier: imageIdentifier) { (data) in
 				if let data = data { 
-					print(data)
-					
 					weatherResult.imageData = data
-					
 				}
 			}
 		}
 	}
 	
+	/// Network call to fetch the weather data
 	private func fetchWeatherData() {
+		showLoadingIndicator()
 		weatherNetWorkManager.loadMultipleWeatherData(
 		cityNames: ["New York", "London", "Tassin-La-Demi-Lune", "Moscow", "Tokyo"]) { [weak self] result in
 			guard let self = self else { return }
-			switch result { 
-			case .success(let weatherResultDic): 
-				DispatchQueue.main.async {
+			DispatchQueue.main.async {
+				switch result { 
+				case .success(let weatherResultDic): 
+					
+					self.hideLoadingIndicator()
 					self.handle(weatherResult: weatherResultDic)
+				case .failure: 
+					self.onFetchWeatherDataFailure()
 				}
-			case .failure: 
-				self.onFetchWeatherDataFailure()
 			}
 		}
 	}
@@ -63,7 +66,9 @@ final class WeatherViewController: BaseViewController {
 		fetchWeatherData()
 	}
 	
-	func handle(weatherResult: [String: WeatherResult]) {
+	/// Mapping reasult of Network Call  before reloading the UITableView
+	/// - Parameter weatherResult: dictionary [String: WeatherResult] for the city names passed in
+	private func handle(weatherResult: [String: WeatherResult]) {
 		weatherTableViewDataSource.weatherResults = weatherResult
 			.map { $0.value }
 			.map {
@@ -80,7 +85,6 @@ final class WeatherViewController: BaseViewController {
 	
 	private let weatherTableViewDataSource = WeatherTableViewDataSource()
 	private let weatherTableViewDelegate = WeatherTableViewDelegate()
-	private let alertManager = AlertManager()
 
 	// MARK: - Private Methods
 	private func setUpNavigationBar() {
@@ -92,17 +96,16 @@ final class WeatherViewController: BaseViewController {
 		weatherNetWorkManager = WeatherNetworkManager(session: session)
 	}
 
-	private func onFetchWeatherDataFailure() {
-		alertManager.presentTwoButtonsAlert(
-			title: "Failure to fetch data", 
-			message: "", 
-			defaultButtonTitle: "", 
-			cancelButtonTitle: "", 
+	@objc private func onFetchWeatherDataFailure() {
+		presentAlertOnFetchDataFailure(
+			title: "Failed to fetch data", 
+			defaultButtonTitle: "Retry", 
+			cancelButtonTitle: "Cancel", 
 			onDefaultButtonTapAction: onTryAgainAlertButtonTapAction(alertAction:),
 			on: self)
-		print("Failed to fetch currency data")
 	}
 	
+	/// Giving the option to the user to try to fetch the data again
 	private func onTryAgainAlertButtonTapAction(alertAction: UIAlertAction) {
 		fetchWeatherData()
 		retryButtonWasPressed()

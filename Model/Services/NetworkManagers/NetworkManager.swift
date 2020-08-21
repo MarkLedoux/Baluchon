@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: - Services Main Protocol
 protocol NetworkManager: class {
 	var session: URLSession { get }
 	func fetch<T: Codable>(
@@ -15,11 +16,17 @@ protocol NetworkManager: class {
 		completion: @escaping(Result<T, NetworkManagerError>) -> Void)
 }
 
+// MARK: - Extension for services
 extension NetworkManager {
+	/// Main function used in the whole project for network calls
+	/// - Parameters:
+	///   - url: URLRequest to pass in the URL after it is built
+	///   - completion: Generic Type T for different types and NetworkManagerError
 	func fetch<T: Codable>(
 		with url: URLRequest,
 		completion: @escaping (Result<T, NetworkManagerError>) -> Void) {
 		
+		///  setting up the task
 		let task = session.dataTask(with: url) { data, response, error in
 			if let error = error {
 				completion(.failure(.failedToFetchRessource(underlineError: error)))

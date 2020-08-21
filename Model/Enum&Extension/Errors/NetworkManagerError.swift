@@ -45,6 +45,4 @@ extension NetworkManagerError {
 			return "Failed to create URL"
 		}
 	}
-	
-	// TODO: - create string localization even for storyboard titles 
 }

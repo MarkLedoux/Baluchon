@@ -19,7 +19,7 @@ class FakeWeatherResponseData: WeatherNetworkManager {
 	}
 
 	static let weatherIncorrectData = "erreur".data(using: .utf8)!
-	static let imageData = "icon".data(using: .utf8)!
+//	static let imageData = "icon".data(using: .utf8)!
 
 	// MARK: - Response
 	static let responseOK = HTTPURLResponse(url: URL(string: "https://openclassrooms.com")!,
@@ -31,6 +31,13 @@ class FakeWeatherResponseData: WeatherNetworkManager {
 																					statusCode: 500,
 																					httpVersion: nil,
 																					headerFields: nil)!
+	static var weatherImageCorrectData: Data? {
+		let bundle = Bundle(for: FakeWeatherResponseData.self)
+		let url = bundle.url(forResource: "response", withExtension: "png")!
+		return try! Data(contentsOf: url)
+	}
+	
+	static let weatherImageIncorrectData = "erreur".data(using: .utf8)
 
 	// MARK: - Error
 	class WeatherNetworkManagerError: Error {}

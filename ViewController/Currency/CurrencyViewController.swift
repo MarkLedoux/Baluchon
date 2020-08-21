@@ -9,6 +9,7 @@
 import UIKit
 
 extension CurrencyViewController: CurrencyResultContainerDelegate {
+	/// reloading the UITableView
 	func didUpdateCurrencyData() {
 		DispatchQueue.main.async {
 			self.currencyTableView.reloadData()
@@ -22,9 +23,12 @@ extension CurrencyViewController: UITableViewDelegate {
 		promptForAnswer()
 	}
 	
+	/// setting up the UITextField so the use can input an amount to change the currency value
 	private func promptForAnswer() {
-		let ac = UIAlertController(title: "Enter answer", message: nil, preferredStyle: .alert)
-		ac.addTextField()
+		let ac = UIAlertController(title: "Input a value", message: nil, preferredStyle: .alert)
+		ac.addTextField { textField in
+			textField.placeholder = "Input the currency value here..."
+		}
 		
 		let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned ac] _ in
 			let answer = ac.textFields![0]
@@ -33,19 +37,17 @@ extension CurrencyViewController: UITableViewDelegate {
 				let inputString = answer.text,
 				let inputDouble = Double(inputString)
 				else { return }
-			
 			self.selectedValue = inputDouble
 		}
-		
 		ac.addAction(submitAction)
-		
 		present(ac, animated: true)
 	}
 }
 
 final class CurrencyViewController: BaseViewController {
 	
-	var selectedValue: Double = 100 {
+	/// default value to reload the UITableView with
+	var selectedValue: Double = 1 {
 		didSet {
 			currencyTableViewDataSource.selectedValue = selectedValue
 			currencyTableView.reloadData()
@@ -61,17 +63,15 @@ final class CurrencyViewController: BaseViewController {
 		setUpCurrencyNetworkManager()
 		currencyTableView.dataSource = currencyTableViewDataSource
 		currencyTableView.delegate = self
-		//currencyTableView.delegate = currencyTableViewDelegate
 	}
 	
 	/// calling loadCurrency to fetch currency data
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		showLoadingIndicator()
 		fetchCurrencyData()
-		hideLoadingIndicator()
 	}
 	
+	/// reloading the UITableView once all the data has been fetched
 	private func handle(currencyResult: CurrencyResult) {
 		currencyTableViewDataSource.currencyResults = currencyResult
 		currencyTableView.reloadData()
@@ -81,9 +81,8 @@ final class CurrencyViewController: BaseViewController {
 	/// instantiating CurrencyNetworkManager for model-viewController communication
 	private var currencyNetworkManager: CurrencyNetworkManager!
 	
+	/// create an instance of CurrencyTableViewDataSource()
 	private let currencyTableViewDataSource = CurrencyTableViewDataSource()
-	//private let currencyTableViewDelegate = CurrencyTableViewDelegate()
-	private let alertManager = AlertManager()
 	
 	// MARK: - Private Methods
 	/// setup for the navigation bar
@@ -96,33 +95,35 @@ final class CurrencyViewController: BaseViewController {
 		currencyNetworkManager = CurrencyNetworkManager(session: session)
 	}
 	
+	/// network call to fetch the currency data, presents an alert in case the call fails
 	private func fetchCurrencyData() {
 		showLoadingIndicator()
 		currencyNetworkManager.loadCurrency { [weak self] result in
 			guard let self = self else { return }
-			switch result { 
-			case .success(let currencyResult):
-				DispatchQueue.main.async {
+			DispatchQueue.main.async {
+				switch result { 
+				case .success(let currencyResult):
+					self.hideLoadingIndicator()
 					self.handle(currencyResult: currencyResult)
+				case .failure:
+					self.hideLoadingIndicator()
+					self.onFetchCurrencyDataFailure()
 				}
-				print("Successfully fetched currency data")
-			case .failure:
-				self.onFetchCurrencyDataFailure()
 			}
 		}
 	}
 	
-	private func onFetchCurrencyDataFailure() {
-		alertManager.presentTwoButtonsAlert(
-			title: "Failure to fetch data", 
-			message: "", 
-			defaultButtonTitle: "", 
-			cancelButtonTitle: "", 
+	@objc private func onFetchCurrencyDataFailure() {
+		presentAlertOnFetchDataFailure(
+			title: "Failed to fetch data",
+			defaultButtonTitle: "Retry", 
+			cancelButtonTitle: "Cancel",  
 			onDefaultButtonTapAction: onTryAgainAlertButtonTapAction(alertAction:),
 			on: self)
-		print("Failed to fetch currency data")
 	}
 	
+	/// option to try again if the current request fails
+	/// - Parameter alertAction: UIAlertAction presented to the user
 	private func onTryAgainAlertButtonTapAction(alertAction: UIAlertAction) {
 		fetchCurrencyData()
 		retryButtonWasPressed()

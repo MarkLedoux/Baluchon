@@ -28,7 +28,7 @@ final class TranslateViewController: BaseViewController {
 		setNavigationBar()
 		setUpTranslationNetworkManager()
 		translationInputTextView.layer.borderWidth = 1
-		translationInputTextView.layer.borderColor = UIColor.black.cgColor
+		translationInputTextView.layer.borderColor = UIColor.systemGray.cgColor
 		translationInputTextView.layer.cornerRadius = 10
 	}
 
@@ -41,7 +41,6 @@ final class TranslateViewController: BaseViewController {
 	private var targetText: String?
 	
 	private let translationTextViewDelegate = TranslateTextViewDelegate()
-	private let alertManager = AlertManager()
 	
 	private var targetLanguage: Languages = .english {
 		didSet {
@@ -66,11 +65,11 @@ final class TranslateViewController: BaseViewController {
 		translationNetworkManager = TranslationNetworkManager(session: session)
 	}
 	
-	@IBAction func sendTextToTranslate(_ sender: Any) {
+	@IBAction private func sendTextToTranslate(_ sender: Any) {
 		animateButton(sendTranslationButton)
 	}
 	
-	@IBAction func switchInputAndTargetLanguage(_ sender: Any) {
+	@IBAction private func switchInputAndTargetLanguage(_ sender: Any) {
 		swap(&targetLanguage, &sourceLanguage)
 	}
 	
@@ -78,16 +77,17 @@ final class TranslateViewController: BaseViewController {
 		translationNetworkManager.fetchTranslationData(
 			source: sourceLanguage,
 			target: targetLanguage,
-		textToTranslate: textToTranslate) { result in
-			switch result { 
-			case .success(let translationResult): 
+			textToTranslate: textToTranslate) { result in
 				DispatchQueue.main.async {
-					vc?.translatedText.text = translationResult.data.translations.first?.translatedText.htmlDecoded
+					switch result { 
+					case .success(let translationResult): 
+						
+						vc?.hideLoadingIndicator()
+						vc?.translatedText.text = translationResult.data.translations.first?.translatedText.htmlDecoded
+					case .failure: 
+						self.onFetchTranslationDataFailure()
+					}
 				}
-				print("Successfully fetched translation data")
-			case .failure: 
-				print("Failed to fetch translation data")
-			}
 		}
 	}
 	
@@ -99,8 +99,11 @@ final class TranslateViewController: BaseViewController {
 		let vc = segue.destination as? TranslatedTextViewController
 
 		guard let textToTranslate = translationInputTextView.text else { return }
-		guard textToTranslate != "" else { return }
+		guard textToTranslate != "" else { 
+			self.perform(#selector(self.onEmptyTextViewFailure))
+			return }
 		fetchTranslateData(textToTranslate, vc)
+		vc?.showLoadingIndicator()
 	}
 
 	/// button animation on tap when sending request
@@ -112,5 +115,19 @@ final class TranslateViewController: BaseViewController {
 				sender.transform = CGAffineTransform(scaleX: 0.975, y: 0.96)}, completion: { _ in
 					UIButton.animate(withDuration: 0.2, animations: { sender.transform = CGAffineTransform.identity })
 		})
+	}
+	
+	@objc private func onFetchTranslationDataFailure() {
+		presentSingleButtonAlertOnRequestFailure(
+			title: "Failed to Fetch Data", 
+			cancelButtonTitle: "Cancel" , 
+			on: self)
+	}
+	
+	@objc private func onEmptyTextViewFailure() { 
+		presentSingleButtonAlertOnRequestFailure(
+			title: "Please input text to translate", 
+			cancelButtonTitle: "OK" , 
+			on: self)
 	}
 }

@@ -8,10 +8,12 @@
 
 import Foundation
 
+// MARK: - Clouds Data
 struct Clouds: Codable { 
 	var all: Int? 
-	
-	private enum CodingKeys: String, CodingKey { 
-		case all
-	}
+}
+
+// MARK: - Clouds Data Keys
+private enum CodingKeys: String, CodingKey { 
+	case all
 }

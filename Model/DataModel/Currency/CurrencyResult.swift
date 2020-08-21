@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// defining currency
+// MARK: - Currency Data
 struct CurrencyResult: Codable {
 	let timestamp: Int
 	let base: String
@@ -16,7 +16,13 @@ struct CurrencyResult: Codable {
 	let rates: [String: Double]
 }
 
-/// defining keys for the currency parameters 
+// MARK: - Currency Data Keys
 private enum CodingKeys: String, CodingKey {
 	case success, timestamp, base, date, rates
+}
+
+// MARK: - Currency Data Row 
+struct CurrencyDataRow {
+	let title: String
+	let rate: Double
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Class for the weather network request
 class WeatherNetworkManager: NetworkManager {
 	let pictureUrl = "http://openweathermap.org/img/w/"
 
@@ -37,12 +38,18 @@ class WeatherNetworkManager: NetworkManager {
 		}
 	}
 	
+	/// function used to chain network calls and call several cities at once 
+	/// - Parameters:
+	///   - cityNames: Array of  String
+	///   - completion: Returns Result with Dictionary [String: WeatherResult], NetworkManagerError
 	func loadMultipleWeatherData(
 		cityNames: [String], 
 		completion: @escaping(Result<[String: WeatherResult], NetworkManagerError>) -> Void) {
 		
+		/// making empty  dictionary
 		var weatherDic: [String: WeatherResult] = [:]
 		
+		/// looping on  the Array in the parameters
 		for cityName in cityNames {
 			loadWeatherData(cityName: cityName) { result in
 				switch result { 
@@ -64,6 +71,10 @@ class WeatherNetworkManager: NetworkManager {
 	internal var session: URLSession
 	
 	// MARK: - Private Methods
+	/// fetching the images corresponding to the weather
+	/// - Parameters:
+	///   - imageIdentifier: identifier for the images
+	///   - completion: Returns the data of the image(s)
 	func getWeatherImage(imageIdentifier: String, completion: @escaping ((Data?) -> Void)) {
 		let url = URL(string: pictureUrl + imageIdentifier + ".png")!
 		let task = session.dataTask(with: url) { (data, response, error) in

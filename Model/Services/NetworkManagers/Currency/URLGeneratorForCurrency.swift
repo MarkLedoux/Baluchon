@@ -8,13 +8,19 @@
 
 import Foundation
 
+// MARK: - URL Generator For Currency Protocol
 protocol URLGeneratorForCurrencyProtocol {
 	func createCurrencyURL(baseNames: [String]) -> URL?
 }
 
+/// Class to make the currency URL
 final class URLGeneratorForCurrency: URLComponentManager, URLGeneratorForCurrencyProtocol {
-
+	
+	/// Function returning currency URL
+	/// - Parameter baseNames: Array of names that we'll take the weather of
+	/// - Returns: Fully formed URL
 	func createCurrencyURL(baseNames: [String]) -> URL? {
+		/// transforming Array of names to String to append as query 
 		let symbolsValue = baseNames.reduce("") { 
 			$0.isEmpty ? "\($1)" : "\($0),\($1)"
 		}
@@ -35,6 +41,7 @@ final class URLGeneratorForCurrency: URLComponentManager, URLGeneratorForCurrenc
 	}
 }
 
+/// Stub used in tests
 final class URLGeneratorForCurrencyStub: URLComponentManagerStub, URLGeneratorForCurrencyProtocol {
 	func createCurrencyURL(baseNames: [String]) -> URL? {
 		_  = createURL(scheme: "", host: "", path: "", queryItems: [])

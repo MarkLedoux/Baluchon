@@ -8,11 +8,12 @@
 
 import Foundation
 
+// MARK: - Cord Data
 struct Coord: Codable { 
 	var lat: Double? 
 	var lon: Double? 
-	
-	private enum CodingKeys: String, CodingKey { 
-		case lat, lon
-	}
+}
+// MARK: - Cord Data Keys
+private enum CodingKeys: String, CodingKey { 
+	case lat, lon
 }
